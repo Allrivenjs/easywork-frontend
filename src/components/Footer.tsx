@@ -40,7 +40,7 @@ const Footer = () => {
 					</Stack>
 
 					<Stack align={"flex-start"}>
-						<ListHeader>Install our app</ListHeader>
+						<ListHeader>Instala nuestra app</ListHeader>
 						<p>😉 Coming soon...</p>
 					</Stack>
 				</SimpleGrid>
@@ -60,7 +60,7 @@ const Footer = () => {
 					justify={{ md: "space-between" }}
 					align={{ md: "center" }}
 				>
-					<Text>© 2022 Easywork. All rights reserved</Text>
+					<Text>© 2022 Easywork. Todos los derechos reservados</Text>
 					<Stack direction={"row"} spacing={6}>
 						<Button rounded={"full"} w="12" h="12">
 							<FiTwitter />
