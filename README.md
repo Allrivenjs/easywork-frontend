@@ -25,3 +25,7 @@ npm run dev
 - Vite
 - TailwindCSS
 - ChakraUI
+
+## Production url
+
+https://easywork-frontend.vercel.app/

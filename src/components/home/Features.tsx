@@ -12,7 +12,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 
-import { FiUser } from "react-icons/fi";
+import { FiUser, FiVideo } from "react-icons/fi";
 import { BiMoney } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 
@@ -77,7 +77,19 @@ const Features = () => {
 									/>
 								}
 								iconBg={"purple.100"}
-								text={"Acceso a nuestra comunidad"}
+								text={"Acceso a una comunidad dispuesta a ayudar"}
+							/>
+							<Item
+								icon={
+									<Icon
+										as={FiVideo}
+										color={"blue.500"}
+										w={5}
+										h={5}
+									/>
+								}
+								iconBg={"blue.100"}
+								text={"Cursos y videos de parte de los educadores"}
 							/>
 						</Stack>
 					</Stack>
