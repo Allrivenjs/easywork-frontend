@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
 
 // import { AuthProvider } from "../components/GlobalStates";
 import Register from "../pages/Register";
@@ -22,6 +23,8 @@ const Router = () => {
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
 				</Route>
+
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	);
