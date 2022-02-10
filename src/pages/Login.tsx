@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
 	Box,
@@ -10,13 +10,12 @@ import {
 	FormLabel,
 	Heading,
 	Input,
-	Link,
 	Stack,
 	Text,
 	Spinner,
 } from "@chakra-ui/react";
 
-import { login, UserState } from "../services/AuthService";
+import { login, LoginUserState } from "../services/AuthService";
 
 import { useCookies } from "react-cookie";
 
@@ -24,7 +23,7 @@ const Login = () => {
 	// Cookies
 	const [, setCookie] = useCookies(["user-token"]);
 
-	const [user, setUser] = useState<UserState>({ email: "", password: "" });
+	const [user, setUser] = useState<LoginUserState>({ email: "", password: "" });
 
 	const [loading, setLoading] = useState(false);
 
@@ -37,8 +36,8 @@ const Login = () => {
 		setLoading(false);
 		if (token) {
 			setCookie("user-token", token);
+			navigate("/profile");
 		}
-		navigate("/profile");
 	};
 
 	const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +55,8 @@ const Login = () => {
 						Inicia sesión en tu cuenta
 					</Heading>
 					<Text fontSize={"lg"} color={"gray.600"}>
-						o si ya tienes cuenta,{" "}
-						<Link color={"blue.400"}>registrate</Link> ✌️
+						o si aun no tienes cuenta,{" "}
+						<Link to={"/register"} className="text-blue-400">registrate</Link> ✌️
 					</Text>
 				</Stack>
 				<Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
@@ -93,9 +92,9 @@ const Login = () => {
 									justify={"space-between"}
 								>
 									{/* <Checkbox>Remember me</Checkbox> */}
-									<Link color={"blue.400"}>
+									{/* <Link color={"blue.400"}>
 										¿Olvidaste tu contraseña?
-									</Link>
+									</Link> */}
 								</Stack>
 								<Button
 									isDisabled={loading}

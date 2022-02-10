@@ -2,14 +2,35 @@ import axios from "axios";
 
 import { config } from "../config";
 
-export interface UserState {
+export interface LoginUserState {
 	email: string;
 	password: string;
-}
+};
 
-export const login = async (user: UserState) => {
+export interface RegisterUserState {
+	name: string;
+	lastname: string;
+	email: string;
+	phone: number;
+	birthday: string;
+	password: string;
+};
+
+export const login = async (user: LoginUserState) => {
 	try {
 		const res = await axios.post(`${config.API_URL}/api/login`, user, {
+			headers: config.headers,
+		});
+		return res.data.access_token;
+	} catch (err: any) {
+		console.log("Error fetching login: ", err.response);
+	}
+};
+
+export const register = async (user: RegisterUserState) => {
+	console.log(user);
+	try {
+		const res = await axios.post(`${config.API_URL}/api/register`, user, {
 			headers: config.headers,
 		});
 		return res.data.access_token;
