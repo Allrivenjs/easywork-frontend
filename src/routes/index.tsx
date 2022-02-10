@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 
 import Home from "../pages/Home";
@@ -9,6 +10,8 @@ import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
 
 const Router = () => {
+	let [cookies] = useCookies(['user-token']);
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -20,8 +23,22 @@ const Router = () => {
 					}
 				>
 					<Route path="/" element={<Home />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
+
+					<Route path="/register" element={
+                            cookies["user-token"]
+                            ?
+                                <Navigate  to='/'/>
+                            :
+                                <Register />
+                    }/>
+
+					<Route path="/login" element={
+                            cookies["user-token"]
+                            ?
+                                <Navigate  to='/'/>
+                            :
+                                <Login />
+                    }/>
 				</Route>
 
 				<Route path="*" element={<NotFound />} />

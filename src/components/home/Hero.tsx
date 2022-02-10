@@ -6,10 +6,12 @@ import {
 	Stack,
 	Text,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import heroImg from "../../assets/svg/hero.svg";
 
 const Hero = () => {
+	const navigate = useNavigate();
 	return (
 		<section id="hero">
 			<Container maxW={"5xl"}>
@@ -40,6 +42,7 @@ const Hero = () => {
 					</Text>
 					<Stack spacing={6} direction={"row"}>
 						<Button
+							onClick={() => navigate("/login")}
 							rounded={"full"}
 							px={6}
 							colorScheme={"blue"}
@@ -48,9 +51,11 @@ const Hero = () => {
 						>
 							¡Quiero participar!
 						</Button>
-						<Button rounded={"full"} px={6}>
-							Saber más
-						</Button>
+						<a href="#features">
+							<Button rounded={"full"} px={6}>
+								Saber más
+							</Button>
+						</a>
 					</Stack>
 					<Flex w={"full"} justifyContent={"center"}>
 						<img src={heroImg} />
