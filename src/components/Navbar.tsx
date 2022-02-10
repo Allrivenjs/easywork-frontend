@@ -1,4 +1,4 @@
-import { Button, Stack } from "@chakra-ui/react";
+import { Avatar, Button, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import { useCookies } from "react-cookie";
@@ -21,28 +21,33 @@ const Navbar = () => {
 
 					<ul className="flex gap-4 mt-1 ml-8">
 						<li>
-							<Button fontWeight={"normal"} variant="link">
-								Home
-							</Button>
+							<Link to={"/"}>
+								<p className="text-gray-500 hover:underline">Home</p>
+							</Link>
 						</li>
 						<li>
-							<Button fontWeight={"normal"} variant="link">
-								Acerca de nosotros
-							</Button>
+							<a href="#hero">
+								<p className="text-gray-500 hover:underline">Acerca de nosotros</p>
+							</a>
+						</li>
+						<li>
+							<a href="#features">
+								<p className="text-gray-500 hover:underline">Nuestros servicios</p>
+							</a>
 						</li>
 					</ul>
 				</div>
 				<div className="flex items-center h-full">
 					<Stack direction={"row"}>
 						{isUserLogged ? (
-							<Button
-								mt={"1"}
-								rightIcon={<FiUser />}
-								fontWeight={"bold"}
-								variant="link"
+							<Link
+								to={"/profile"}
 							>
-								Perfil
-							</Button>
+								<div className="flex items-center">
+									<p className="mt-1 ml-2 text-gray-500 hover:underline">Perfil</p>
+									<Avatar ml={"2"} size={"sm"}/>
+								</div>
+							</Link>
 						) : (
 							<>
 								<Link to={"/login"}>

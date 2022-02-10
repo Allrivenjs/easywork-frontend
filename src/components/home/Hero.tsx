@@ -11,7 +11,7 @@ import heroImg from "../../assets/svg/hero.svg";
 
 const Hero = () => {
 	return (
-		<section>
+		<section id="hero">
 			<Container maxW={"5xl"}>
 				<Stack
 					textAlign={"center"}
