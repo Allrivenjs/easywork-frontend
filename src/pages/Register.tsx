@@ -24,6 +24,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { login, register, RegisterUserState } from "../services/AuthService";
 
 import { useCookies } from "react-cookie";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Register = () => {
 	// Cookies
@@ -66,138 +67,159 @@ const Register = () => {
 	return (
 		<Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-				<Stack align={"center"}>
-					<Heading textAlign={"center"} fontSize={"3xl"}>
-						🥳 Bienvenido a la comunidad de 📝 Easywork
-					</Heading>
-				</Stack>
-				<Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
-					<form onSubmit={handleOnSubmitForm}>
-						<Stack spacing={4}>
-							<HStack>
-								<Box>
-									<FormControl id="name" isRequired>
-										<FormLabel htmlFor="name">
-											Nombre
+				<AnimatePresence>
+					<motion.div
+						animate={{ x: [-500, 0], opacity: [0, 1] }}
+						transition={{ duration: 0.5 }}
+						exit={{ opacity: 0 }}
+					>
+						<Stack align={"center"}>
+							<Heading textAlign={"center"} fontSize={"3xl"}>
+								🥳 Bienvenido a la comunidad de 📝 Easywork
+							</Heading>
+						</Stack>
+						<Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
+							<form onSubmit={handleOnSubmitForm}>
+								<Stack spacing={4}>
+									<HStack>
+										<Box>
+											<FormControl id="name" isRequired>
+												<FormLabel htmlFor="name">
+													Nombre
+												</FormLabel>
+												<Input
+													onChange={
+														handleOnChangeInput
+													}
+													name="name"
+													type="text"
+													required
+												/>
+											</FormControl>
+										</Box>
+										<Box>
+											<FormControl id="lastname">
+												<FormLabel htmlFor="lastname">
+													Apellido
+												</FormLabel>
+												<Input
+													onChange={
+														handleOnChangeInput
+													}
+													name="lastname"
+													type="text"
+													required
+												/>
+											</FormControl>
+										</Box>
+									</HStack>
+									<FormControl id="email" isRequired>
+										<FormLabel htmlFor="email">
+											Correo electronico
 										</FormLabel>
 										<Input
 											onChange={handleOnChangeInput}
-											name="name"
-											type="text"
+											name="email"
+											type="email"
 											required
 										/>
 									</FormControl>
-								</Box>
-								<Box>
-									<FormControl id="lastname">
-										<FormLabel htmlFor="lastname">
-											Apellido
+
+									<FormControl id="phone" isRequired>
+										<FormLabel htmlFor="phone">
+											Numero de celular
+										</FormLabel>
+										<InputGroup>
+											<InputLeftAddon children="+57" />
+											<Input
+												onChange={handleOnChangeInput}
+												name="phone"
+												type="number"
+												required
+											/>
+										</InputGroup>
+									</FormControl>
+
+									<FormControl id="birthday" isRequired>
+										<FormLabel htmlFor="birthday">
+											Fecha de nacimiento
 										</FormLabel>
 										<Input
 											onChange={handleOnChangeInput}
-											name="lastname"
-											type="text"
+											name="birthday"
+											type="date"
 											required
 										/>
 									</FormControl>
-								</Box>
-							</HStack>
-							<FormControl id="email" isRequired>
-								<FormLabel htmlFor="email">
-									Correo electronico
-								</FormLabel>
-								<Input
-									onChange={handleOnChangeInput}
-									name="email"
-									type="email"
-									required
-								/>
-							</FormControl>
-
-							<FormControl id="phone" isRequired>
-								<FormLabel htmlFor="phone">
-									Numero de celular
-								</FormLabel>
-								<InputGroup>
-									<InputLeftAddon children="+57" />
-									<Input
-										onChange={handleOnChangeInput}
-										name="phone"
-										type="number"
-										required
-									/>
-								</InputGroup>
-							</FormControl>
-
-							<FormControl id="birthday" isRequired>
-								<FormLabel htmlFor="birthday">
-									Fecha de nacimiento
-								</FormLabel>
-								<Input
-									onChange={handleOnChangeInput}
-									name="birthday"
-									type="date"
-									required
-								/>
-							</FormControl>
-							<FormControl id="password" isRequired>
-								<FormLabel htmlFor="password">
-									Password
-								</FormLabel>
-								<InputGroup>
-									<Input
-										onChange={handleOnChangeInput}
-										required
-										minLength={8}
-										name="password"
-										type={
-											showPassword ? "text" : "password"
-										}
-									/>
-									<InputRightElement h={"full"}>
+									<FormControl id="password" isRequired>
+										<FormLabel htmlFor="password">
+											Password
+										</FormLabel>
+										<InputGroup>
+											<Input
+												onChange={handleOnChangeInput}
+												required
+												minLength={8}
+												name="password"
+												type={
+													showPassword
+														? "text"
+														: "password"
+												}
+											/>
+											<InputRightElement h={"full"}>
+												<Button
+													variant={"ghost"}
+													onClick={() =>
+														setShowPassword(
+															(showPassword) =>
+																!showPassword
+														)
+													}
+												>
+													{showPassword ? (
+														<ViewIcon />
+													) : (
+														<ViewOffIcon />
+													)}
+												</Button>
+											</InputRightElement>
+										</InputGroup>
+									</FormControl>
+									<Stack spacing={10} pt={2}>
 										<Button
-											variant={"ghost"}
-											onClick={() =>
-												setShowPassword(
-													(showPassword) =>
-														!showPassword
-												)
-											}
+											type="submit"
+											isDisabled={loading}
+											size="lg"
+											bg={"blue.400"}
+											color={"white"}
+											_hover={{
+												bg: "blue.500",
+											}}
 										>
-											{showPassword ? (
-												<ViewIcon />
+											{loading ? (
+												<Spinner />
 											) : (
-												<ViewOffIcon />
+												<>Registrarse</>
 											)}
 										</Button>
-									</InputRightElement>
-								</InputGroup>
-							</FormControl>
-							<Stack spacing={10} pt={2}>
-								<Button
-									type="submit"
-									isDisabled={loading}
-									size="lg"
-									bg={"blue.400"}
-									color={"white"}
-									_hover={{
-										bg: "blue.500",
-									}}
-								>
-									{loading ? <Spinner /> : <>Registrarse</>}
-								</Button>
-							</Stack>
-							<Stack pt={6}>
-								<Text align={"center"}>
-									¿Ya tienes cuenta?{" "}
-									<Link to="/login" className="text-blue-400">
-										inicia sesión
-									</Link>
-								</Text>
-							</Stack>
-						</Stack>
-					</form>
-				</Box>
+									</Stack>
+									<Stack pt={6}>
+										<Text align={"center"}>
+											¿Ya tienes cuenta?{" "}
+											<Link
+												to="/login"
+												className="text-blue-400"
+											>
+												inicia sesión
+											</Link>
+										</Text>
+									</Stack>
+								</Stack>
+							</form>
+						</Box>
+					</motion.div>
+				</AnimatePresence>
 			</Stack>
 		</Flex>
 	);

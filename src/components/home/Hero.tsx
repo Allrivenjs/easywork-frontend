@@ -6,6 +6,7 @@ import {
 	Stack,
 	Text,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import heroImg from "../../assets/svg/hero.svg";
@@ -21,45 +22,70 @@ const Hero = () => {
 					spacing={{ base: 8, md: 10 }}
 					py={{ base: 20, md: 28 }}
 				>
-					<Heading
-						fontWeight={600}
-						fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
-						lineHeight={"110%"}
+					<motion.div
+						animate={{ y: [-100, 0], opacity: [0, 0.5, 1] }}
+						transition={{ duration: 0.7 }}
 					>
-						Encontrar ayuda para tus trabajos nunca habia sido{" "}
-						<Text as={"span"} color={"blue.400"}>
-							tan facil
-						</Text>
-					</Heading>
-					<Text color={"gray.500"} maxW={"3xl"}>
-						Nunca vuelvas a prender un trabajo. En{" "}
-						<span className="text-blue-500">Easywork</span>, te
-						ayudaremos a encontrar a la persona indicada para
-						asesorarte en cualquier tema que necesites. Sacarás las
-						calificaciones más altas, mientras aprendes y adquieres
-						grandes conocimientos de personas que estudian al igual
-						que tú.
-					</Text>
-					<Stack spacing={6} direction={"row"}>
-						<Button
-							onClick={() => navigate("/login")}
-							rounded={"full"}
-							px={6}
-							colorScheme={"blue"}
-							bg={"blue.400"}
-							_hover={{ bg: "blue.500" }}
+						<Heading
+							fontWeight={600}
+							fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+							lineHeight={"110%"}
 						>
-							¡Quiero participar!
-						</Button>
-						<a href="#features">
-							<Button rounded={"full"} px={6}>
-								Saber más
+							Encontrar ayuda para tus trabajos nunca habia sido{" "}
+							<Text as={"span"} color={"blue.400"}>
+								tan facil
+							</Text>
+						</Heading>
+					</motion.div>
+					<motion.div
+						animate={{ opacity: [0, 0.5, 1] }}
+						transition={{ delay: 1, duration: 0.7 }}
+					>
+						<Text color={"gray.500"} maxW={"3xl"}>
+							Nunca vuelvas a prender un trabajo. En{" "}
+							<span className="text-blue-500">Easywork</span>, te
+							ayudaremos a encontrar a la persona indicada para
+							asesorarte en cualquier tema que necesites. Sacarás
+							las calificaciones más altas, mientras aprendes y
+							adquieres grandes conocimientos de personas que
+							estudian al igual que tú.
+						</Text>
+					</motion.div>
+					<Stack spacing={6} direction={"row"}>
+						<motion.div
+							animate={{ opacity: [0, 0.5, 1] }}
+							transition={{ delay: 1.2, duration: 0.7 }}
+						>
+							<Button
+								onClick={() => navigate("/login")}
+								rounded={"full"}
+								px={6}
+								colorScheme={"blue"}
+								bg={"blue.400"}
+								_hover={{ bg: "blue.500" }}
+							>
+								¡Quiero participar!
 							</Button>
-						</a>
+						</motion.div>
+						<motion.div
+							animate={{ opacity: [0, 0.5, 1] }}
+							transition={{ delay: 1.3, duration: 0.7 }}
+						>
+							<a href="#features">
+								<Button rounded={"full"} px={6}>
+									Saber más
+								</Button>
+							</a>
+						</motion.div>
 					</Stack>
-					<Flex w={"full"} justifyContent={"center"}>
-						<img src={heroImg} />
-					</Flex>
+					<motion.div
+						animate={{ x: [500, 0], opacity: [0, 1] }}
+						transition={{ delay: 1.3, duration: 1 }}
+					>
+						<Flex w={"full"} justifyContent={"center"}>
+							<img src={heroImg} />
+						</Flex>
+					</motion.div>
 				</Stack>
 			</Container>
 		</section>
