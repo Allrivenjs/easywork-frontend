@@ -5,7 +5,7 @@ import { config } from "../config";
 export interface LoginUserState {
 	email: string;
 	password: string;
-};
+}
 
 export interface RegisterUserState {
 	name: string;
@@ -14,7 +14,7 @@ export interface RegisterUserState {
 	phone: number;
 	birthday: string;
 	password: string;
-};
+}
 
 export const login = async (user: LoginUserState) => {
 	try {

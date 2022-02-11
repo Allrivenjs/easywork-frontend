@@ -10,7 +10,7 @@ import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
 
 const Router = () => {
-	let [cookies] = useCookies(['user-token']);
+	const [cookies] = useCookies(['user-token']);
 
 	return (
 		<BrowserRouter>

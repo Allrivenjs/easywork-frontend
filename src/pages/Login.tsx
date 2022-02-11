@@ -13,6 +13,7 @@ import {
 	Stack,
 	Text,
 	Spinner,
+	useToast,
 } from "@chakra-ui/react";
 
 import { login, LoginUserState } from "../services/AuthService";
@@ -33,14 +34,24 @@ const Login = () => {
 
 	const navigate = useNavigate();
 
+	const toast = useToast();
+
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+		// e.preventDefault();
 		setLoading(true);
 		const token = await login(user);
 		setLoading(false);
 		if (token) {
 			setCookie("user-token", token);
 			navigate("/profile");
+		} else {
+			toast({
+				title: "Algo ha salido mal",
+				description: "Usuario y/o contraseña incorrectos",
+				status: "error",
+				duration: 9000,
+				isClosable: true,
+			});
 		}
 	};
 
