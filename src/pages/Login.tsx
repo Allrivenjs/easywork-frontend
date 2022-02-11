@@ -37,7 +37,7 @@ const Login = () => {
 	const toast = useToast();
 
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-		// e.preventDefault();
+		e.preventDefault();
 		setLoading(true);
 		const token = await login(user);
 		setLoading(false);

@@ -46,7 +46,7 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-		// e.preventDefault();
+		e.preventDefault();
 		console.log(newUser);
 		setLoading(true);
 		const token = await register(newUser);
