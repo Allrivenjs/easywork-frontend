@@ -6,39 +6,45 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 
-// import { AuthProvider } from "../components/GlobalStates";
+import { AuthProvider } from "../components/GlobalStates";
 import Register from "../pages/Register";
 
 const Router = () => {
-	const [cookies] = useCookies(['user-token']);
+	const [cookies] = useCookies(["user-token"]);
 
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route
 					element={
-						// <AuthProvider>	No pude poner a funcionar el ContextProvider
-						// </AuthProvider>	lo hare despues...por ahora, el estado global se maneja en las cookies
-						<Layout />
+						<AuthProvider>
+							<Layout />
+						</AuthProvider>
 					}
 				>
 					<Route path="/" element={<Home />} />
 
-					<Route path="/register" element={
-                            cookies["user-token"]
-                            ?
-                                <Navigate  to='/'/>
-                            :
-                                <Register />
-                    }/>
+					<Route
+						path="/register"
+						element={
+							cookies["user-token"] ? (
+								<Navigate to="/" />
+							) : (
+								<Register />
+							)
+						}
+					/>
 
-					<Route path="/login" element={
-                            cookies["user-token"]
-                            ?
-                                <Navigate  to='/'/>
-                            :
-                                <Login />
-                    }/>
+					<Route
+						path="/login"
+						element={
+							cookies["user-token"] ? (
+								<Navigate to="/" />
+							) : (
+								<Login />
+							)
+						}
+					/>
 				</Route>
 
 				<Route path="*" element={<NotFound />} />

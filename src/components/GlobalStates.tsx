@@ -6,9 +6,9 @@ import {
 	useEffect,
 } from "react";
 
-import { isAuthenticated } from "../services/AuthService";
+// import { isAuthenticated } from "../services/AuthService";
 
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 
 interface AuthProviderProps {
 	children: ReactNode;
@@ -26,26 +26,12 @@ interface UserData {
 
 interface UserDataContext {
 	data: UserData;
-	setAuthData: Function;
+	setAuthData: React.Dispatch<React.SetStateAction<UserData>>;
 }
 
-export const AuthContext = createContext<UserDataContext>({
-	data: {
-		name: "",
-		lastname: "",
-		phone: "",
-		profile_photo_path: "",
-		email: "",
-		birthday: "",
-		created_at: "",
-	},
-	setAuthData: function () {},
-});
+export const AuthContext = createContext<UserDataContext | null>(null);
 
 export const AuthProvider = (props: AuthProviderProps) => {
-
-	const [cookies] = useCookies(["user-token"]);
-
 	const [authState, setAuthState] = useState<UserData>({
 		name: "",
 		lastname: "",
@@ -54,20 +40,6 @@ export const AuthProvider = (props: AuthProviderProps) => {
 		email: "",
 		birthday: "",
 		created_at: "",
-	});
-
-	const getUserData = async () => {
-		const res = await isAuthenticated(cookies["user-token"]);
-		console.log(res);
-		if (res) {
-
-		} else {
-
-		}
-	};
-
-	useEffect(() => {
-		getUserData();
 	});
 
 	return (

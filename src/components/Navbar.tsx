@@ -2,15 +2,22 @@ import { Avatar, Button, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import { useCookies } from "react-cookie";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import logo from "../assets/svg/logo.svg";
+import { AuthContext } from "./GlobalStates";
 
 const Navbar = () => {
 	const [cookies] = useCookies(["user-token"]);
 	const [isUserLogged, setIsUserLogged] = useState(
 		cookies["user-token"] ? true : false
 	);
+
+	const { data, setAuthData } = useContext(AuthContext);
+
+	useEffect(() => {
+		console.log(data);
+	});
 
 	return (
 		<header className="fixed z-50 w-full h-16 pl-32 pr-32 bg-white shadow-md bg-opacity-90 backdrop-blur-sm">
@@ -19,6 +26,23 @@ const Navbar = () => {
 					<Link to={"/"}>
 						<img className="w-40" src={logo} alt="logo" />
 					</Link>
+
+					<button
+						onClick={() => {
+							setAuthData({
+								name: "hello",
+								lastname: "hello",
+								phone: "hello",
+								profile_photo_path: "hello",
+								email: "hello",
+								birthday: "hello",
+								created_at: "hello",
+							});
+						}}
+					>
+						{" "}
+						click me!
+					</button>
 
 					<ul className="flex gap-4 mt-1 ml-8">
 						<li>
