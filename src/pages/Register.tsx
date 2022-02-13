@@ -21,7 +21,7 @@ import {
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-import { login, register, RegisterUserState } from "../services/AuthService";
+import { register, RegisterUserState } from "../services/AuthService";
 
 import { useCookies } from "react-cookie";
 import { AnimatePresence, motion } from "framer-motion";
@@ -47,7 +47,6 @@ const Register = () => {
 
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(newUser);
 		setLoading(true);
 		const token = await register(newUser);
 		setLoading(false);
@@ -130,7 +129,7 @@ const Register = () => {
 											Numero de celular
 										</FormLabel>
 										<InputGroup>
-											<InputLeftAddon children="+57" />
+											<InputLeftAddon>+57</InputLeftAddon>
 											<Input
 												onChange={handleOnChangeInput}
 												name="phone"

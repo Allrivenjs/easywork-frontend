@@ -44,7 +44,7 @@ export const isAuthenticated = async (token: string) => {
 		const res = await axios.get(`${config.API_URL}/api/user`, {
 			headers: config.headersWithAuth(token),
 		});
-		return res.data;
+		return res.data[0];
 	} catch (err: any) {
 		console.log("Error fetching login: ", err.response);
 		return false;
