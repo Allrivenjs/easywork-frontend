@@ -7,7 +7,7 @@ import logo from "../assets/svg/logo.svg";
 import { AuthContext, UserData } from "./GlobalStates";
 
 interface UserAuthProps {
-	userData: boolean | UserData | null | undefined;
+	userData: UserData | null | undefined;
 }
 
 const UserAuth = (props: UserAuthProps) => {
@@ -15,7 +15,7 @@ const UserAuth = (props: UserAuthProps) => {
 		return(
 			<Spinner></Spinner>
 		);
-	} else if(props.userData !== false) {
+	} else if(props.userData?.state === "auth") {
 		return(
 			<Link to={"/profile"}>
 				<div className="flex items-center">
