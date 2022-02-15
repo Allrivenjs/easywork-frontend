@@ -1,6 +1,6 @@
 import { Avatar, Button, Spinner, Stack,  Flex,  MenuList,   Menu, MenuButton, MenuItem, MenuDivider } from "@chakra-ui/react";
 import {Link, useNavigate} from "react-router-dom";
-import {logout} from "../services/AuthService";
+import { logout } from "./../services/authService";
 import { useContext } from "react";
 import { useCookies } from "react-cookie";
 
@@ -10,11 +10,7 @@ import { AuthContext, UserData } from "./GlobalStates";
 
 
 interface UserAuthProps {
-<<<<<<< Updated upstream
 	userData: UserData | null | undefined;
-=======
-	userData: UserData | boolean | null | undefined;
->>>>>>> Stashed changes
 }
 
 
