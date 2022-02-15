@@ -64,8 +64,8 @@ const Register = () => {
 	};
 
 	return (
-		<Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
-			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+		<Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"} >
+			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={20} px={6}>
 				<AnimatePresence>
 					<motion.div
 						animate={{ x: [-500, 0], opacity: [0, 1] }}
@@ -73,13 +73,13 @@ const Register = () => {
 						exit={{ opacity: 0 }}
 					>
 						<Stack align={"center"}>
-							<Heading textAlign={"center"} fontSize={"3xl"}>
-								🥳 Bienvenido a la comunidad de 📝 Easywork
+							<Heading textAlign={"center"} fontSize={"3xl"} pb={5}>
+								🥳 Bienvenido a la comunidad de Easywork 📝
 							</Heading>
 						</Stack>
-						<Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
+						<Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={6}>
 							<form onSubmit={handleOnSubmitForm}>
-								<Stack spacing={4}>
+								<Stack spacing={3}>
 									<HStack>
 										<Box>
 											<FormControl id="name" isRequired>
@@ -97,7 +97,7 @@ const Register = () => {
 											</FormControl>
 										</Box>
 										<Box>
-											<FormControl id="lastname">
+											<FormControl id="lastname" isRequired>
 												<FormLabel htmlFor="lastname">
 													Apellido
 												</FormLabel>
@@ -185,7 +185,7 @@ const Register = () => {
 											</InputRightElement>
 										</InputGroup>
 									</FormControl>
-									<Stack spacing={10} pt={2}>
+									<Stack spacing={10} pt={1}>
 										<Button
 											type="submit"
 											isDisabled={loading}
@@ -203,7 +203,7 @@ const Register = () => {
 											)}
 										</Button>
 									</Stack>
-									<Stack pt={6}>
+									<Stack pt={3}>
 										<Text align={"center"}>
 											¿Ya tienes cuenta?{" "}
 											<Link

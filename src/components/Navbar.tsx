@@ -1,30 +1,81 @@
-import { Avatar, Button, Spinner, Stack } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-
+import { Avatar, Button, Spinner, Stack,  Flex,  MenuList,   Menu, MenuButton, MenuItem, MenuDivider } from "@chakra-ui/react";
+import {Link, useNavigate} from "react-router-dom";
+import { logout } from "./../services/authService";
 import { useContext } from "react";
+import { useCookies } from "react-cookie";
 
 import logo from "../assets/svg/logo.svg";
 import { AuthContext, UserData } from "./GlobalStates";
+
+
 
 interface UserAuthProps {
 	userData: UserData | null | undefined;
 }
 
+
 const UserAuth = (props: UserAuthProps) => {
+	const [cookies] = useCookies(["user-token"]);
+	const navigate = useNavigate();
+
+	const methodLoguot = async () => {
+
+		await logout(cookies["user-token"]);
+		navigate('/');
+
+	}
+
+
 	if(props.userData === null) {
 		return(
 			<Spinner></Spinner>
 		);
 	} else if(props.userData?.state === "auth") {
 		return(
-			<Link to={"/profile"}>
-				<div className="flex items-center">
-					<p className="mt-1 ml-2 text-gray-500 hover:underline">
-						Perfil
-					</p>
-					<Avatar ml={"2"} size={"sm"} />
-				</div>
-			</Link>
+			<Flex alignItems={'center'}>
+				<Menu>
+					<MenuButton
+						as={Button}
+						rounded={'full'}
+						variant={'link'}
+						cursor={'pointer'}
+						minW={0}>
+						<Avatar size={"sm"} src={`${props.userData?.profile_photo_path}`}  />
+					</MenuButton>
+					<MenuList>
+						<MenuItem>
+							<Link to={"/profile"}>
+							<div className="flex items-center">
+								<p className="mt-1 ml-2 text-gray-500 hover:underline">
+									Perfil
+								</p>
+
+							</div>
+						</Link>
+						</MenuItem>
+						<MenuItem>
+							<Link to={"/profile"}>
+								<div className="flex items-center">
+									<p className="mt-1 ml-2 text-gray-500 hover:underline">
+										Perfil
+									</p>
+
+								</div>
+							</Link>
+						</MenuItem>
+						<MenuDivider />
+						<MenuItem>
+							<button onClick={methodLoguot}>
+								<div className="flex items-center">
+									<p className="mt-1 ml-2 text-gray-500 hover:underline">
+										Cerrar sesion
+									</p>
+								</div>
+							</button>
+						</MenuItem>
+					</MenuList>
+				</Menu>
+			</Flex>
 		);
 	} else {
 		return(
