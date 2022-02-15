@@ -11,6 +11,7 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import ProfileWithSlug from "../pages/ProfileWithSlug";
 import CoursesPage from "../pages/CoursesPage";
+import CoursePage from "../pages/CoursePage";
 
 const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
@@ -53,6 +54,7 @@ const Router = () => {
 					<Route path="/profile/:slug" element={<ProfileWithSlug />} />
 
 					<Route path="/courses" element={<CoursesPage />} />
+					<Route path="/course/:slug" element={<CoursePage />} />
 
 				</Route>
 

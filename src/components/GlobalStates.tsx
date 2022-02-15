@@ -42,7 +42,7 @@ interface UserDataContext {
 export const AuthContext = createContext<UserDataContext | null>(null);
 
 export const AuthProvider = (props: AuthProviderProps) => {
-	const [cookies] = useCookies(["user-token"]);
+	const [cookies, ,removeCookie] = useCookies(["user-token"]);
 
 	const [authState, setAuthState] = useState<UserData | null>(null);	// null = charging, UserData = logged, false = un logged
 
@@ -89,6 +89,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 						created_at: "",
 					},
 				});
+				removeCookie("user-token");
 			}
 		};
 		fetchUserData();

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { Avatar, Container, Heading, Spinner } from "@chakra-ui/react";
 
@@ -29,7 +29,9 @@ const Profile = () => {
 								{context?.userData?.name}{" "}
 								{context?.userData?.lastname}
 							</Heading>
-							<p className="ml-2 text-lg text-slate-500">(Student)</p>
+							<p className="ml-2 text-lg text-slate-500">
+								(Student)
+							</p>
 						</div>
 						<p className="text-slate-600">
 							{context?.userData?.profile.about}
