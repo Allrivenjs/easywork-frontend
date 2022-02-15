@@ -50,3 +50,14 @@ export const isAuthenticated = async (token: string) => {
 		return false;
 	}
 };
+
+export const logout = async (token: string) => {
+	try {
+		await axios.get(`${config.API_URL}/api/logout`, {
+			headers: config.headersWithAuth(token),
+		});
+	} catch (err: any) {
+		console.log("Error fetching logout: ", err.response);
+		return false;
+	}
+}
