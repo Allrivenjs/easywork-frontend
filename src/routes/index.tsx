@@ -9,6 +9,7 @@ import NotFound from "../pages/NotFound";
 import { AuthProvider } from "../components/GlobalStates";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
+import ProfileWithSlug from "../pages/ProfileWithSlug";
 
 const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
@@ -26,7 +27,7 @@ const Router = () => {
 					<Route path="/" element={<Home />} />
 
 					<Route path="/profile" element={<Profile />} />
-					<Route path="/profile/:slug" element={<Profile />} />
+					<Route path="/profile/:slug" element={<ProfileWithSlug />} />
 
 					<Route
 						path="/register"

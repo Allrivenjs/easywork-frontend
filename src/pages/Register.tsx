@@ -21,7 +21,7 @@ import {
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-import { register, RegisterUserState } from "../services/AuthService";
+import { register, RegisterUserState } from "../services/authService";
 
 import { useCookies } from "react-cookie";
 import { AnimatePresence, motion } from "framer-motion";

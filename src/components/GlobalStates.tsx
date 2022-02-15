@@ -5,7 +5,7 @@ import {
 	useEffect,
 } from "react";
 
-import { isAuthenticated } from "../services/AuthService";
+import { isAuthenticated } from "../services/authService";
 
 import { useCookies } from "react-cookie";
 
@@ -16,6 +16,7 @@ interface Profile {
 	ranking: number;
 	slug: string;
 	user_id: string;
+	created_at: string;
 }
 interface AuthProviderProps {
 	children: ReactNode;

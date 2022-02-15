@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Avatar, Button, Container, Heading, Spinner } from "@chakra-ui/react";
+import { Avatar, Container, Heading, Spinner } from "@chakra-ui/react";
 
-import { AuthContext, UserData } from "../components/GlobalStates";
+import { AuthContext } from "../components/GlobalStates";
 import { AiFillStar } from "react-icons/ai";
 
 const Profile = () => {
@@ -24,29 +24,40 @@ const Profile = () => {
 					</div>
 
 					<div className="px-6 pt-20 pb-6 bg-white rounded-b-lg">
-						<Heading className="mb-2">{context?.userData?.name} {context?.userData?.lastname}</Heading>
-						<p className="text-slate-600">{context?.userData?.profile.about}</p>
+						<div className="flex items-center">
+							<Heading className="mb-2">
+								{context?.userData?.name}{" "}
+								{context?.userData?.lastname}
+							</Heading>
+							<p className="ml-2 text-lg text-slate-500">(Student)</p>
+						</div>
+						<p className="text-slate-600">
+							{context?.userData?.profile.about}
+						</p>
 						<h3 className="mt-2 text-xl font-bold">Valoración</h3>
 						<div className="flex">
-							{
-								[...Array(context?.userData?.profile.ranking)].map((element, i) => {
-									return(
-										<AiFillStar color="#63B3ED" size={24} key={i}/>
+							{[...Array(context?.userData?.profile.ranking)].map(
+								(element, i) => {
+									return (
+										<AiFillStar
+											color="#63B3ED"
+											size={24}
+											key={i}
+										/>
 									);
-								})
-							}
+								}
+							)}
 						</div>
-						<Button className="mt-4" colorScheme={"blue"}>Contactar</Button>
+						{/* <Button className="mt-4" colorScheme={"blue"}>
+							Contactar
+						</Button> */}
 					</div>
 
-					<div className="p-6 mt-6 bg-white rounded-lg">
-						Timeline
-					</div>
-
+					<div className="p-6 mt-6 bg-white rounded-lg">Timeline</div>
 				</Container>
 			) : (
 				<div className="flex items-center justify-center w-full h-screen">
-					<Spinner size={"xl"}/>
+					<Spinner size={"xl"} />
 				</div>
 			)}
 		</div>

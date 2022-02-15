@@ -16,7 +16,7 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 
-import { login, LoginUserState } from "../services/AuthService";
+import { login, LoginUserState } from "../services/authService";
 
 import { useCookies } from "react-cookie";
 import { AnimatePresence, motion } from "framer-motion";

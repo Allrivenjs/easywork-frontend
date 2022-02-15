@@ -35,7 +35,7 @@ export const register = async (user: RegisterUserState) => {
 		});
 		return res.data.access_token;
 	} catch (err: any) {
-		console.log("Error fetching login: ", err.response);
+		console.log("Error fetching register: ", err.response);
 	}
 };
 
@@ -46,7 +46,7 @@ export const isAuthenticated = async (token: string) => {
 		});
 		return res.data[0];
 	} catch (err: any) {
-		console.log("Error fetching login: ", err.response);
+		console.log("Error fetching isAuthenticated: ", err.response);
 		return false;
 	}
 };
