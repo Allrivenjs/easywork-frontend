@@ -10,6 +10,7 @@ import { AuthProvider } from "../components/GlobalStates";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import ProfileWithSlug from "../pages/ProfileWithSlug";
+import CoursesPage from "../pages/CoursesPage";
 
 const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
@@ -24,11 +25,6 @@ const Router = () => {
 						</AuthProvider>
 					}
 				>
-					<Route path="/" element={<Home />} />
-
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/profile/:slug" element={<ProfileWithSlug />} />
-
 					<Route
 						path="/register"
 						element={
@@ -50,6 +46,14 @@ const Router = () => {
 							)
 						}
 					/>
+
+					<Route path="/" element={<Home />} />
+
+					<Route path="/profile" element={<Profile />} />
+					<Route path="/profile/:slug" element={<ProfileWithSlug />} />
+
+					<Route path="/courses" element={<CoursesPage />} />
+
 				</Route>
 
 				<Route path="*" element={<NotFound />} />

@@ -33,6 +33,7 @@ const ProfileWithSlug = () => {
 					ranking: 0,
 					slug: "",
 					user_id: "",
+					created_at: "",
 				},
 			},
 			loading: true,

@@ -66,7 +66,8 @@ export const AuthProvider = (props: AuthProviderProps) => {
 						about: res.profile.about,
 						ranking: res.profile.ranking,
 						slug: res.profile.slug,
-						user_id: res.profile.user_id
+						user_id: res.profile.user_id,
+						created_at: res.profile.created_at,
 					},
 				});
 			} else {
@@ -84,7 +85,8 @@ export const AuthProvider = (props: AuthProviderProps) => {
 						about: "",
 						ranking: 0,
 						slug: "",
-						user_id: ""
+						user_id: "",
+						created_at: "",
 					},
 				});
 			}

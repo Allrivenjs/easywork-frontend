@@ -85,6 +85,13 @@ const Navbar = () => {
 								</p>
 							</a>
 						</li>
+						<li>
+							<Link to={"/courses"}>
+								<p className="text-gray-500 hover:underline">
+									Cursos
+								</p>
+							</Link>
+						</li>
 					</ul>
 				</div>
 				<div className="flex items-center h-full">
