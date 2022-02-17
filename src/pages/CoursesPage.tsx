@@ -15,6 +15,11 @@ import CourseCard from "../components/CourseCard";
 import { FiSearch } from "react-icons/fi";
 import Categories from "../components/Categories";
 
+interface Image {
+	id: number;
+    url: string;
+}
+
 export interface CourseCardProps {
 	id: number;
 	name: string;
@@ -22,7 +27,7 @@ export interface CourseCardProps {
 	description: string;
 	owner: string;
 	created_at: string;
-	image: string;
+	image: Image;
 }
 
 interface CoursesPageState {
