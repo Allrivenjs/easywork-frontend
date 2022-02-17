@@ -1,0 +1,39 @@
+import { Avatar, Badge, Heading } from "@chakra-ui/react";
+import React from "react";
+import { TaskCardProps } from "../pages/TasksPage";
+
+const TaskCard = (props: TaskCardProps) => {
+	return (
+		<div className="p-6 mb-6 bg-white rounded-lg shadow-md">
+			<div className="flex justify-between mb-4">
+				<div>
+					<Heading size={"lg"}>{props.name}</Heading>
+					{props.topics.map((element, i) => {
+						return (
+							<React.Fragment key={i}>
+								<span className="mr-2 text-sm italic bg-gray-100 text-slate-500">
+									| {element.name}
+								</span>
+							</React.Fragment>
+						);
+					})}
+				</div>
+				<Badge className="h-fit">{props.difficulty}</Badge>
+			</div>
+			<div className="flex">
+				<Avatar
+					name={`${props.owner.name} ${props.owner.lastname}`}
+					src={props.owner.profile_photo_path}
+				/>
+				<div className="ml-3">
+					<p className="font-bold">{props.owner.name} {props.owner.lastname}</p>
+					<p>Publicaco hace: {props.created_at}</p>
+				</div>
+			</div>
+			<hr className="mt-3 mb-4" />
+			<p>{props.description}</p>
+		</div>
+	);
+};
+
+export default TaskCard;

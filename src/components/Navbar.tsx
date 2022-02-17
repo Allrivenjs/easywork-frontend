@@ -23,9 +23,7 @@ interface UserAuthProps {
 }
 
 const UserAuth = (props: UserAuthProps) => {
-	const context = useContext(AuthContext);
-
-	const [cookies, ,removeCookie] = useCookies(["user-token"]);
+	const [cookies, , removeCookie] = useCookies(["user-token"]);
 	const navigate = useNavigate();
 
 	const methodLoguot = async () => {
@@ -49,7 +47,11 @@ const UserAuth = (props: UserAuthProps) => {
 					>
 						<Avatar
 							size={"sm"}
-							src={`${props.userData?.profile_photo_path ? props.userData?.profile_photo_path : ''}`}
+							src={`${
+								props.userData?.profile_photo_path
+									? props.userData?.profile_photo_path
+									: ""
+							}`}
 						/>
 					</MenuButton>
 					<MenuList>
@@ -134,6 +136,13 @@ const Navbar = () => {
 							<Link to={"/courses"}>
 								<p className="text-gray-500 hover:underline">
 									Cursos
+								</p>
+							</Link>
+						</li>
+						<li>
+							<Link to={"/tasks"}>
+								<p className="text-gray-500 hover:underline">
+									Tareas
 								</p>
 							</Link>
 						</li>

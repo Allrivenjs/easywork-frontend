@@ -12,6 +12,7 @@ import Profile from "../pages/Profile";
 import ProfileWithSlug from "../pages/ProfileWithSlug";
 import CoursesPage from "../pages/CoursesPage";
 import CoursePage from "../pages/CoursePage";
+import TasksPage from "../pages/TasksPage";
 
 const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
@@ -55,6 +56,8 @@ const Router = () => {
 
 					<Route path="/courses" element={<CoursesPage />} />
 					<Route path="/course/:slug" element={<CoursePage />} />
+
+					<Route path="/tasks" element={<TasksPage />} />
 
 				</Route>
 
