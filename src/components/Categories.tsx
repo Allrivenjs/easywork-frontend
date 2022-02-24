@@ -1,4 +1,4 @@
-import { Box, Checkbox, Spinner } from "@chakra-ui/react";
+import { Box, Checkbox, Skeleton, SkeletonCircle, SkeletonText, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/categoriesService";
@@ -42,7 +42,20 @@ const Categories = () => {
 	}, []);
 
 	if (categoriesStatus.loading) {
-		return <Spinner />;
+		return (
+			<Box
+				w={"60"}
+				bg="white"
+				h={"fit-content"}
+				p={"4"}
+				mb={"6"}
+				className="sticky rounded-lg shadow top-20"
+			>
+				<Skeleton w={"32"} height='20px' mb={4} />
+				<hr />
+				<SkeletonText mt='4' noOfLines={16} spacing='4' />
+			</Box>
+		);
 	} else {
 		return (
 			<Box

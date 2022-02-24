@@ -6,7 +6,8 @@ import {
 	Input,
 	InputGroup,
 	InputLeftAddon,
-	Spinner,
+	SkeletonCircle,
+	SkeletonText,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getTasks } from "../services/tasksService";
@@ -18,6 +19,7 @@ import TaskCard from "../components/TaskCard";
 import Categories from "../components/Categories";
 import axios from "axios";
 import Pagination, { Link } from "../components/Pagination";
+import { useCookies } from "react-cookie";
 
 interface Owner {
 	name: string;
@@ -50,6 +52,7 @@ interface TasksPageState {
 }
 
 const TasksPage = () => {
+	const [cookies] = useCookies(["user-token"]);
 	const [tasksPageState, setTasksPageState] = useState<TasksPageState>({
 		tasks: [],
 		links: [],
@@ -64,8 +67,7 @@ const TasksPage = () => {
 		const fetchTasksData = async () => {
 			try {
 				setTasksPageState({ ...tasksPageState, loading: true });
-				const res = await getTasks(source, url as string);
-				console.log(res);
+				const res = await getTasks(cookies["user-token"], source, url as string);
 				if (res) {
 					setTasksPageState({
 						tasks: res.data,
@@ -108,9 +110,25 @@ const TasksPage = () => {
 					<Categories />
 					<Box flex={1}>
 						{tasksPageState.loading ? (
-							<div className="flex items-center justify-center w-full h-screen">
-								<Spinner size={"xl"} />
-							</div>
+							<>
+								{[...Array(5)].map((element, i) => {
+									return (
+										<Box
+											key={i}
+											padding="6"
+											bg="white"
+											className="mb-6 rounded-lg shadow-lg"
+										>
+											<SkeletonCircle size="10" />
+											<SkeletonText
+												mt="4"
+												noOfLines={6}
+												spacing="4"
+											/>
+										</Box>
+									);
+								})}
+							</>
 						) : (
 							<>
 								{tasksPageState.tasks.map((element, i) => {

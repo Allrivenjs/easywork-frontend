@@ -6,6 +6,8 @@ import {
 	Input,
 	InputGroup,
 	InputLeftAddon,
+	SkeletonCircle,
+	SkeletonText,
 	Spinner,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -86,9 +88,44 @@ const CoursesPage = () => {
 					<Categories />
 					<Box flex={1}>
 						{coursesPageState.loading ? (
-							<div className="flex items-center justify-center w-full h-screen">
-								<Spinner size={"xl"} />
-							</div>
+							<>
+								<Box
+									padding="6"
+									bg="white"
+									className="mb-6 rounded-lg shadow-lg"
+								>
+									<SkeletonCircle size="10" />
+									<SkeletonText
+										mt="4"
+										noOfLines={5}
+										spacing="4"
+									/>
+								</Box>
+								<Box
+									padding="6"
+									bg="white"
+									className="mb-6 rounded-lg shadow-lg"
+								>
+									<SkeletonCircle size="10" />
+									<SkeletonText
+										mt="4"
+										noOfLines={5}
+										spacing="4"
+									/>
+								</Box>
+								<Box
+									padding="6"
+									bg="white"
+									className="mb-6 rounded-lg shadow-lg"
+								>
+									<SkeletonCircle size="10" />
+									<SkeletonText
+										mt="4"
+										noOfLines={5}
+										spacing="4"
+									/>
+								</Box>
+							</>
 						) : (
 							<>
 								{coursesPageState.courses.map((element, i) => {

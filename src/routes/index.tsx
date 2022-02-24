@@ -14,6 +14,7 @@ import CoursesPage from "../pages/CoursesPage";
 import CoursePage from "../pages/CoursePage";
 import TasksPage from "../pages/TasksPage";
 import CreateTask from "../pages/CreateTask";
+import TaskPage from "../pages/TaskPage";
 
 const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
@@ -58,6 +59,7 @@ const Router = () => {
 					<Route path="/courses" element={<CoursesPage />} />
 
 					<Route path="/tasks" element={<TasksPage />} />
+					<Route path="/task/:slug" element={<TaskPage />} />
 
 					<Route
 						path="/create-task"

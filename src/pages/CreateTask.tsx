@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import DifficultySelect from "../components/DifficultySelect";
 
 import CategoriesSelect from "../components/TopicSelect";
@@ -26,6 +27,7 @@ export interface NewTask {
 	description: string;
 	topics: Array<number>;
 	difficulty: string;
+	files: FileList | null;
 }
 
 interface CreateTaskState {
@@ -34,12 +36,15 @@ interface CreateTaskState {
 }
 
 const CreateTask = () => {
+	const [cookies] = useCookies(["user-token"]);
+
 	const [createTaskState, setCreateTaskState] = useState<CreateTaskState>({
 		newTask: {
 			name: "",
 			description: "",
 			topics: [1],
 			difficulty: "easy",
+			files: null,
 		},
 		loading: false,
 	});
@@ -62,6 +67,16 @@ const CreateTask = () => {
 			newTask: {
 				...createTaskState.newTask,
 				topics: newCategories,
+			},
+		});
+	};
+
+	const handleOnAddFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setCreateTaskState({
+			...createTaskState,
+			newTask: {
+				...createTaskState.newTask,
+				files: e.target.files,
 			},
 		});
 	};
@@ -96,7 +111,7 @@ const CreateTask = () => {
 			...createTaskState,
 			loading: true,
 		});
-		const res = await createTask(createTaskState.newTask);
+		const res = await createTask(cookies["user-token"], createTaskState.newTask);
 		setCreateTaskState({
 			...createTaskState,
 			loading: false,
@@ -238,6 +253,7 @@ const CreateTask = () => {
 										</FormLabel>
 										<input
 											type="file"
+											onChange={handleOnAddFile}
 											multiple
 										/>
 										<FormHelperText>

@@ -1,40 +1,136 @@
-import {
-	Box,
-	Container,
-	Heading,
-	Input,
-	InputGroup,
-	InputLeftAddon,
-} from "@chakra-ui/react";
+import { Avatar, Badge, Box, Container, Heading, Spinner } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 
-import { FiSearch } from "react-icons/fi";
+import { Link, useParams } from "react-router-dom";
+import { getTaskBySlug } from "../services/tasksService";
+import { TaskCardProps } from "./TasksPage";
+
+interface TaskPageState {
+	taskPageData: TaskCardProps;
+	loading: boolean;
+}
 
 const TaskPage = () => {
-	return (
-		<div className="w-full pt-32 pb-24 bg-slate-100">
-			<Container maxW="container.xl">
-				<div>
-					<Heading className="mb-4">
-						Publica tu tarea para que los demás puedan ayudarte 📝
-					</Heading>
-					<hr />
-					<InputGroup mt={"6"} className="shadow">
-						<InputLeftAddon>
-							{" "}
-							<FiSearch />{" "}
-						</InputLeftAddon>
-						<Input
-							bg={"white"}
-							variant="outline"
-							placeholder="Buscar curso"
-						/>
-					</InputGroup>
-				</div>
+	const { slug } = useParams();
 
-				<Box flex={1}></Box>
-			</Container>
-		</div>
-	);
+	const [taskPageState, setTaskPageState] = useState<TaskPageState>({
+		taskPageData: {
+			id: 0,
+			name: "",
+			description: "",
+			slug: "",
+			owner: {
+				name: "",
+				lastname: "",
+				profile_photo_path: "",
+				profile_slug: "",
+			},
+			topics: [],
+			difficulty: "",
+			created_at: "",
+		},
+		loading: true,
+	});
+
+	useEffect(() => {
+		const fetchTaskPageData = async () => {
+			setTaskPageState({
+				...taskPageState,
+				loading: true,
+			});
+			const res = await getTaskBySlug(slug as string);
+			console.log(res);
+			if (res) {
+				setTaskPageState({
+					...taskPageState,
+					taskPageData: res,
+					loading: false,
+				});
+			}
+		};
+		fetchTaskPageData();
+	}, [slug]);
+
+	if (taskPageState.loading) {
+		return (
+			<div className="flex items-center justify-center w-full h-screen">
+				<Spinner size={"xl"}></Spinner>
+			</div>
+		);
+	} else {
+		return (
+			<div className="w-full pt-32 pb-24 bg-slate-100">
+				<Container maxW="container.xl">
+					<div className="p-4 bg-white rounded-lg">
+						<div className="flex justify-between mb-4">
+							<div>
+								<Heading size={"lg"}>{taskPageState.taskPageData.name}</Heading>
+								{taskPageState.taskPageData.topics.map((element, i) => {
+									return (
+										<React.Fragment key={i}>
+											<span className="mr-2 text-sm italic bg-gray-100 text-slate-500">
+												| {element.name}
+											</span>
+										</React.Fragment>
+									);
+								})}
+							</div>
+							<Badge className="h-fit">{taskPageState.taskPageData.difficulty}</Badge>
+						</div>
+
+						<hr />
+
+						<p className="mt-4 mb-4 text-md text-slate-500">
+							Publicada por:
+						</p>
+
+						<div className="flex">
+							<Avatar
+								name={`${taskPageState.taskPageData.owner.name} ${taskPageState.taskPageData.owner.lastname}`}
+								src={
+									taskPageState.taskPageData.owner
+										.profile_photo_path
+								}
+							/>
+							<div className="ml-3">
+								<Link
+									to={`/profile/${taskPageState.taskPageData.owner.profile_slug}`}
+								>
+									<p className="font-bold hover:underline">
+										{taskPageState.taskPageData.owner.name}{" "}
+										{
+											taskPageState.taskPageData.owner
+												.lastname
+										}
+									</p>
+								</Link>
+								<p className="text-sm text-slate-500">
+									Publicaco hace:{" "}
+									{taskPageState.taskPageData.created_at}
+								</p>
+							</div>
+						</div>
+
+						<p className="mt-6 mb-4 text-md text-slate-500">
+							Descripción:
+						</p>
+						<p>{taskPageState.taskPageData.description}</p>
+
+						<p className="mt-4 mb-4 text-md text-slate-500">
+							Archivos adjuntos:
+
+						</p>
+					</div>
+
+					<Box flex={1}>
+						<div className="w-full pt-32 pb-24 bg-slate-100">
+							comentarios
+						</div>
+					</Box>
+				</Container>
+			</div>
+		);
+	}
 };
 
 export default TaskPage;
