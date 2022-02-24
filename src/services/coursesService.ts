@@ -1,11 +1,12 @@
-import axios from "axios";
+import axios, { CancelTokenSource } from "axios";
 
 import { config } from "../config";
 
 
-export const getCourses = async () => {
+export const getCourses = async (source: CancelTokenSource) => {
 	try {
 		const res = await axios.get(`${config.API_URL}/api/courses`, {
+			cancelToken: source.token,
 			headers: config.headers,
 		});
 		return res.data[0];
@@ -14,7 +15,7 @@ export const getCourses = async () => {
 	}
 };
 
-export const getCourse = async (slug: string) => {
+export const getCourse = async (source: CancelTokenSource, slug: string) => {
 	try {
 		const res = await axios.get(`${config.API_URL}/api/courses/${slug}`, {
 			headers: config.headers,

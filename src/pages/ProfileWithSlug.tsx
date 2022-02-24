@@ -52,7 +52,7 @@ const ProfileWithSlug = () => {
 					userData: res,
 				});
 			} else {
-				navigate("/notfound");
+				// navigate("/notfound");
 			}
 		};
 		getProfileData();

@@ -13,6 +13,7 @@ import ProfileWithSlug from "../pages/ProfileWithSlug";
 import CoursesPage from "../pages/CoursesPage";
 import CoursePage from "../pages/CoursePage";
 import TasksPage from "../pages/TasksPage";
+import CreateTask from "../pages/CreateTask";
 
 const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
@@ -55,11 +56,14 @@ const Router = () => {
 					<Route path="/profile/:slug" element={<ProfileWithSlug />} />
 
 					<Route path="/courses" element={<CoursesPage />} />
-					<Route path="/course/:slug" element={<CoursePage />} />
 
 					<Route path="/tasks" element={<TasksPage />} />
 
+					<Route path="/create-task" element={<CreateTask />} />
+
 				</Route>
+
+				<Route path="/course/:slug" element={<CoursePage />} />
 
 				<Route path="*" element={<NotFound />} />
 			</Routes>

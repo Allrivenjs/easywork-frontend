@@ -50,7 +50,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 		const fetchUserData = async () => {
 			setAuthState(null);
 			const res = await isAuthenticated(cookies["user-token"]);
-			console.log(res);
+			// console.log(res);
 			if (res) {
 				setAuthState({
 					state: 'auth',

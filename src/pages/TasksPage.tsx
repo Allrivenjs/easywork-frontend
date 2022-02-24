@@ -16,6 +16,8 @@ import { FiSearch } from "react-icons/fi";
 import CreateNewTaskBtn from "../components/CreateNewTaskBtn";
 import TaskCard from "../components/TaskCard";
 import Categories from "../components/Categories";
+import axios from "axios";
+import Pagination, { Link } from "../components/Pagination";
 
 interface Owner {
 	name: string;
@@ -43,24 +45,44 @@ export interface TaskCardProps {
 
 interface TasksPageState {
 	tasks: Array<TaskCardProps>;
+	links: Array<Link>;
 	loading: boolean;
 }
 
 const TasksPage = () => {
 	const [tasksPageState, setTasksPageState] = useState<TasksPageState>({
 		tasks: [],
+		links: [],
 		loading: true,
 	});
 
+	const [url, setUrl] = useState<string | null>(null);
+
 	useEffect(() => {
+		const source = axios.CancelToken.source();
+
 		const fetchTasksData = async () => {
-			setTasksPageState({ ...tasksPageState, loading: true });
-			const res = await getTasks();
-			console.log(res);
-			setTasksPageState({ tasks: res.data, loading: false });
+			try {
+				setTasksPageState({ ...tasksPageState, loading: true });
+				const res = await getTasks(source, url as string);
+				console.log(res);
+				if (res) {
+					setTasksPageState({
+						tasks: res.data,
+						links: res.meta.links,
+						loading: false,
+					});
+				}
+			} catch (e) {
+				console.log("Error fetching tasks: ", e);
+			}
 		};
 		fetchTasksData();
-	}, []);
+
+		return () => {
+			source.cancel();
+		};
+	}, [url]);
 
 	return (
 		<div className="w-full pt-32 pb-24 bg-slate-100">
@@ -108,6 +130,10 @@ const TasksPage = () => {
 								})}
 							</>
 						)}
+						<Pagination
+							links={tasksPageState.links}
+							onClick={setUrl}
+						/>
 					</Box>
 				</Flex>
 			</Container>

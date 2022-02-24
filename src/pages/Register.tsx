@@ -72,7 +72,7 @@ const Register = () => {
 						transition={{ duration: 0.5 }}
 						exit={{ opacity: 0 }}
 					>
-						<Stack align={"center"}>
+						<Stack align={"center"} mb={6}>
 							<Heading textAlign={"center"} fontSize={"3xl"} pb={5}>
 								🥳 Bienvenido a la comunidad de Easywork 📝
 							</Heading>

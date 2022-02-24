@@ -1,14 +1,23 @@
-import axios from "axios";
+import axios, { CancelTokenSource } from "axios";
 
 import { config } from "../config";
 
 
-export const getTasks = async () => {
+export const getTasks = async (source: CancelTokenSource, url: string) => {
 	try {
-		const res = await axios.get(`${config.API_URL}/api/tasks`, {
-			headers: config.headers,
-		});
-		return res.data[0];
+		if (url) {
+			const res = await axios.get(url, {
+				cancelToken: source.token,
+				headers: config.headers,
+			});
+			return res.data[0];
+		} else {
+			const res = await axios.get(`${config.API_URL}/api/tasks`, {
+				cancelToken: source.token,
+				headers: config.headers,
+			});
+			return res.data[0];
+		}
 	} catch (err: any) {
 		console.log("Error fetching tags: ", err.response);
 	}

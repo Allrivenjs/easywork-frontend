@@ -14,10 +14,11 @@ import { getCourses } from "../services/coursesService";
 import CourseCard from "../components/CourseCard";
 import { FiSearch } from "react-icons/fi";
 import Categories from "../components/Categories";
+import axios from "axios";
 
 interface Image {
 	id: number;
-    url: string;
+	url: string;
 }
 
 export interface CourseCardProps {
@@ -38,16 +39,27 @@ interface CoursesPageState {
 const CoursesPage = () => {
 	const [coursesPageState, setCoursesPageState] = useState<CoursesPageState>({
 		courses: [],
-		loading: true,
+		loading: false,
 	});
 
 	useEffect(() => {
+		const source = axios.CancelToken.source();
 		const fetchCoursesData = async () => {
-			setCoursesPageState({ ...coursesPageState, loading: true });
-			const res = await getCourses();
-			setCoursesPageState({ courses: res, loading: false });
+			try {
+				setCoursesPageState({ ...coursesPageState, loading: true });
+				const res = await getCourses(source);
+				if (res) {
+					setCoursesPageState({ courses: res, loading: false });
+				}
+			} catch (e) {
+				console.log("Error fetching courses", e);
+			}
 		};
 		fetchCoursesData();
+
+		return () => {
+			source.cancel();
+		};
 	}, []);
 
 	return (

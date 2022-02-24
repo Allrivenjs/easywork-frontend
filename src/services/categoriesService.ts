@@ -1,11 +1,13 @@
-import axios from "axios";
+import axios, { CancelTokenSource } from "axios";
 
 import { config } from "../config";
 
 
-export const getCategories = async () => {
+export const getCategories = async (source: CancelTokenSource) => {
+
 	try {
 		const res = await axios.get(`${config.API_URL}/api/topics`, {
+			cancelToken: source.token,
 			headers: config.headers,
 		});
 		return res.data[0];

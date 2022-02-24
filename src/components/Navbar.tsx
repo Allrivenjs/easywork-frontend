@@ -55,15 +55,16 @@ const UserAuth = (props: UserAuthProps) => {
 						/>
 					</MenuButton>
 					<MenuList>
-						<MenuItem>
-							<Link to={"/profile"}>
-								<div className="flex items-center">
-									<p className="mt-1 ml-2 text-gray-500 hover:underline">
-										Perfil
-									</p>
-								</div>
-							</Link>
-						</MenuItem>
+						<Link to="/profile">
+							<MenuItem>
+
+									<div className="flex items-center">
+										<p className="mt-1 ml-2 text-gray-500 hover:underline">
+											Perfil
+										</p>
+									</div>
+							</MenuItem>
+						</Link>
 						<MenuDivider />
 						<MenuItem onClick={methodLoguot}>
 							<div className="flex items-center">

@@ -4,7 +4,6 @@ import { Badge } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 
 const CourseCard = (props: CourseCardProps) => {
-	console.log(props);
 	return (
 		<Link
 			to={`/course/${props.slug}`}
@@ -21,7 +20,9 @@ const CourseCard = (props: CourseCardProps) => {
 				/>
 				<div className="flex flex-col p-4 bg-white rounded-r-lg justify-evenly">
 					<div className="flex items-center mb-2">
+
 						<h3 className="mr-2 text-xl font-bold">{props.name}</h3>
+
 						<Badge colorScheme="green">NEW</Badge>
 					</div>
 

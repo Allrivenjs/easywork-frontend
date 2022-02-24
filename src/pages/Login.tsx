@@ -71,7 +71,7 @@ const Login = () => {
 						transition={{ duration: 0.5 }}
 						exit={{ opacity: 0, x: 500 }}
 					>
-						<Stack align={"center"}>
+						<Stack align={"center"} mb={6}>
 							<Heading fontSize={"4xl"}>
 								Inicia sesión en tu cuenta
 							</Heading>

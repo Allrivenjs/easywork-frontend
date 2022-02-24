@@ -1,8 +1,9 @@
 import { Box, Checkbox, Spinner } from "@chakra-ui/react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/categoriesService";
 
-interface CategoriesProps {
+export interface CategoriesProps {
 	id: string;
 	name: string;
 }
@@ -19,16 +20,29 @@ const Categories = () => {
 	});
 
 	useEffect(() => {
+		const source = axios.CancelToken.source();
+
 		const fetchCategoriesData = async () => {
-			setCategoriesStatus({ ...categoriesStatus, loading: true });
-			const res = await getCategories();
-			setCategoriesStatus({ categories: res, loading: false });
+			try {
+				setCategoriesStatus({ ...categoriesStatus, loading: true });
+				const res = await getCategories(source);
+				if (res) {
+					setCategoriesStatus({ categories: res, loading: false });
+				}
+
+			} catch (e) {
+				console.log("Error fetching categories: ", e);
+			}
 		};
 		fetchCategoriesData();
+
+		return () => {
+			source.cancel();
+		};
 	}, []);
 
 	if (categoriesStatus.loading) {
-		return(<Spinner />);
+		return <Spinner />;
 	} else {
 		return (
 			<Box
@@ -36,6 +50,7 @@ const Categories = () => {
 				bg="white"
 				h={"fit-content"}
 				p={"4"}
+				mb={"6"}
 				className="sticky rounded-lg shadow top-20"
 			>
 				<h4 className="mb-2 text-2xl font-bold">Categorias</h4>
