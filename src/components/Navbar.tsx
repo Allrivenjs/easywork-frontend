@@ -36,7 +36,7 @@ const UserAuth = (props: UserAuthProps) => {
 		return <Spinner></Spinner>;
 	} else if (props.userData?.state === "auth") {
 		return (
-			<Flex alignItems={"center"}>
+			<Flex alignItems={"center"} >
 				<Menu>
 					<MenuButton
 						as={Button}
@@ -104,14 +104,14 @@ const Navbar = () => {
 	const context = useContext(AuthContext);
 
 	return (
-		<header className="fixed z-50 w-full h-16 pl-32 pr-32 bg-white shadow-md bg-opacity-90 backdrop-blur-sm">
+		<header className="fixed z-50 w-full h-16 pl-2 pr-2 bg-white shadow-md xl:pl-32 xl:pr-32 lg:pl-8 lg:pr-8 bg-opacity-90 backdrop-blur-sm ">
 			<div className="flex items-center justify-between w-full h-full">
 				<div className="flex items-center h-full">
 					<Link to={"/"}>
 						<img className="w-40" src={logo} alt="logo" />
 					</Link>
 
-					<ul className="flex gap-4 mt-1 ml-8">
+					<ul className="flex hidden gap-4 mt-1 ml-8 lg:flex">
 						<li>
 							<Link to={"/"}>
 								<p className="text-gray-500 hover:underline">

@@ -58,7 +58,17 @@ const Router = () => {
 
 					<Route path="/courses" element={<CoursesPage />} />
 
-					<Route path="/tasks" element={<TasksPage />} />
+					<Route
+						path="/tasks"
+						element={
+							cookies["user-token"] ? (
+								<TasksPage />
+							) : (
+								<Login />
+							)
+						}
+					/>
+
 					<Route path="/task/:slug" element={<TaskPage />} />
 
 					<Route

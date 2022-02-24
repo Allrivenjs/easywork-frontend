@@ -25,7 +25,7 @@ export const getTasks = async (token: string, source: CancelTokenSource, url: st
 		} else {
 			const res = await axios.get(`${config.API_URL}/api/tasks`, {
 				cancelToken: source.token,
-				headers: config.headersWithAuth(token),
+				headers: config.headers,
 			});
 			return res.data[0];
 		}

@@ -1,7 +1,15 @@
-import { Avatar, Badge, Box, Container, Heading, Spinner } from "@chakra-ui/react";
+import {
+	Avatar,
+	Badge,
+	Box,
+	Container,
+	Heading,
+	Spinner,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
+import FileItem from "../components/FileItem";
 import { getTaskBySlug } from "../services/tasksService";
 import { TaskCardProps } from "./TasksPage";
 
@@ -28,6 +36,7 @@ const TaskPage = () => {
 			topics: [],
 			difficulty: "",
 			created_at: "",
+			files: [],
 		},
 		loading: true,
 	});
@@ -64,18 +73,24 @@ const TaskPage = () => {
 					<div className="p-4 bg-white rounded-lg">
 						<div className="flex justify-between mb-4">
 							<div>
-								<Heading size={"lg"}>{taskPageState.taskPageData.name}</Heading>
-								{taskPageState.taskPageData.topics.map((element, i) => {
-									return (
-										<React.Fragment key={i}>
-											<span className="mr-2 text-sm italic bg-gray-100 text-slate-500">
-												| {element.name}
-											</span>
-										</React.Fragment>
-									);
-								})}
+								<Heading size={"lg"}>
+									{taskPageState.taskPageData.name}
+								</Heading>
+								{taskPageState.taskPageData.topics.map(
+									(element, i) => {
+										return (
+											<React.Fragment key={i}>
+												<span className="mr-2 text-sm italic bg-gray-100 text-slate-500">
+													| {element.name}
+												</span>
+											</React.Fragment>
+										);
+									}
+								)}
 							</div>
-							<Badge className="h-fit">{taskPageState.taskPageData.difficulty}</Badge>
+							<Badge className="h-fit">
+								{taskPageState.taskPageData.difficulty}
+							</Badge>
 						</div>
 
 						<hr />
@@ -114,12 +129,31 @@ const TaskPage = () => {
 						<p className="mt-6 mb-4 text-md text-slate-500">
 							Descripción:
 						</p>
+
 						<p>{taskPageState.taskPageData.description}</p>
 
-						<p className="mt-4 mb-4 text-md text-slate-500">
-							Archivos adjuntos:
 
-						</p>
+						{taskPageState.taskPageData.files &&
+						taskPageState.taskPageData.files.length > 0 ? (
+							<>
+								<p className="mt-4 mb-4 text-md text-slate-500">
+									Archivos adjuntos:
+								</p>
+								{
+									taskPageState.taskPageData.files.map((element, i) => {
+										return(
+											<FileItem
+												key={i}
+												mime={element.mime}
+												url={element.url}
+											/>
+										);
+									})
+								}
+							</>
+						) : (
+							<></>
+						)}
 					</div>
 
 					<Box flex={1}>

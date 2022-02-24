@@ -28,7 +28,6 @@ export const login = async (user: LoginUserState) => {
 };
 
 export const register = async (user: RegisterUserState) => {
-	console.log(user);
 	try {
 		const res = await axios.post(`${config.API_URL}/api/register`, user, {
 			headers: config.headers,

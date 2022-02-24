@@ -34,6 +34,10 @@ interface Topic {
 	created_at: string;
 }
 
+interface File {
+	mime: string;
+	url: string;
+}
 export interface TaskCardProps {
 	id: number;
 	name: string;
@@ -42,6 +46,7 @@ export interface TaskCardProps {
 	difficulty: string;
 	owner: Owner;
 	topics: Array<Topic>;
+	files?: Array<File>
 	created_at: string;
 }
 
