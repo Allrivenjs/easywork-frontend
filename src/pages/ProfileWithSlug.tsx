@@ -6,6 +6,7 @@ import { UserData } from "../components/GlobalStates";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserWithSlug } from "../services/profileService";
+import axios from "axios";
 
 interface ProfileState {
 	userData: UserData;
@@ -40,22 +41,28 @@ const ProfileWithSlug = () => {
 		});
 
 	useEffect(() => {
+		const source = axios.CancelToken.source();
+
 		const getProfileData = async () => {
 			setProfileWithSlugState({
 				...profileWithSlugState,
 				loading: true,
 			});
-			const res = await getUserWithSlug(slug as string);
+			const res = await getUserWithSlug(source, slug as string);
 			if (res) {
 				setProfileWithSlugState({
 					loading: false,
 					userData: res,
 				});
 			} else {
-				// navigate("/notfound");
+				navigate("/notfound");
 			}
 		};
 		getProfileData();
+
+		return() => {
+			source.cancel();
+		};
 	}, [slug]);
 
 	return (

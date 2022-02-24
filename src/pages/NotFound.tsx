@@ -18,9 +18,9 @@ const NotFound = () => {
 
                     <button
                         className="inline px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg shadow focus:outline-none focus:shadow-outline-blue active:bg-blue-600 hover:bg-blue-700"
-                        onClick={() => navigate(-1)}
+                        onClick={() => navigate("/")}
                     >
-                        Go back
+                        Go to home
                     </button>
                 </div>
                 <div className="max-w-lg">

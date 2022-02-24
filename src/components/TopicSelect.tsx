@@ -5,7 +5,8 @@ import { getCategories } from "../services/categoriesService";
 import { CategoriesProps } from "./Categories";
 
 interface ICategoriesSelectProps {
-	onChange: (e: any) => void,
+	onChange: (value: number, index: number) => void;
+	index: number;
 }
 
 interface ICategoriesSelectState {
@@ -51,8 +52,9 @@ const CategoriesSelect = (props: ICategoriesSelectProps) => {
 		return(
 			<Select
 				name="topic"
-				onChange={props.onChange}
+				onChange={(e) => props.onChange(parseInt(e.target.value), props.index)}
 				required
+				mb={2}
 			>
 				{
 					topicSelectState.topics.map((element, i) => {

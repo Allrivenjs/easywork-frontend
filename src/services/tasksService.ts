@@ -1,6 +1,7 @@
 import axios, { CancelTokenSource } from "axios";
 
 import { config } from "../config";
+import { NewTask } from "../pages/CreateTask";
 
 
 export const getTasks = async (source: CancelTokenSource, url: string) => {
@@ -26,6 +27,17 @@ export const getTasks = async (source: CancelTokenSource, url: string) => {
 export const getCourse = async (slug: string) => {
 	try {
 		const res = await axios.get(`${config.API_URL}/api/courses/${slug}`, {
+			headers: config.headers,
+		});
+		return res.data[0];
+	} catch (err: any) {
+		console.log("Error fetching course: ", err.response);
+	}
+};
+
+export const createTask = async (body: NewTask) => {
+	try {
+		const res = await axios.post(`${config.API_URL}/api/tasks`, body, {
 			headers: config.headers,
 		});
 		return res.data[0];

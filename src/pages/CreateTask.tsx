@@ -1,13 +1,31 @@
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Spinner, Stack, Text, Textarea } from "@chakra-ui/react";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import {
+	Box,
+	Button,
+	Flex,
+	FormControl,
+	FormHelperText,
+	FormLabel,
+	Heading,
+	IconButton,
+	Input,
+	Spinner,
+	Stack,
+	Text,
+	Textarea,
+} from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import CategoriesSelect from "../components/TopicSelect";
+import DifficultySelect from "../components/DifficultySelect";
 
-interface NewTask {
+import CategoriesSelect from "../components/TopicSelect";
+import { createTask } from "../services/tasksService";
+
+export interface NewTask {
 	name: string;
 	description: string;
-	topic: string;
+	topics: Array<number>;
+	difficulty: string;
 }
 
 interface CreateTaskState {
@@ -16,14 +34,14 @@ interface CreateTaskState {
 }
 
 const CreateTask = () => {
-
 	const [createTaskState, setCreateTaskState] = useState<CreateTaskState>({
 		newTask: {
 			name: "",
 			description: "",
-			topic: ""
+			topics: [1],
+			difficulty: "easy",
 		},
-		loading: true,
+		loading: false,
 	});
 
 	const handleOnChangeInput = (e: any) => {
@@ -34,15 +52,68 @@ const CreateTask = () => {
 				[e.target.name]: e.target.value,
 			},
 		});
-		console.log(createTaskState);
 	};
 
-	const handleOnSubmitForm = () => {
+	const handleOnChangeSelect = (idTopic: number, index: number) => {
+		const newCategories = createTaskState.newTask.topics;
+		newCategories[index] = idTopic;
+		setCreateTaskState({
+			...createTaskState,
+			newTask: {
+				...createTaskState.newTask,
+				topics: newCategories,
+			},
+		});
+	};
+
+	const handleOnAddTopic = () => {
+		const newCategories = createTaskState.newTask.topics;
+		newCategories.push(1);
+		setCreateTaskState({
+			...createTaskState,
+			newTask: {
+				...createTaskState.newTask,
+				topics: newCategories,
+			},
+		});
+	};
+
+	const handleOnRemoveTopic = () => {
+		const newCategories = createTaskState.newTask.topics;
+		newCategories.pop();
+		setCreateTaskState({
+			...createTaskState,
+			newTask: {
+				...createTaskState.newTask,
+				topics: newCategories,
+			},
+		});
+	};
+
+	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setCreateTaskState({
+			...createTaskState,
+			loading: true,
+		});
+		const res = await createTask(createTaskState.newTask);
+		setCreateTaskState({
+			...createTaskState,
+			loading: false,
+		});
+		console.log(res);
+
 		console.log(createTaskState);
 	};
 
 	return (
-		<Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
+		<Flex
+			align={"center"}
+			justify={"center"}
+			bg={"gray.50"}
+			pt={12}
+			pb={12}
+		>
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
 				<AnimatePresence>
 					<motion.div
@@ -72,7 +143,10 @@ const CreateTask = () => {
 											required
 											autoFocus
 										/>
-										<FormHelperText>Un titulo corto y especifico ayudara a los demás a entenderte</FormHelperText>
+										<FormHelperText>
+											Un titulo corto y especifico ayudara
+											a los demás a entenderte
+										</FormHelperText>
 									</FormControl>
 									<FormControl id="description">
 										<FormLabel htmlFor="description">
@@ -83,17 +157,95 @@ const CreateTask = () => {
 											name="description"
 											required
 										></Textarea>
-										<FormHelperText>Describe detalladamente tu problema y como quieres recibir ayuda de los demás</FormHelperText>
+										<FormHelperText>
+											Describe detalladamente tu problema
+											y como quieres recibir ayuda de los
+											demás
+										</FormHelperText>
 									</FormControl>
 									<FormControl id="name">
-										<FormLabel htmlFor="name">
-											Tematica
+										<div className="flex items-center justify-between mb-2">
+											<FormLabel
+												htmlFor="name"
+												m={0}
+												p={0}
+											>
+												Tematica
+											</FormLabel>
+											<div className="flex justify-end gap-2">
+												<IconButton
+													onClick={handleOnAddTopic}
+													aria-label="Add a category"
+													size="sm"
+													colorScheme="blue"
+													icon={<AddIcon />}
+												/>
+												<IconButton
+													onClick={
+														handleOnRemoveTopic
+													}
+													aria-label="Add a category"
+													size="sm"
+													colorScheme="red"
+													isDisabled={
+														!(
+															createTaskState
+																.newTask.topics
+																.length > 1
+														)
+													}
+													icon={<MinusIcon />}
+												/>
+											</div>
+										</div>
+
+										{createTaskState.newTask.topics.map(
+											(element, i) => {
+												return (
+													<CategoriesSelect
+														key={i}
+														index={i}
+														onChange={
+															handleOnChangeSelect
+														}
+													/>
+												);
+											}
+										)}
+
+										<FormHelperText>
+											Selecciona un tematica acorde a tu
+											tarea para ayudar clasificarla
+										</FormHelperText>
+									</FormControl>
+
+									<FormControl id="description">
+										<FormLabel htmlFor="description">
+											Dificultad
 										</FormLabel>
-										<CategoriesSelect
+										<DifficultySelect
 											onChange={handleOnChangeInput}
 										/>
-										<FormHelperText>Selecciona un tematica acorde a tu tarea para ayudar clasificarla</FormHelperText>
+										<FormHelperText>
+											Elige una dificultad que consideres
+											acorde a tu tarea
+										</FormHelperText>
 									</FormControl>
+
+									<FormControl id="description">
+										<FormLabel htmlFor="description">
+											Archivos
+										</FormLabel>
+										<input
+											type="file"
+											multiple
+										/>
+										<FormHelperText>
+											Puedes adjuntar pdfs, imagenes o
+											documentos de tu tarea
+										</FormHelperText>
+									</FormControl>
+
 									<Stack spacing={10}>
 										{/* <Stack
 									direction={{ base: "column", sm: "row" }}
@@ -117,7 +269,7 @@ const CreateTask = () => {
 											{createTaskState.loading ? (
 												<Spinner />
 											) : (
-												<>Iniciar sesión</>
+												<>Publicar tarea</>
 											)}
 										</Button>
 									</Stack>

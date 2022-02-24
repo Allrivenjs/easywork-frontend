@@ -59,7 +59,16 @@ const Router = () => {
 
 					<Route path="/tasks" element={<TasksPage />} />
 
-					<Route path="/create-task" element={<CreateTask />} />
+					<Route
+						path="/create-task"
+						element={
+							cookies["user-token"] ? (
+								<CreateTask />
+							) : (
+								<Login />
+							)
+						}
+					/>
 
 				</Route>
 

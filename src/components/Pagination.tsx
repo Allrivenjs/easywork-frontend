@@ -22,7 +22,7 @@ const Pagination = (props: PaginationProps) => {
 						mx={1}
 						key={i}
 						onClick={() => props.onClick(element.url)}
-						isDisabled={element.active}
+						isDisabled={element.active || !element.url}
 					>
 						{parse(element.label)}
 					</Button>
