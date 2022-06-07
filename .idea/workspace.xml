@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f55a262b-2a21-4c34-8ee3-938e7a50474c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,12 +27,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="16.13.2" />
-    <property name="javascript.nodejs.core.library.typings.version" value="16.11.25" />
+    <property name="javascript.nodejs.core.library.configured.version" value="17.6.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="17.0.21" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v16.13.2/bin/node" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -48,6 +52,12 @@
       <workItem from="1644876834280" duration="958000" />
       <workItem from="1644878978714" duration="1483000" />
       <workItem from="1644883241859" duration="6210000" />
+      <workItem from="1647038142183" duration="4190000" />
+      <workItem from="1647064739533" duration="1506000" />
+      <workItem from="1647098592138" duration="659000" />
+      <workItem from="1647133741444" duration="4497000" />
+      <workItem from="1647182704657" duration="1799000" />
+      <workItem from="1647314139255" duration="1385000" />
     </task>
     <servers />
   </component>
