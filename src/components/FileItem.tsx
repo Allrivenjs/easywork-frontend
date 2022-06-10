@@ -44,7 +44,7 @@ interface FileItemProps {
 }
 
 const FileItem = (props: FileItemProps) => {
-	const returnIconFromMime = (mime: string): Element | undefined => {
+	const returnIconFromMime = (mime: string): JSX.Element | undefined => {
 		const a = MimeFile.find((e) => {
 			return e.mime === mime;
 		});
