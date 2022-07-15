@@ -7,12 +7,13 @@ import Login from "../account/Login";
 import CreateTask from "./components/Create";
 import TaskPage from "./components/TaskPage";
 import TasksPage from "./components/List";
+import Loader from "../../shared/Loader";
 
 const TaskRouter = () => {
 	const [cookies] = useCookies(["user-token"]);
 
 	return(
-		<Suspense fallback={<div>loading</div>}>
+		<Suspense fallback={<Loader/>}>
 			<Routes>
 				<Route
 					path="/"
@@ -25,10 +26,10 @@ const TaskRouter = () => {
 					}
 				/>
 
-				<Route path="/task/:slug" element={<TaskPage />} />
+				<Route path="/:slug" element={<TaskPage />} />
 
 				<Route
-					path="/create-task"
+					path="/create"
 					element={
 						cookies["user-token"] ? (
 							<CreateTask />

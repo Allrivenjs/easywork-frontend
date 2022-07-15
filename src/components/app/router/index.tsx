@@ -7,7 +7,7 @@ import Layout from "../layout";
 import NotFound from "../../../shared/NotFound";
 
 
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import Register from "../../account/Register";
 import Login from "../../account/Login";
 import Home from "../../home";
@@ -15,6 +15,7 @@ import Profile from "../../profile/Profile";
 import ProfileWithSlug from "../../profile/ProfileWithSlug";
 import CoursesPage from "../../courses/components/CoursesPage";
 import CoursePage from "../../courses/components/CoursePage";
+import Loader from "../../../shared/Loader";
 
 const TaskRouter = lazy(() => import("../../task"));
 
@@ -22,6 +23,7 @@ const Router = () => {
 	const [cookies] = useCookies(["user-token"]);
 
 	return (
+		<Suspense fallback={<Loader/>}>
 		<BrowserRouter>
 			<Routes>
 				<Route
@@ -72,6 +74,7 @@ const Router = () => {
 					*/}
 			</Routes>
 		</BrowserRouter>
+		</Suspense>
 	);
 };
 

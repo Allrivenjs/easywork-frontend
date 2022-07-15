@@ -1,69 +1,65 @@
-import {
-	Stack,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+
 import { useContext } from "react";
 
-import logo from "../../../../assets/svg/logo.svg";
+import {
+	Box,
+	Flex,
+	Stack,
+} from "@chakra-ui/react";
+
 import { AuthContext } from "../../../../context/GlobalStates";
 import UserAuth from "./UserAuth";
+import Logo from "../../../../shared/Logo";
+import NavbarLinkButton from "./NavbarLinkButton";
 
 const Navbar = () => {
 	const context = useContext(AuthContext);
 
-	return (
-		<header className="fixed z-50 w-full h-16 pl-2 pr-2 bg-white shadow-md xl:pl-32 xl:pr-32 lg:pl-8 lg:pr-8 bg-opacity-90 backdrop-blur-sm ">
-			<div className="flex items-center justify-between w-full h-full">
-				<div className="flex items-center h-full">
-					<Link to={"/"}>
-						<img className="w-40" src={logo} alt="logo" />
-					</Link>
+	return(
+		<Box
+			position="fixed"
+			zIndex="50"
+			width="full"
+			p={4}
+			px={32}
+			bgColor="white"
+			borderBottom={1}
+			borderStyle="solid"
+			borderColor="gray.200"
+		>
+			<Flex
+				alignItems="center"
+				justifyContent="space-between"
+			>
+				<Stack
+					spacing={4}
+					direction="row"
+					alignItems="center"
+				>
+					<Logo />
 
-					<ul className="flex hidden gap-4 mt-1 ml-8 lg:flex">
-						<li>
-							<Link to={"/"}>
-								<p className="text-gray-500 hover:underline">
-									Home
-								</p>
-							</Link>
-						</li>
-						<li>
-							<a href="#hero">
-								<p className="text-gray-500 hover:underline">
-									Acerca de nosotros
-								</p>
-							</a>
-						</li>
-						<li>
-							<a href="#features">
-								<p className="text-gray-500 hover:underline">
-									Nuestros servicios
-								</p>
-							</a>
-						</li>
-						<li>
-							<Link to={"/courses"}>
-								<p className="text-gray-500 hover:underline">
-									Cursos
-								</p>
-							</Link>
-						</li>
-						<li>
-							<Link to={"/tasks"}>
-								<p className="text-gray-500 hover:underline">
-									Tareas
-								</p>
-							</Link>
-						</li>
-					</ul>
-				</div>
-				<div className="flex items-center h-full">
-					<Stack direction={"row"}>
-						<UserAuth userData={context?.userData} />
-					</Stack>
-				</div>
-			</div>
-		</header>
+					<NavbarLinkButton to="/" content="Home"/>
+					<NavbarLinkButton to="/tasks" content="Tareas"/>
+
+					<a href="#hero">
+						<p className="text-gray-500 hover:underline">
+							Acerca de nosotros
+						</p>
+					</a>
+
+					<a href="#features">
+						<p className="text-gray-500 hover:underline">
+							Nuestros servicios
+						</p>
+					</a>
+
+				</Stack>
+
+				<Stack direction="row">
+					<UserAuth userData={context?.userData} />
+				</Stack>
+			</Flex>
+		</Box>
 	);
 };
 

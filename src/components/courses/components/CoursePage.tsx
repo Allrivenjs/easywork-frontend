@@ -18,10 +18,6 @@ import { FiPlay } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCourse } from "../../../shared/services/coursesService";
 
-import "../../../../node_modules/video-react/dist/video-react.css"
-
-
-import { Player } from 'video-react';
 import Footer from "../../app/layout/Footer";
 
 import axios from "axios";
@@ -123,16 +119,10 @@ const CoursePage = () => {
 			<Navbar />
 			<Flex pt={16}>
 				<Box flex={1}>
-					{/* <img
+					<img
 						className="object-cover w-full"
 						style={{ height: "720px" }}
 						src={coursePageState.actualVideo.url}
-					/> */}
-
-					<Player
-						playsInline
-						poster="/assets/poster.png"
-						src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
 					/>
 
 					<Tabs>

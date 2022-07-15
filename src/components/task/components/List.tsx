@@ -162,7 +162,7 @@ const TasksPage = () => {
 			</Container>
 
 			<FloatingButton
-				to="/create-task"
+				to="/tasks/create"
 			>
 				✍️ Crear tarea
 			</FloatingButton>

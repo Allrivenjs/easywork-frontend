@@ -11,7 +11,7 @@ const Home = () => {
 			<Features />
 			<Courses />
 			<FloatingButton
-				to="/create-task"
+				to="/tasks/create"
 			>
 				✍️ Publicar tarea
 			</FloatingButton>

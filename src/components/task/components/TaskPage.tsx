@@ -12,6 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { getTaskBySlug } from "../../../shared/services/tasksService";
 import FileItem from "../../../shared/FileItem";
 import { TaskCardProps } from "./List";
+import { useCookies } from "react-cookie";
 
 interface TaskPageState {
 	taskPageData: TaskCardProps;
@@ -20,6 +21,7 @@ interface TaskPageState {
 
 const TaskPage = () => {
 	const { slug } = useParams();
+	const [cookies] = useCookies(["user-token"]);
 
 	const [taskPageState, setTaskPageState] = useState<TaskPageState>({
 		taskPageData: {
@@ -47,7 +49,7 @@ const TaskPage = () => {
 				...taskPageState,
 				loading: true,
 			});
-			const res = await getTaskBySlug(slug as string);
+			const res = await getTaskBySlug(cookies["user-token"], slug as string);
 			console.log(res);
 			if (res) {
 				setTaskPageState({

@@ -25,7 +25,7 @@ export const getTasks = async (token: string, source: CancelTokenSource, url: st
 		} else {
 			const res = await axios.get(`${config.API_URL}/api/tasks`, {
 				cancelToken: source.token,
-				headers: config.headers,
+				headers: config.headersWithAuth(token),
 			});
 			return res.data[0];
 		}
@@ -34,10 +34,10 @@ export const getTasks = async (token: string, source: CancelTokenSource, url: st
 	}
 };
 
-export const getTaskBySlug = async (slug: string) => {
+export const getTaskBySlug = async (token: string, slug: string) => {
 	try {
 		const res = await axios.get(`${config.API_URL}/api/tasks/${slug}`, {
-			headers: config.headers,
+			headers: config.headersWithAuth(token),
 		});
 		return res.data[0];
 	} catch (err: any) {

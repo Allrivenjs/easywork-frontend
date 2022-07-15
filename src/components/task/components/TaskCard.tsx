@@ -9,7 +9,7 @@ const TaskCard = (props: TaskCardProps) => {
 			<div className="flex justify-between mb-4">
 				<div>
 					<Link
-						to={`/task/${props.slug}`}
+						to={`/tasks/${props.slug}`}
 					>
 						<Heading size={"lg"} className="hover:underline">{props.name}</Heading>
 					</Link>
