@@ -4,7 +4,7 @@ import Pusher from "pusher-js";
 import Echo from "laravel-echo";
 import './styles/tailwind.css';
 
-import App from './routes'
+import App from './components/app/router'
 import { ChakraProvider } from '@chakra-ui/react';
 
 //
