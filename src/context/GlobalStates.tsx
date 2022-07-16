@@ -23,6 +23,7 @@ interface AuthProviderProps {
 }
 
 export interface UserData {
+	id: number;
 	state: string;
 	name: string;
 	lastname: string;
@@ -54,6 +55,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 			if (res) {
 				setAuthState({
 					state: 'auth',
+					id: res.id,
 					name: res.name,
 					lastname: res.lastname,
 					phone: res.phone,
@@ -73,6 +75,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 			} else {
 				setAuthState({
 					state: 'notAuth',
+					id: 0,
 					name: "",
 					lastname: "",
 					phone: "",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Avatar, Box, IconButton, Stack } from "@chakra-ui/react";
 
@@ -9,13 +9,13 @@ import { useCookies } from "react-cookie";
 
 import { IUser } from "./interfaces";
 import { getChatConnection } from "../../shared/services/chatServices";
+import { AuthContext } from "../../context/GlobalStates";
 
 const ChatRoot = () => {
 	const [userList, setUserList] = useState<Array<IUser>>([]);
-
 	const [isOpen, onToggle] = useState([]);
-
 	const [ cookies ] = useCookies(["user-token"]);
+	const context = useContext(AuthContext);
 
 	const echo = getChatConnection(cookies["user-token"]);
 
@@ -25,10 +25,25 @@ const ChatRoot = () => {
 		onToggle(isOpenArray);
 	};
 
-	echo.join("channel-session").here((users: Array<IUser>) => {
-		console.log(users);
-		setUserList(users)
-	})
+	echo.join("channel-session")
+		.here((users: Array<IUser>) => {
+			console.log("you just joined");
+			setUserList(users.filter((user: IUser) => user.id !== context?.userData?.id));
+		})
+		.joining((user: IUser) => {
+			console.log("user joined");
+			const newUserList = userList;
+			newUserList.push(user);
+			setUserList(newUserList);
+		})
+		.leaving((user: IUser) => {
+			console.log("user leaved");
+			console.log("hello");
+			setUserList(userList.filter((item: IUser) => item.id !== user.id));
+		})
+		.error((error: any) => {
+			console.log("error with echo: ", error);
+		});
 
 	return(
 		<Box

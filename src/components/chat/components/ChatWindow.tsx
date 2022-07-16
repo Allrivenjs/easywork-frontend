@@ -1,9 +1,12 @@
 import { FC } from "react";
 
-import { Box, Flex, Heading, Input, InputGroup, InputLeftAddon, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, IconButton, Input, InputGroup, InputLeftAddon, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { IUser } from "../interfaces";
+import { FiSend } from "react-icons/fi";
+import Message from "./Message";
+import SelfMessage from "./SelfMessage";
 
 interface ChatWindowProps {
 	isVisible: boolean;
@@ -29,7 +32,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ isVisible, user }) => {
 						bgColor="white"
 						width={width}
 						height={height}
-						rounded="2xl"
+						rounded="xl"
 						shadow="base"
 						border={1}
 						borderStyle="solid"
@@ -40,9 +43,9 @@ const ChatWindow: FC<ChatWindowProps> = ({ isVisible, user }) => {
 							height="full"
 						>
 							<Box
-								bgColor="gray.300"
+								bgColor="blue.400"
 								width="full"
-								borderTopRadius="2xl"
+								borderTopRadius="xl"
 								shadow="base"
 								px={4}
 								py={2}
@@ -50,31 +53,58 @@ const ChatWindow: FC<ChatWindowProps> = ({ isVisible, user }) => {
 								<Text
 									size="md"
 									fontWeight={500}
+									color="white"
 								>
 									{user.name} {user.lastname}
 								</Text>
 							</Box>
 							<Box
 								flexGrow={1}
+								p={4}
 							>
-
+								<Stack>
+									<Message
+										maxWidth={width}
+										message="Hello asdfadsfa sdfasdfasd fasdf asdfasdf asdfas dfasdffff ff fffffffff ffffffffffffffff ffffffffff fffffff"
+									/>
+									<SelfMessage
+										maxWidth={width}
+										message="Hello"
+									/>
+								</Stack>
 							</Box>
 							<Box
-								bgColor="gray.300"
+								bgColor="gray.200"
 								width="full"
-								borderBottomRadius="2xl"
+								borderBottomRadius="xl"
 								shadow="base"
 								px={4}
 								py={2}
 							>
-								<InputGroup>
+								<HStack
+									alignItems="center"
+								>
 									<Input
 										rounded="md"
 										variant="filled"
 										placeholder="Escribe un mensaje aquí"
+										_hover={{
+											bgColor: "gray.100"
+										}}
+										_focus={{
+											bgColor: "gray.100",
+											borderColor: "gray.300"
+										}}
 										size="sm"
 									/>
-								</InputGroup>
+									<IconButton
+										m={0}
+										colorScheme="blue"
+										size="sm"
+										aria-label="send button"
+										icon={<FiSend />}
+									/>
+								</HStack>
 							</Box>
 						</Flex>
 					</Box>

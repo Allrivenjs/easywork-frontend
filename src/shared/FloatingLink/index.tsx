@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 interface FloatingButtonProps {
 	to: string;
+	children: string;
 }
 
 const FloatingLink: FC<FloatingButtonProps> = ({ to, children }) => {

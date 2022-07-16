@@ -16,7 +16,7 @@ export const getChatConnection = (token: string): Echo =>  {
 			Authorization: `Bearer ${token}`
 			}
 		},
-		enabledTransports: ['ws'],
+		enabledTransports: ['ws', 'wss'],
 		disableStats: true,
 		forceTLS: false,
 	});
