@@ -17,7 +17,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import Pagination, { Link } from "../../../shared/Pagination";
 import TaskCard from "./TaskCard";
-import FloatingButton from "../../../shared/FloatingButton";
+import FloatingLink from "../../../shared/FloatingLink";
 import { getTasks } from "../../../shared/services/tasksService";
 import Categories from "../../../shared/Categories";
 
@@ -161,11 +161,11 @@ const TasksPage = () => {
 				</Flex>
 			</Container>
 
-			<FloatingButton
+			<FloatingLink
 				to="/tasks/create"
 			>
 				✍️ Crear tarea
-			</FloatingButton>
+			</FloatingLink>
 		</div>
 	);
 };

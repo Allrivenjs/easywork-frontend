@@ -6,7 +6,7 @@ interface FloatingButtonProps {
 	to: string;
 }
 
-const FloatingButton: FC<FloatingButtonProps> = ({ to, children }) => {
+const FloatingLink: FC<FloatingButtonProps> = ({ to, children }) => {
 	return (
 		<Link to={to} className="fixed z-50 right-12 bottom-12">
 			<div className="px-5 py-3 text-lg font-semibold text-white bg-blue-400 rounded-full shadow-lg hover:bg-blue-500">
@@ -16,4 +16,4 @@ const FloatingButton: FC<FloatingButtonProps> = ({ to, children }) => {
 	);
 };
 
-export default FloatingButton;
+export default FloatingLink;

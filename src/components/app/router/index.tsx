@@ -6,7 +6,6 @@ import { AuthProvider } from "../../../context/GlobalStates";
 import Layout from "../layout";
 import NotFound from "../../../shared/NotFound";
 
-
 import { lazy, Suspense } from "react";
 import Register from "../../account/Register";
 import Login from "../../account/Login";
@@ -69,9 +68,9 @@ const Router = () => {
 				</Route>
 
 				<Route path="/course/:slug" element={<CoursePage />} />
-				{/*
+
 				<Route path="*" element={<NotFound />} />
-					*/}
+
 			</Routes>
 		</BrowserRouter>
 		</Suspense>

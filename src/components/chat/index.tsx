@@ -1,14 +1,83 @@
-import { Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
 
-const ChatRouter = () => {
+import { Avatar, Box, IconButton, Stack } from "@chakra-ui/react";
+
+import { motion } from "framer-motion";
+
+import ChatWindow from "./components/ChatWindow";
+import { useCookies } from "react-cookie";
+
+import { IUser } from "./interfaces";
+import { getChatConnection } from "../../shared/services/chatServices";
+
+const ChatRoot = () => {
+	const [userList, setUserList] = useState<Array<IUser>>([]);
+
+	const [isOpen, onToggle] = useState([]);
+
+	const [ cookies ] = useCookies(["user-token"]);
+
+	const echo = getChatConnection(cookies["user-token"]);
+
+	const handleOnOpenChat = (index: number) => {
+		const isOpenArray = isOpen;
+		isOpenArray[index] = !isOpenArray[index];
+		onToggle(isOpenArray);
+	};
+
+	echo.join("channel-session").here((users: Array<IUser>) => {
+		console.log(users);
+		setUserList(users)
+	})
+
 	return(
-		<Routes>
-            <Route
-				path="/"
-				element={<>chat</>}
-			/>
-        </Routes>
+		<Box
+			width="full"
+			height="full"
+			position="relative"
+		>
+			<Stack
+				spacing={64}
+				direction="column"
+			>
+				{userList.map((user, index) => {
+					return (
+						<motion.div
+							style={{
+								position: "fixed",
+								bottom: 16,
+								left: 16 + (index * 64),
+							}}
+							drag
+							dragConstraints={{
+								top: -100,
+								left: -10,
+								right: 100,
+								bottom: 10,
+							}}
+							key={index}
+						>
+							<ChatWindow
+								user={user}
+								isVisible={isOpen[index]}
+							/>
+
+							<IconButton
+								aria-label="chat button"
+								bgColor="blue.400"
+								color="white"
+								rounded="full"
+								shadow="base"
+								icon={<Avatar name={`${user.name} ${user.lastname}`}/>}
+
+								onClick={() => handleOnOpenChat(index)}
+							/>
+						</motion.div>
+					)})
+				}
+			</Stack>
+		</Box>
 	);
 };
 
-export default ChatRouter;
+export default ChatRoot;

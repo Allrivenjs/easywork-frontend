@@ -1,4 +1,4 @@
-import FloatingButton from "../../shared/FloatingButton";
+import FloatingLink from "../../shared/FloatingLink";
 
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -10,11 +10,11 @@ const Home = () => {
 			<Hero />
 			<Features />
 			<Courses />
-			<FloatingButton
+			<FloatingLink
 				to="/tasks/create"
 			>
 				✍️ Publicar tarea
-			</FloatingButton>
+			</FloatingLink>
 		</article>
 	);
 };
