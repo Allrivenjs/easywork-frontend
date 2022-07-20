@@ -1,22 +1,21 @@
-import { useContext } from "react";
-
 import { Avatar, Container, Heading, Spinner } from "@chakra-ui/react";
 
-import { AuthContext } from "../../context/GlobalStates";
 import { AiFillStar } from "react-icons/ai";
+import { useAuth } from "../../context/AuthContext";
+import { IUser } from "../../context/AuthContext/interfaces";
 
 const Profile = () => {
-	const context = useContext(AuthContext);
+	const { user } = useAuth();
 
 	return (
 		<div className="w-full pt-24 pb-24 bg-slate-100">
-			{context?.userData?.state === "auth" ? (
+			{ user ? (
 				<Container maxW="container.xl">
 					<div className="relative bg-red-300 rounded-t-lg h-80">
 						<div className="absolute flex -bottom-16 left-6">
 							<div className="p-2 bg-white rounded-full">
 								<Avatar
-									name={`${context?.userData?.name} ${context?.userData?.lastname}`}
+									name={`${(user as IUser).name} ${(user as IUser).lastname}`}
 									size={"2xl"}
 								/>
 							</div>
@@ -26,19 +25,19 @@ const Profile = () => {
 					<div className="px-6 pt-20 pb-6 bg-white rounded-b-lg">
 						<div className="flex items-center">
 							<Heading className="mb-2">
-								{context?.userData?.name}{" "}
-								{context?.userData?.lastname}
+								{(user as IUser).name}{" "}
+								{(user as IUser).lastname}
 							</Heading>
 							<p className="ml-2 text-lg text-slate-500">
 								(Student)
 							</p>
 						</div>
 						<p className="text-slate-600">
-							{context?.userData?.profile.about}
+							{(user as IUser).profile.about}
 						</p>
 						<h3 className="mt-2 text-xl font-bold">Valoración</h3>
 						<div className="flex">
-							{[...Array(context?.userData?.profile.ranking)].map(
+							{[...Array((user as IUser).profile.ranking)].map(
 								(element, i) => {
 									return (
 										<AiFillStar

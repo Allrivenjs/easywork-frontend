@@ -1,7 +1,7 @@
 import { useCookies } from "react-cookie";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { AuthProvider } from "../../../context/GlobalStates";
+import { AuthProvider } from "../../../context/AuthContext";
 
 import Layout from "../layout";
 import NotFound from "../../../shared/NotFound";

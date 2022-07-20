@@ -1,11 +1,11 @@
 import { Avatar, Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
+import { IUser } from "../../../../context/AuthContext/interfaces";
 import { logout } from "../../../../shared/services/authService";
-import { UserData } from "../../../../context/GlobalStates";
 
 interface UserAuthProps {
-	userData: UserData | null | undefined;
+	user: IUser | null | boolean;
 }
 
 const UserAuth = (props: UserAuthProps) => {
@@ -18,9 +18,9 @@ const UserAuth = (props: UserAuthProps) => {
 		navigate("/");
 	};
 
-	if (props.userData === null) {
+	if (props.user === null) {
 		return <Spinner></Spinner>;
-	} else if (props.userData?.state === "auth") {
+	} else if (props.user) {
 		return (
 			<Flex alignItems={"center"} >
 				<Menu>
@@ -34,8 +34,8 @@ const UserAuth = (props: UserAuthProps) => {
 						<Avatar
 							size={"sm"}
 							src={`${
-								props.userData?.profile_photo_path
-									? props.userData?.profile_photo_path
+								props.user
+									? (props.user as IUser).profile_photo_path
 									: ""
 							}`}
 						/>

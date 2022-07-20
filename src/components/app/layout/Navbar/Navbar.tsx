@@ -1,20 +1,16 @@
-
-import { useContext } from "react";
-
 import {
 	Box,
 	Flex,
 	Stack,
 } from "@chakra-ui/react";
 
-import { AuthContext } from "../../../../context/GlobalStates";
 import UserAuth from "./UserAuth";
 import Logo from "../../../../shared/Logo";
 import NavbarLinkButton from "./NavbarLinkButton";
+import { useAuth } from "../../../../context/AuthContext";
 
 const Navbar = () => {
-	const context = useContext(AuthContext);
-
+	const context = useAuth();
 	return(
 		<Box
 			position="fixed"
@@ -56,7 +52,7 @@ const Navbar = () => {
 				</Stack>
 
 				<Stack direction="row">
-					<UserAuth userData={context?.userData} />
+					<UserAuth user={context.user} />
 				</Stack>
 			</Flex>
 		</Box>
