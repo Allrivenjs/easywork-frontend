@@ -9,15 +9,15 @@ import {
 import { useCookies } from "react-cookie";
 import { isAuthenticated } from "../../shared/services/authService";
 
-import { IUser } from "./interfaces";
+import { IProfile } from "./interfaces";
 
 interface AuthProviderProps {
 	children: ReactNode;
 }
 
 interface IUserContext {
-	user: IUser | null | boolean;
-	setUser: React.Dispatch<React.SetStateAction<IUser | null | boolean>>;
+	user: IProfile | null | boolean;
+	setUser: React.Dispatch<React.SetStateAction<IProfile | null | boolean>>;
 }
 
 export const AuthContext = createContext<IUserContext | null>(null);
@@ -31,7 +31,7 @@ export const useAuth = () => {
 export const AuthProvider = (props: AuthProviderProps) => {
 	const [cookies, , removeCookie] = useCookies(["user-token"]);
 
-	const [authState, setAuthState] = useState<IUser | null | boolean>(null);	// null = charging, UserData = auth, false = not auth
+	const [authState, setAuthState] = useState<IProfile | null | boolean>(null);	// null = charging, UserData = auth, false = not auth
 
 	useEffect(() => {
 		const fetchUserData = async () => {

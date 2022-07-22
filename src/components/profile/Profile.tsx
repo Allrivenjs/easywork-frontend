@@ -2,7 +2,7 @@ import { Avatar, Container, Heading, Spinner } from "@chakra-ui/react";
 
 import { AiFillStar } from "react-icons/ai";
 import { useAuth } from "../../context/AuthContext";
-import { IUser } from "../../context/AuthContext/interfaces";
+import { IProfile } from "../../context/AuthContext/interfaces";
 
 const Profile = () => {
 	const { user } = useAuth();
@@ -15,7 +15,7 @@ const Profile = () => {
 						<div className="absolute flex -bottom-16 left-6">
 							<div className="p-2 bg-white rounded-full">
 								<Avatar
-									name={`${(user as IUser).name} ${(user as IUser).lastname}`}
+									name={`${(user as IProfile).user.name} ${(user as IProfile).user.lastname}`}
 									size={"2xl"}
 								/>
 							</div>
@@ -25,19 +25,19 @@ const Profile = () => {
 					<div className="px-6 pt-20 pb-6 bg-white rounded-b-lg">
 						<div className="flex items-center">
 							<Heading className="mb-2">
-								{(user as IUser).name}{" "}
-								{(user as IUser).lastname}
+								{(user as IProfile).user.name}{" "}
+								{(user as IProfile).user.lastname}
 							</Heading>
 							<p className="ml-2 text-lg text-slate-500">
 								(Student)
 							</p>
 						</div>
 						<p className="text-slate-600">
-							{(user as IUser).profile.about}
+							{(user as IProfile).about}
 						</p>
 						<h3 className="mt-2 text-xl font-bold">Valoración</h3>
 						<div className="flex">
-							{[...Array((user as IUser).profile.ranking)].map(
+							{[...Array((user as IProfile).ranking)].map(
 								(element, i) => {
 									return (
 										<AiFillStar

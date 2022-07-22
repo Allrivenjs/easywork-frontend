@@ -7,8 +7,7 @@ import { motion } from "framer-motion";
 import ChatWindow from "./components/ChatWindow";
 import { useCookies } from "react-cookie";
 
-import { IUser } from "./interfaces";
-import { getChatConnection } from "../../shared/services/chatServices";
+import {IProfile, IUser} from "../../context/AuthContext/interfaces";import { getChatConnection } from "../../shared/services/chatServices";
 import { AuthContext } from "../../context/AuthContext";
 
 const ChatRoot = () => {
@@ -17,15 +16,16 @@ const ChatRoot = () => {
 	const [cookies] = useCookies(["user-token"]);
 	const context = useContext(AuthContext);
 
-
 	useEffect(() => {
+		console.log(cookies["user-token"])
 		const echo = getChatConnection(cookies["user-token"]);
 		echo
 			.join("channel-session")
 			.here((users: Array<IUser>) => {
 				console.log("you just joined");
+				console.log(users)
 				setUserList(
-					users.filter((user: IUser) => user.id !== context?.userData?.id)
+					users.filter((user: IUser) => user.id !==(((context?.user as IProfile)?.user as IUser)?.id))
 				);
 			})
 			.joining((user: IUser) => {
@@ -40,6 +40,13 @@ const ChatRoot = () => {
 				console.log("error with echo: ", error);
 			});
 
+		echo.private(`App.Models.User.${(((context?.user as IProfile)?.user as IUser)?.id)}`).notification((notification: any) => {
+			console.log(notification);
+		}).listen("Illuminate\\Notifications\\Events\\BroadcastNotificationCreated", (notification: any) => {
+			console.log(notification);
+		});
+
+
 
 	}, [context]);
 
@@ -47,6 +54,8 @@ const ChatRoot = () => {
 
 	const handleOnOpenChat = (index: number) => {
 		const isOpenArray = isOpen;
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		isOpenArray[index] = !isOpenArray[index];
 		onToggle(isOpenArray);
 	};
