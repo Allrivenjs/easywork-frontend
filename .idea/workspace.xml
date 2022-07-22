@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f55a262b-2a21-4c34-8ee3-938e7a50474c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/chat/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/AuthContext/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AuthContext/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/AuthContext/interfaces/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AuthContext/interfaces/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/services/chatServices.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/services/chatServices.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +57,7 @@
       <workItem from="1647314139255" duration="1385000" />
       <workItem from="1654566129306" duration="900000" />
       <workItem from="1654583404480" duration="46000" />
-      <workItem from="1658437871520" duration="7790000" />
+      <workItem from="1658437871520" duration="8989000" />
     </task>
     <servers />
   </component>

@@ -42,9 +42,7 @@ const ChatRoot = () => {
 
 		echo.private(`App.Models.User.${(((context?.user as IProfile)?.user as IUser)?.id)}`).notification((notification: any) => {
 			console.log(notification);
-		}).listen("Illuminate\\Notifications\\Events\\BroadcastNotificationCreated", (notification: any) => {
-			console.log(notification);
-		});
+		})
 
 
 
