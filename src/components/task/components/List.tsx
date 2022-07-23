@@ -20,38 +20,10 @@ import TaskCard from "./TaskCard";
 import FloatingLink from "../../../shared/FloatingLink";
 import { getTasks } from "../../../shared/services/tasksService";
 import Categories from "../../../shared/Categories";
-
-interface Owner {
-	name: string;
-	lastname: string;
-	profile_photo_path: string;
-	profile_slug: string;
-}
-
-interface Topic {
-	id: number;
-	name: string;
-	created_at: string;
-}
-
-interface File {
-	mime: string;
-	url: string;
-}
-export interface TaskCardProps {
-	id: number;
-	name: string;
-	slug: string;
-	description: string;
-	difficulty: string;
-	owner: Owner;
-	topics: Array<Topic>;
-	files?: Array<File>
-	created_at: string;
-}
+import { ITask } from "./interface";
 
 interface TasksPageState {
-	tasks: Array<TaskCardProps>;
+	tasks: Array<ITask>;
 	links: Array<Link>;
 	loading: boolean;
 }
@@ -73,11 +45,10 @@ const TasksPage = () => {
 			try {
 				setTasksPageState({ ...tasksPageState, loading: true });
 				const res = await getTasks(cookies["user-token"], source, url as string);
-				console.log(res);
 				if (res) {
 					setTasksPageState({
 						tasks: res.data,
-						links: res.meta.links,
+						links: res.links,
 						loading: false,
 					});
 				}
@@ -141,14 +112,7 @@ const TasksPage = () => {
 									return (
 										<TaskCard
 											key={i}
-											id={element.id}
-											name={element.name}
-											slug={element.slug}
-											description={element.description}
-											difficulty={element.difficulty}
-											owner={element.owner}
-											topics={element.topics}
-											created_at={element.created_at}
+											{...element}
 										/>
 									);
 								})}

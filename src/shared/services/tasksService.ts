@@ -21,13 +21,13 @@ export const getTasks = async (token: string, source: CancelTokenSource, url: st
 				cancelToken: source.token,
 				headers: config.headersWithAuth(token),
 			});
-			return res.data[0];
+			return res.data;
 		} else {
 			const res = await axios.get(`${config.API_URL}/api/tasks`, {
 				cancelToken: source.token,
 				headers: config.headersWithAuth(token),
 			});
-			return res.data[0];
+			return res.data;
 		}
 	} catch (err: any) {
 		console.log("Error fetching tags: ", err.response);
@@ -39,7 +39,7 @@ export const getTaskBySlug = async (token: string, slug: string) => {
 		const res = await axios.get(`${config.API_URL}/api/tasks/${slug}`, {
 			headers: config.headersWithAuth(token),
 		});
-		return res.data[0];
+		return res.data;
 	} catch (err: any) {
 		console.log("Error fetching task: ", err.response);
 	}

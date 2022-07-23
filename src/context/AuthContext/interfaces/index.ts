@@ -1,5 +1,5 @@
 export interface IUser {
-	id:                 number;
+	id:                 string;
 	name:               string;
 	lastname:           string;
 	email:              string;
@@ -21,7 +21,7 @@ enum Role {
 }
 
 export interface IProfile {
-	id:         number;
+	id:         string;
 	ranking:    number;
 	slug:       string;
 	about:      string;
