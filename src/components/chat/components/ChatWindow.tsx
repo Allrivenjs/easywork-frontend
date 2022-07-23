@@ -40,9 +40,11 @@ const ChatWindow: FC<ChatWindowProps> = ({ isVisible, user }) => {
 			})
 	};
 
+	console.log(isVisible);
+
 	return (
 		<AnimatePresence>
-			{true && (
+			{isVisible && (
 				<motion.div
 					style={{ marginBottom: 6 }}
 					initial={{ opacity: 0, y: 0, height: 100 }}

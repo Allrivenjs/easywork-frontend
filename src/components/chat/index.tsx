@@ -9,14 +9,19 @@ import { useCookies } from "react-cookie";
 
 import { IUser } from "./interfaces";
 import { getChatConnection } from "../../shared/services/chatServices";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
+
+interface ChatList {
+	user: IUser;
+	isActive: boolean;
+}
 
 const ChatRoot = () => {
-	const [userList, setUserList] = useState<Array<IUser>>([]);
+	const [userList, setUserList] = useState<Array<ChatList>>([]);
 	const [isOpen, onToggle] = useState([]);
 	const [cookies] = useCookies(["user-token"]);
-	const context = useContext(AuthContext);
 
+	const context = useAuth();
 
 	useEffect(() => {
 		const echo = getChatConnection(cookies["user-token"]);
@@ -24,9 +29,11 @@ const ChatRoot = () => {
 			.join("channel-session")
 			.here((users: Array<IUser>) => {
 				console.log("you just joined");
+				/*
 				setUserList(
-					users.filter((user: IUser) => user.id !== context?.userData?.id)
+					users.filter((user: IUser) => user.id !== (context.user as IUser).id)
 				);
+				*/
 			})
 			.joining((user: IUser) => {
 				console.log("a user has joined");
@@ -39,11 +46,7 @@ const ChatRoot = () => {
 			.error((error: any) => {
 				console.log("error with echo: ", error);
 			});
-
-
 	}, [context]);
-
-
 
 	const handleOnOpenChat = (index: number) => {
 		const isOpenArray = isOpen;
@@ -71,7 +74,10 @@ const ChatRoot = () => {
 							}}
 							key={index}
 						>
-							<ChatWindow user={user} isVisible={isOpen[index]} />
+							<ChatWindow
+								user={user}
+								isVisible={isOpen[index]}
+							/>
 
 							<IconButton
 								aria-label="chat button"
