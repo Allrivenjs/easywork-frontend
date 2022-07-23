@@ -10,9 +10,7 @@ export interface IUser {
 	created_at:         string;
 	updated_at:         string;
 	deleted_at:         null;
-	role:               Role[];
-	profile:            IProfile;
-	images:             null;
+	// profile:            IProfile;
 }
 
 enum Role {
@@ -28,7 +26,11 @@ export interface IProfile {
 	slug:       string;
 	about:      string;
 	user_id:    number;
+	role:       Role[];
+	user:       IUser;
+	images:     null;
 	created_at: string;
 	updated_at: string;
 	deleted_at: null;
+
 }

@@ -12,8 +12,7 @@ export const getChatConnection = (token: string): Echo =>  {
 		authEndpoint: `${config.API_URL}/api/broadcasting/auth`,
 		auth: {
 			headers: {
-			Accept: 'application/json',
-			Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`
 			}
 		},
 		enabledTransports: ['ws'],
