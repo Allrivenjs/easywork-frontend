@@ -70,9 +70,9 @@ const TaskPage = () => {
 		);
 	} else {
 		return (
-			<div className="w-full pt-32 pb-24 bg-slate-100">
+			<div className="w-full pt-20 bg-slate-100">
 				<Container maxW="container.xl">
-					<div className="p-4 bg-white rounded-lg">
+					<div className="p-4 bg-white rounded-lg shadow">
 						<div className="flex justify-between mb-4">
 							<div>
 								<Heading size={"lg"}>

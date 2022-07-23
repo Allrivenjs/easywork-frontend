@@ -1,11 +1,32 @@
 import { Avatar, Container, Heading, Spinner } from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 import { AiFillStar } from "react-icons/ai";
 import { useAuth } from "../../context/AuthContext";
 import { IProfile } from "../../context/AuthContext/interfaces";
+import { getTasksByUser } from "../../shared/services/tasksService";
 
 const Profile = () => {
+	const [tasks, setTasks] = useState();
 	const { user } = useAuth();
+
+	const [cookies] = useCookies(["user-token"]);
+
+	useEffect(() => {
+		const source = axios.CancelToken.source();
+
+		const fetchProfileData = async () => {
+			const tasks = await getTasksByUser(cookies["user-token"], source);
+			console.log(tasks);
+		};
+		fetchProfileData();
+
+		return () => {
+			source.cancel();
+		}
+	}, []);
 
 	return (
 		<div className="w-full pt-24 pb-24 bg-slate-100">

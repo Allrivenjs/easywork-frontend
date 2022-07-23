@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Avatar, Box, IconButton, Stack } from "@chakra-ui/react";
 
@@ -7,8 +7,15 @@ import { motion } from "framer-motion";
 import ChatWindow from "./components/ChatWindow";
 import { useCookies } from "react-cookie";
 
-import {IProfile, IUser} from "../../context/AuthContext/interfaces";import { getChatConnection } from "../../shared/services/chatServices";
-import { AuthContext } from "../../context/AuthContext";
+import { IProfile, IUser } from "../../context/AuthContext/interfaces";
+
+import { getChatConnection } from "../../shared/services/chatServices";
+
+import { useAuth } from "../../context/AuthContext";
+
+interface ChatList {
+	user: IUser;
+}
 
 const ChatRoot = () => {
 	const [userList, setUserList] = useState<Array<ChatList>>([]);
@@ -18,7 +25,6 @@ const ChatRoot = () => {
 	const context = useAuth();
 
 	useEffect(() => {
-		console.log(cookies["user-token"])
 		const echo = getChatConnection(cookies["user-token"]);
 		echo
 			.join("channel-session")
@@ -28,7 +34,6 @@ const ChatRoot = () => {
 				setUserList(
 					users.filter((user: IUser) => user.id !==(((context?.user as IProfile)?.user as IUser)?.id))
 				);
-				*/
 			})
 			.joining((user: IUser) => {
 				console.log("a user has joined");

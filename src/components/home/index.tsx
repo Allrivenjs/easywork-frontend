@@ -2,14 +2,16 @@ import FloatingLink from "../../shared/FloatingLink";
 
 import Hero from "./components/Hero";
 import Features from "./components/Features";
-import Courses from "./components/Courses";
+// import Courses from "./components/Courses";
+import MentorApplication from "./components/MentorApplication";
 
 const Home = () => {
 	return (
 		<article>
 			<Hero />
 			<Features />
-			<Courses />
+			{/*<Courses />*/}
+			<MentorApplication />
 			<FloatingLink
 				to="/tasks/create"
 			>

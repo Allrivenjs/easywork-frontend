@@ -69,3 +69,16 @@ export const createTask = async (token: string, body: NewTask) => {
 		console.log("Error fetching course: ", err.response);
 	}
 };
+
+export const getTasksByUser = async (token: string, source: CancelTokenSource) => {
+	try {
+		const res = await axios.get(`${config.API_URL}/api/getAllMeTask`, {
+			cancelToken: source.token,
+			headers: config.headersWithAuth(token),
+		});
+		return res.data;
+	} catch (err: any) {
+		console.log("Error fetching tasks by user: ", err.response);
+	}
+};
+

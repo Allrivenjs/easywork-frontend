@@ -73,6 +73,7 @@ const TasksPage = () => {
 			try {
 				setTasksPageState({ ...tasksPageState, loading: true });
 				const res = await getTasks(cookies["user-token"], source, url as string);
+				console.log(res);
 				if (res) {
 					setTasksPageState({
 						tasks: res.data,

@@ -71,9 +71,9 @@ const Hero = () => {
 							animate={{ opacity: [0, 0.5, 1] }}
 							transition={{ delay: 1.3, duration: 0.7 }}
 						>
-							<a href="#features">
+							<a href="#mentor-application">
 								<Button rounded={"full"} px={6}>
-									Saber más
+									¡Quiero enseñar!
 								</Button>
 							</a>
 						</motion.div>
