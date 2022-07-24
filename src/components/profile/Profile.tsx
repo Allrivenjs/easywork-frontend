@@ -9,6 +9,7 @@ import { IProfile } from "../../context/AuthContext/interfaces";
 import { getTasksByUser } from "../../shared/services/tasksService";
 import { ITask } from "../task/components/interface";
 import TaskCard from "../task/components/TaskCard";
+import { EditProfile } from "./EditProfile";
 
 const Profile = () => {
 	const [tasks, setTasks] = useState<Array<ITask>>();
@@ -16,14 +17,15 @@ const Profile = () => {
 
 	const [cookies] = useCookies(["user-token"]);
 
+	const source = axios.CancelToken.source();
+	const fetchProfileData = async () => {
+		const res = await getTasksByUser(cookies["user-token"], source);
+		if (res) {
+			setTasks(res.data);
+		}
+	};
+
 	useEffect(() => {
-		const source = axios.CancelToken.source();
-		const fetchProfileData = async () => {
-			const res = await getTasksByUser(cookies["user-token"], source);
-			if (res) {
-				setTasks(res.data);
-			}
-		};
 		fetchProfileData();
 		return () => {
 			source.cancel();
@@ -75,17 +77,18 @@ const Profile = () => {
 						</TabList>
 						<TabPanels>
 							<TabPanel>
-
 								<Box mt={4}>
 									{tasks?.map((element, i) => (
 										<TaskCard key={i} {...element} />
 									))}
 								</Box>
-
-
 							</TabPanel>
-							<TabPanel>
-								<p>two!</p>
+							<TabPanel
+								p={0}
+							>
+								<EditProfile
+									user={user}
+								/>
 							</TabPanel>
 						</TabPanels>
 					</Tabs>

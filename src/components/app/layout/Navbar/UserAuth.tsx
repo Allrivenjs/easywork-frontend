@@ -1,11 +1,11 @@
 import { Avatar, Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
-import { IUser } from "../../../../context/AuthContext/interfaces";
+import { IProfile } from "../../../../context/AuthContext/interfaces";
 import { logout } from "../../../../shared/services/authService";
 
 interface UserAuthProps {
-	user: IUser | null | boolean;
+	user: IProfile | null | boolean;
 }
 
 const UserAuth = (props: UserAuthProps) => {
@@ -35,7 +35,7 @@ const UserAuth = (props: UserAuthProps) => {
 							size={"sm"}
 							src={`${
 								props.user
-									? (props.user as IUser).profile_photo_path
+									? (props.user as IProfile).user.profile_photo_path
 									: ""
 							}`}
 						/>
