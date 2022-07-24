@@ -1,0 +1,143 @@
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: url(https://i.ibb.co/bzWmQ01/down-arrow.png);
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+
+	background-position-x: 6rem;
+	background-position-y: center;
+}
+@media (max-width: 330px) {
+	select {
+		background-position-x: 4.5rem;
+	}
+}
+@media (max-width: 576px) {
+	.date-cvv-box {
+		flex-direction: column;
+	}
+
+	#cardYear {
+		margin-left: 0 !important;
+	}
+
+	.cvv-label {
+		margin-right: 0px;
+	}
+
+	.cvv-class {
+		align-items: flex-start !important;
+	}
+
+	#cvv {
+		width: 100% !important;
+	}
+
+	.card-month {
+		flex: 1;
+		margin-right: 10px;
+	}
+
+	.card-year {
+		flex: 1;
+		margin-left: 5px;
+	}
+
+	.card {
+		width: 90% !important;
+	}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+.form-group {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+.form-control {
+	width: 100%;
+}
+.credit-card {
+	z-index: 21;
+	top: 125px;
+	flex-wrap: wrap;
+	position: relative;
+}
+
+.payment-form {
+	margin: 150px 35px 20px 35px;
+}
+
+.cvv-class {
+	flex: 1;
+	align-items: flex-end;
+}
+
+.cvv-label {
+	margin-right: 166px;
+}
+
+#cvv {
+	width: 75%;
+}
+
+#cardYear {
+	margin-top: 30px;
+	margin-left: 15px;
+}
+
+.date-cvv-box {
+	display: flex;
+	justify-content: space-between;
+}
+
+.expiry-class {
+	display: flex;
+
+	flex: 1;
+}
+
+.card-month {
+	flex: 1;
+}
+
+.card-year {
+	flex: 1;
+}
+
+.card-label {
+	color: #1a3b5d;
+	font-family: Source Sans Pro;
+	font-size: 14px;
+}
+
+.card {
+	max-width: 570px;
+	margin: auto;
+
+	z-index: 1;
+	flex-wrap: wrap;
+	width: 100%;
+	border-radius: 10px !important;
+	box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
+
+	background-color: white;
+}
+
+.btn {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 5px 10px 0 rgba(90, 116, 148, 0.4);
+}
