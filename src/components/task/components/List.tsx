@@ -44,7 +44,11 @@ const TasksPage = () => {
 		const fetchTasksData = async () => {
 			try {
 				setTasksPageState({ ...tasksPageState, loading: true });
-				const res = await getTasks(cookies["user-token"], source, url as string);
+				const res = await getTasks(
+					cookies["user-token"],
+					source,
+					url as string
+				);
 				if (res) {
 					setTasksPageState({
 						tasks: res.data,
@@ -76,11 +80,7 @@ const TasksPage = () => {
 							{" "}
 							<FiSearch />{" "}
 						</InputLeftAddon>
-						<Input
-							bg={"white"}
-							variant="outline"
-							placeholder="Buscar curso"
-						/>
+						<Input bg={"white"} variant="outline" placeholder="Buscar curso" />
 					</InputGroup>
 				</div>
 				<Flex gap={4} className="mt-6">
@@ -97,11 +97,7 @@ const TasksPage = () => {
 											className="mb-6 rounded-lg shadow-lg"
 										>
 											<SkeletonCircle size="10" />
-											<SkeletonText
-												mt="4"
-												noOfLines={6}
-												spacing="4"
-											/>
+											<SkeletonText mt="4" noOfLines={6} spacing="4" />
 										</Box>
 									);
 								})}
@@ -109,28 +105,16 @@ const TasksPage = () => {
 						) : (
 							<>
 								{tasksPageState.tasks.map((element, i) => {
-									return (
-										<TaskCard
-											key={i}
-											{...element}
-										/>
-									);
+									return <TaskCard key={i} {...element} />;
 								})}
 							</>
 						)}
-						<Pagination
-							links={tasksPageState.links}
-							onClick={setUrl}
-						/>
+						<Pagination links={tasksPageState.links} onClick={setUrl} />
 					</Box>
 				</Flex>
 			</Container>
 
-			<FloatingLink
-				to="/tasks/create"
-			>
-				✍️ Crear tarea
-			</FloatingLink>
+			<FloatingLink to="/tasks/create">✍️ Crear tarea</FloatingLink>
 		</div>
 	);
 };

@@ -48,7 +48,7 @@ const TaskCard = (props: ITask) => {
 						src={props.owner.profile_photo_path}
 					/>
 					<div className="ml-3">
-						<LinkReact to={`/profile/${props.owner.profile_slug}`}>
+						<LinkReact to={`/profile/${props.owner.profile.slug}`}>
 							<p className="font-bold hover:underline">
 								{props.owner.name} {props.owner.lastname}
 							</p>
@@ -116,7 +116,11 @@ const Comment: FC<IComment> = ({ owner, body }) => {
 			<Avatar name={`${owner.name} ${owner.lastname}`} size="sm" />
 			<Box bgColor="gray.100" py={1} px={3} rounded="lg">
 				<Text fontSize="xs" fontWeight="bold">
-					{owner.name}
+					<LinkReact
+						to={`/profile/${owner.profile.slug}`}
+					>
+					{owner.name} {owner.lastname}
+					</LinkReact>
 				</Text>
 				<Text fontSize="sm">{body}</Text>
 			</Box>

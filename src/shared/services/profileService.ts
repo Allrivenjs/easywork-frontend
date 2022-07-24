@@ -8,7 +8,6 @@ export const getUserWithSlug = async (source: CancelTokenSource, slug: string) =
 			cancelToken: source.token,
 			headers: config.headers,
 		});
-		console.log(res);
 		return res.data[0];
 	} catch (err: any) {
 		console.log("Error fetching getUserWithSlug: ", err.response);

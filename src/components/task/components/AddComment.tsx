@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import { useAuth } from "../../../context/AuthContext";
 import { IProfile } from "../../../context/AuthContext/interfaces";
 import { sendNewComment } from "../../../shared/services/commentsServices";
-import { IComment } from "./interface";
 
 interface AddCommentProps {
 	task_id: string;

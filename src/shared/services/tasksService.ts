@@ -76,7 +76,7 @@ export const getTasksByUser = async (token: string, source: CancelTokenSource) =
 			cancelToken: source.token,
 			headers: config.headersWithAuth(token),
 		});
-		return res.data;
+		return res.data[0];
 	} catch (err: any) {
 		console.log("Error fetching tasks by user: ", err.response);
 	}

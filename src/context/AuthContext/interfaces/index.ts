@@ -1,3 +1,5 @@
+import { ITask } from "../../../components/task/components/interface";
+
 export interface IUser {
 	id:                 string;
 	name:               string;
@@ -10,7 +12,8 @@ export interface IUser {
 	created_at:         string;
 	updated_at:         string;
 	deleted_at:         null;
-	// profile:            IProfile;
+	tasks_desc: 				Array<ITask>
+	profile:            IProfile;
 }
 
 enum Role {
