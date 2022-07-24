@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import ChatWindow from "./components/ChatWindow";
 import { useCookies } from "react-cookie";
 
-import { IProfile, IUser } from "../../context/AuthContext/interfaces";
+import { IUser } from "../../context/AuthContext/interfaces";
 
 import { getChatConnection } from "../../shared/services/chatServices";
 
@@ -25,6 +25,7 @@ const ChatRoot = () => {
 	const context = useAuth();
 
 	useEffect(() => {
+		/*
 		const echo = getChatConnection(cookies["user-token"]);
 		echo
 			.join("channel-session")
@@ -50,9 +51,7 @@ const ChatRoot = () => {
 		echo.private(`App.Models.User.${(((context?.user as IProfile)?.user as IUser)?.id)}`).notification((notification: any) => {
 			console.log(notification);
 		})
-
-
-
+		*/
 	}, [context]);
 
 	const handleOnOpenChat = (index: number) => {
@@ -84,7 +83,7 @@ const ChatRoot = () => {
 							key={index}
 						>
 							<ChatWindow
-								user={user}
+								user={user.user}
 								isVisible={isOpen[index]}
 							/>
 
@@ -94,7 +93,7 @@ const ChatRoot = () => {
 								color="white"
 								rounded="full"
 								shadow="base"
-								icon={<Avatar name={`${user.name} ${user.lastname}`} />}
+								icon={<Avatar name={`${user.user.name} ${user.user.lastname}`} />}
 								onClick={() => handleOnOpenChat(index)}
 							/>
 						</motion.div>

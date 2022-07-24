@@ -12,12 +12,12 @@ import {
 } from "@chakra-ui/react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { IUser } from "../interfaces";
 import { FiSend } from "react-icons/fi";
 import Message from "./Message";
 import SelfMessage from "./SelfMessage";
 import { getChatConnection } from "../../../shared/services/chatServices";
 import { useCookies } from "react-cookie";
+import { IUser } from "../../../context/AuthContext/interfaces";
 
 interface ChatWindowProps {
 	isVisible: boolean;
@@ -35,7 +35,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ isVisible, user }) => {
 		console.log("holaa");
 		const echo = getChatConnection(cookies["user-token"]);
 		echo.private("channel-session")
-			.listen("ChatPresentChannel", (res) => {
+			.listen("ChatPresentChannel", (res: any) => {
 				console.log(res)
 			})
 	};
