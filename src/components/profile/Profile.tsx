@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, Heading, Spinner } from "@chakra-ui/react";
+import { Avatar, Box, Container, Heading, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -47,7 +47,7 @@ const Profile = () => {
 						</div>
 					</div>
 
-					<div className="px-6 pt-20 pb-6 bg-white rounded-b-lg shadow">
+					<div className="px-6 pt-20 pb-6 bg-white shadow">
 						<div className="flex items-center">
 							<Heading className="mb-2">
 								{(user as IProfile).user.name}{" "}
@@ -63,12 +63,33 @@ const Profile = () => {
 							})}
 						</div>
 					</div>
-					<Box mt={4}>
-						{tasks?.map((element, i) => (
-							<TaskCard key={i} {...element} />
-						))}
-					</Box>
-				</Container>
+
+					<Tabs>
+						<TabList
+							bgColor="white"
+							roundedBottom="lg"
+							shadow="base"
+						>
+							<Tab>Tareas publicadas</Tab>
+							<Tab>Información personal</Tab>
+						</TabList>
+						<TabPanels>
+							<TabPanel>
+
+								<Box mt={4}>
+									{tasks?.map((element, i) => (
+										<TaskCard key={i} {...element} />
+									))}
+								</Box>
+
+
+							</TabPanel>
+							<TabPanel>
+								<p>two!</p>
+							</TabPanel>
+						</TabPanels>
+					</Tabs>
+					</Container>
 			) : (
 				<div className="flex items-center justify-center w-full h-screen">
 					<Spinner size={"xl"} />

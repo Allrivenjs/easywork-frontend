@@ -15,6 +15,7 @@ import ProfileWithSlug from "../../profile/ProfileWithSlug";
 import CoursesPage from "../../courses/components/CoursesPage";
 import CoursePage from "../../courses/components/CoursePage";
 import Loader from "../../../shared/Loader";
+import { PaymentMercadoPagoRouter } from "../../payment/mercadopago";
 
 const TaskRouter = lazy(() => import("../../task"));
 
@@ -62,10 +63,9 @@ const Router = () => {
 					<Route path="/courses" element={<CoursesPage />} />
 
 					<Route path="/tasks/*" element={<TaskRouter />} />
-
-
-
 				</Route>
+
+				<Route path="/payments" element={<PaymentMercadoPagoRouter />}/>
 
 				<Route path="/course/:slug" element={<CoursePage />} />
 
