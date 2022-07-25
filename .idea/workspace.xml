@@ -5,13 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f55a262b-2a21-4c34-8ee3-938e7a50474c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/payment/mercadopago/components/formConfig.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/cardstyles/credit-card.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/cardstyles/form-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/components/ChatWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/components/ChatWindow.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/chat/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/components/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/components/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/components/MentorApplication.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/components/MentorApplication.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/payment/mercadopago/components/Test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/payment/mercadopago/components/Test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/payment/mercadopago/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/payment/mercadopago/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profile/ProfileWithSlug.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/ProfileWithSlug.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task/components/AddComment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task/components/AddComment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task/components/Comment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task/components/Comment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task/components/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task/components/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task/components/TaskCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task/components/TaskCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task/components/TaskPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task/components/TaskPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task/components/interface/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task/components/interface/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/AuthContext/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AuthContext/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/AuthContext/interfaces/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AuthContext/interfaces/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/services/commentsServices.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/services/commentsServices.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/services/profileService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/services/profileService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/services/tasksService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/services/tasksService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,6 +64,7 @@
   &quot;keyToString&quot;: {
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/jaime/Documents/Programacion/Project_nfc_site/frontend&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -38,6 +75,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jaime\Documents\Programacion\easywork-frontend\src\styles\cardstyles" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,11 +100,24 @@
       <workItem from="1654566129306" duration="900000" />
       <workItem from="1654583404480" duration="46000" />
       <workItem from="1658437871520" duration="8989000" />
+      <workItem from="1658642958594" duration="5347000" />
+      <workItem from="1658692099755" duration="12063000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
