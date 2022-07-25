@@ -1,5 +1,5 @@
-export interface IUser {
-    id:                 number;
+export interface IChatUser {
+    id:                 string;
     name:               string;
     lastname:           string;
     email:              string;
