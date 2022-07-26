@@ -1,3 +1,5 @@
+import { FC, useEffect, useState } from "react";
+
 import {
 	Box,
 	Flex,
@@ -10,36 +12,71 @@ import {
 } from "@chakra-ui/react";
 
 import { motion } from "framer-motion";
-import { FC } from "react";
 import { useCookies } from "react-cookie";
 import { FiSend } from "react-icons/fi";
-import { getChatConnection } from "../../../shared/services/chatServices";
-import { IChatUser } from "../interfaces";
+import {
+	getChatConnection,
+	getMessages,
+	sendMessage,
+} from "../../../shared/services/chatServices";
+import { IChatMessage, IChatRoom, INewMessage, ISendMessage } from "../interfaces";
 import Message from "./Message";
 import SelfMessage from "./SelfMessage";
+import { useAuth } from "../../../context/AuthContext";
+import { IProfile } from "../../../context/AuthContext/interfaces";
 
 interface ChatWindowProps {
-	user: IChatUser;
+	room: IChatRoom;
 }
 
-export const ChatWindow: FC<ChatWindowProps> = ({ user }) => {
+export const ChatWindow: FC<ChatWindowProps> = ({ room }) => {
 	const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
+	const { user } = useAuth();
 
 	const width = isLargerThan1280 ? 480 : 340;
 	const height = isLargerThan1280 ? 640 : 400;
 
 	const [cookies] = useCookies(["user-token"]);
 
-	const test = () => {
-		console.log("holaa");
-		const echo = getChatConnection(cookies["user-token"]);
-		echo.private("channel-session")
-			.listen("ChatPresentChannel", (res: any) => {
-				console.log(res)
-			})
+	const [messages, setMessages] = useState<Array<IChatMessage>>();
+	const [message, setMessage] = useState<string>("");
+	const [newMessages, setNewMessages] = useState<Array<INewMessage>>([]);
+
+	const fetchMessages = async () => {
+		const res = await getMessages(cookies["user-token"], room.id);
+		if (res) {
+			setMessages(res);
+		}
 	};
 
-	return(
+	useEffect(() => {
+		console.log("esperando mensajes...");
+		fetchMessages();
+		const echo = getChatConnection(cookies["user-token"]);
+		echo
+			.private(`chat-channel.${room.id}`)
+			.listen("MessageNotification", (e: INewMessage) => {
+				console.log(e);
+				setNewMessages(prevState => [...prevState, e]);
+			})
+	}, []);
+
+
+
+	const handleOnSendMessage = async () => {
+		setMessage("");
+		if (message) {
+			const newMessage: ISendMessage = {
+				message,
+				room_id: room.id,
+			};
+
+			await sendMessage(cookies["user-token"], newMessage);
+		}
+	};
+
+	return (
 		<motion.div
 			style={{ marginBottom: 6 }}
 			initial={{ opacity: 0, y: 0, height: 100 }}
@@ -66,36 +103,48 @@ export const ChatWindow: FC<ChatWindowProps> = ({ user }) => {
 						py={2}
 					>
 						<Text size="md" fontWeight={500} color="white">
-							{user.name} {user.lastname}
+							{room.users[0].name} {room.users[0].lastname}
 						</Text>
 					</Box>
 					<Box flexGrow={1} p={4} overflowY="scroll">
 						<Stack>
-							<Message
-								maxWidth={width}
-								message="Hello asdfadsfa sdfasdfasd fasdf asdfasdf asdfas dfasdffff ff fffffffff ffffffffffffffff ffffffffff fffffff"
-							/>
-							<SelfMessage maxWidth={width} message="Hello" />
-							<Message
-								maxWidth={width}
-								message="Hello asdfadsfa sdfasdfasd fasdf asdfasdf asdfas dfasdffff ff fffffffff ffffffffffffffff ffffffffff fffffff"
-							/>
-							<SelfMessage maxWidth={width} message="Hello" />
-							<Message
-								maxWidth={width}
-								message="Hello asdfadsfa sdfasdfasd fasdf asdfasdf asdfas dfasdffff ff fffffffff ffffffffffffffff ffffffffff fffffff"
-							/>
-							<SelfMessage maxWidth={width} message="Hello" />
-																<Message
-								maxWidth={width}
-								message="Hello asdfadsfa sdfasdfasd fasdf asdfasdf asdfas dfasdffff ff fffffffff ffffffffffffffff ffffffffff fffffff"
-							/>
-							<SelfMessage maxWidth={width} message="Hello" />
-							<Message
-								maxWidth={width}
-								message="Hello asdfadsfa sdfasdfasd fasdf asdfasdf asdfas dfasdffff ff fffffffff ffffffffffffffff ffffffffff fffffff"
-							/>
-							<SelfMessage maxWidth={width} message="Hello" />
+							{messages?.map((message, index) => {
+								if (message.user_id === (user as IProfile).id) {
+									return (
+										<SelfMessage
+											key={index}
+											message={message.message}
+											maxWidth={width}
+										/>
+									);
+								} else {
+									return (
+										<Message
+											key={index}
+											message={message.message}
+											maxWidth={width}
+										/>
+									);
+								}
+							})}
+
+							{newMessages.map((message, index) => {
+									if (message.user_id === (user as IProfile).id) {
+										return(
+											<Message
+												key={index}
+												message={message.message}
+												maxWidth={width}
+											/>
+										)
+									} else {
+										<SelfMessage
+											key={index}
+											message={message.message}
+											maxWidth={width}
+										/>
+									}
+							})}
 						</Stack>
 					</Box>
 					<Box
@@ -111,6 +160,9 @@ export const ChatWindow: FC<ChatWindowProps> = ({ user }) => {
 								rounded="md"
 								variant="filled"
 								placeholder="Escribe un mensaje aquí"
+								onKeyUp={(e) => e.code === "Enter" && handleOnSendMessage()}
+								onChange={(e) => setMessage(e.target.value)}
+								value={message}
 								_hover={{
 									bgColor: "gray.100",
 								}}
@@ -125,7 +177,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({ user }) => {
 								colorScheme="blue"
 								size="sm"
 								aria-label="send button"
-								onClick={() => test()}
+								onClick={() => handleOnSendMessage()}
 								icon={<FiSend />}
 							/>
 						</HStack>

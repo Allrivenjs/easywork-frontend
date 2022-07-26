@@ -24,7 +24,7 @@ export interface ITask {
     description:     string;
     difficulty:      string;
     status_id:       number;
-    own_id:          number;
+    own_id:          string;
     finished_at:     null;
     created_at:      string;
     updated_at:      string;

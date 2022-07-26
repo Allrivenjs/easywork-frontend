@@ -20,7 +20,7 @@ interface AuthProviderProps {
 interface IUserContext {
 	user: IProfile | null | boolean;
 	setUser: React.Dispatch<React.SetStateAction<IProfile | null | boolean>>;
-	chatUserList: Array<IChatUser>;
+	allChatUserList: Array<IChatUser>;
 }
 
 export const AuthContext = createContext<IUserContext | null>(null);
@@ -35,7 +35,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 	const [cookies, , removeCookie] = useCookies(["user-token"]);
 
 	const [authState, setAuthState] = useState<IProfile | null | boolean>(null);	// null = charging, UserData = auth, false = not auth
-	const [chatUserList, setChatUserList] = useState<Array<IChatUser>>([]);
+	const [allChatUserList, setAllChatUserList] = useState<Array<IChatUser>>([]);
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -52,15 +52,15 @@ export const AuthProvider = (props: AuthProviderProps) => {
 					.here((users: Array<IChatUser>) => {
 						console.log("you just joined");
 						console.log(users);
-						setChatUserList(users.filter((user) => user.id !== (res.user as IProfile).id));
+						setAllChatUserList(users.filter((user) => user.id !== (res.user as IProfile).id));
 					})
 					.joining((user: IChatUser) => {
 						console.log("a user has joined: ", user.name);
-						setChatUserList((prevUserList) => [...prevUserList, user]);
+						setAllChatUserList((prevUserList) => [...prevUserList, user]);
 					})
 					.leaving((user: IChatUser) => {
 						console.log("user leaved: ", user.name);
-						setChatUserList(chatUserList.filter((item: IChatUser) => item.id !== user.id));
+						setAllChatUserList(allChatUserList.filter((item: IChatUser) => item.id !== user.id));
 					})
 					/*
 					.error((error: any) => {
@@ -81,7 +81,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 			value={{
 				user: authState,
 				setUser: setAuthState,
-				chatUserList: chatUserList,
+				allChatUserList: allChatUserList,
 			}}
 		>
 			{props.children}

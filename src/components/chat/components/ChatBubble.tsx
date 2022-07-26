@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import {
 	Avatar,
@@ -6,17 +6,17 @@ import {
 } from "@chakra-ui/react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { IChatUser } from "../interfaces";
+import { IChatRoom, INewMessage } from "../interfaces";
 import { ChatWindow } from "./ChatWindow";
 
 interface ChatBubbleProps {
-	user: IChatUser;
+	room: IChatRoom;
 	index: number;
 }
 
-const ChatBubble: FC<ChatBubbleProps> = ({ user, index }) => {
-
+const ChatBubble: FC<ChatBubbleProps> = ({ room, index }) => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+
 
 	return (
 		<motion.div
@@ -38,7 +38,7 @@ const ChatBubble: FC<ChatBubbleProps> = ({ user, index }) => {
 			<AnimatePresence>
 				{isVisible && (
 					<ChatWindow
-						user={user}
+						room={room}
 					/>
 				)}
 			</AnimatePresence>
@@ -48,7 +48,7 @@ const ChatBubble: FC<ChatBubbleProps> = ({ user, index }) => {
 				color="white"
 				rounded="full"
 				shadow="base"
-				icon={<Avatar name={`${user.name} ${user.lastname}`} />}
+				icon={<Avatar name={`${room.users[0].name} ${room.users[0].lastname}`} />}
 				onClick={() => setIsVisible(!isVisible)}
 			/>
 		</motion.div>

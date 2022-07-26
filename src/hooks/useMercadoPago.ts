@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useScript from "./useScript";
-import { formConfig } from "../../components/payment/mercadopago/components/formConfig";
-import {config} from "../../config";
+import { formConfig } from "../components/payment/mercadopago/components/formConfig";
+import {config} from "../config";
 
 export default function useMercadoPago() {
 	const [resultPayment, setResultPayment] = useState(undefined);
