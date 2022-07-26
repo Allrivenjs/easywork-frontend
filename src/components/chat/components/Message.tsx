@@ -13,6 +13,7 @@ const Message: FC<MessageProps> = ({ message, maxWidth }) => {
 			py={2}
 			px={4}
 			rounded="2xl"
+			width="fit-content"
 			maxWidth={maxWidth - 100}
 			wordBreak="break-word"
 		>

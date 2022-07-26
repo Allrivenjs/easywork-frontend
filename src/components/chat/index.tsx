@@ -1,104 +1,58 @@
 import { useEffect, useState } from "react";
 
-import { Avatar, Box, IconButton, Stack } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 
-import { motion } from "framer-motion";
-
-import ChatWindow from "./components/ChatWindow";
+import ChatBubble from "./components/ChatBubble";
 import { useCookies } from "react-cookie";
 
-import { IUser } from "../../context/AuthContext/interfaces";
-
-import { getChatConnection } from "../../shared/services/chatServices";
-
+import { getChatConnection, getMyRooms } from "../../shared/services/chatServices";
+import { IChatRoom } from "./interfaces";
 import { useAuth } from "../../context/AuthContext";
-
-interface ChatList {
-	user: IUser;
-}
+import { IProfile, IUser } from "../../context/AuthContext/interfaces";
 
 const ChatRoot = () => {
-	const [userList, setUserList] = useState<Array<ChatList>>([]);
-	const [isOpen, onToggle] = useState([]);
 	const [cookies] = useCookies(["user-token"]);
+	const [chatRooms, setChatRooms] = useState<Array<IChatRoom>>();
 
 	const context = useAuth();
 
-	useEffect(() => {
-		/*
-		const echo = getChatConnection(cookies["user-token"]);
-		echo
-			.join("channel-session")
-			.here((users: Array<IUser>) => {
-				console.log("you just joined");
-				console.log(users)
-				setUserList(
-					users.filter((user: IUser) => user.id !==(((context?.user as IProfile)?.user as IUser)?.id))
-				);
-			})
-			.joining((user: IUser) => {
-				console.log("a user has joined");
-				setUserList((prevUserList) => [...prevUserList, user]);
-			})
-			.leaving((user: IUser) => {
-				console.log("user leaved");
-				setUserList(userList.filter((item: IUser) => item.id !== user.id));
-			})
-			.error((error: any) => {
-				console.log("error with echo: ", error);
-			});
+	const fetchChatData = async () => {
+		const res = await getMyRooms(cookies["user-token"]);
+		console.log(res)
+		if(res) {
+			setChatRooms(res);
+		}
+	};
 
+	useEffect(() => {
+		fetchChatData();
+		const echo = getChatConnection(cookies["user-token"]);
+		/*
+		echo
+			.private("chat-channel.1")
+			.listen("MessageNotification", (e: any) => {
+				console.log(e);
+			})
+		*/
+		console.log("**ESCUCHANDO EVENTO APP.MODEL.USER");
 		echo.private(`App.Models.User.${(((context?.user as IProfile)?.user as IUser)?.id)}`).notification((notification: any) => {
 			console.log(notification);
 		})
-		*/
-	}, [context]);
-
-	const handleOnOpenChat = (index: number) => {
-		const isOpenArray = isOpen;
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		isOpenArray[index] = !isOpenArray[index];
-		onToggle(isOpenArray);
-	};
+	}, [cookies]);
 
 	return (
 		<Box width="full" height="full" position="relative">
 			<Stack spacing={64} direction="column">
-				{userList.map((user, index) => {
-					return (
-						<motion.div
-							style={{
-								position: "fixed",
-								bottom: 16,
-								left: 16 + index * 64,
-							}}
-							drag
-							dragConstraints={{
-								top: -100,
-								left: -10,
-								right: 100,
-								bottom: 10,
-							}}
-							key={index}
-						>
-							<ChatWindow
-								user={user.user}
-								isVisible={isOpen[index]}
-							/>
 
-							<IconButton
-								aria-label="chat button"
-								bgColor="blue.400"
-								color="white"
-								rounded="full"
-								shadow="base"
-								icon={<Avatar name={`${user.user.name} ${user.user.lastname}`} />}
-								onClick={() => handleOnOpenChat(index)}
-							/>
-						</motion.div>
-					);
-				})}
+				{
+					chatRooms && chatRooms.map((room, index) => (
+						<ChatBubble
+							key={index}
+							room={room}
+							index={index}
+						/>
+					))
+				}
 			</Stack>
 		</Box>
 	);

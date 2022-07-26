@@ -1,7 +1,7 @@
 
 import React, {useState} from "react";
 import Cards from 'react-credit-cards';
-import useMercadoPago from "../../../../shared/Hooks/useMercadoPago";
+import useMercadoPago from "../../../../hooks/useMercadoPago";
 import {Helmet} from "react-helmet";
 import 'react-credit-cards/es/styles-compiled.css';
 

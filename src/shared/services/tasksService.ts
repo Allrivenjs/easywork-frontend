@@ -82,3 +82,14 @@ export const getTasksByUser = async (token: string, source: CancelTokenSource) =
 	}
 };
 
+export const deleteTask = async (token: string, source: CancelTokenSource, taskid: string) => {
+	try {
+		const res = await axios.delete(`${config.API_URL}/api/task/${taskid}`, {
+			cancelToken: source.token,
+			headers: config.headersWithAuth(token),
+		});
+		return res.data[0];
+	} catch (err: any) {
+		console.log("Error fetching tasks by user: ", err.response);
+	}
+};
