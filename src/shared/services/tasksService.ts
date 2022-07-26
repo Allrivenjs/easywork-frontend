@@ -82,7 +82,7 @@ export const getTasksByUser = async (
 			cancelToken: source.token,
 			headers: config.headersWithAuth(token),
 		});
-		return res.data[0];
+		return res.data;
 	} catch (err: any) {
 		console.log("Error fetching tasks by user: ", err.response);
 	}

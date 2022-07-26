@@ -77,10 +77,12 @@ const Profile = () => {
 							<Tab>Información personal</Tab>
 						</TabList>
 						<TabPanels>
-							<TabPanel>
+							<TabPanel
+								p={0}
+							>
 								<Box mt={4}>
 									{tasks?.map((element, i) => (
-										<TaskCard key={i} {...element} />
+										<TaskCard key={i} task={element} fetchTasksData={fetchProfileData} />
 									))}
 								</Box>
 							</TabPanel>
