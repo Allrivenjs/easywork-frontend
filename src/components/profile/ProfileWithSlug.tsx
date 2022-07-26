@@ -15,14 +15,23 @@ import { getUserWithSlug } from "../../shared/services/profileService";
 import axios from "axios";
 import { IProfile } from "../../context/AuthContext/interfaces";
 import TaskCard from "../task/components/TaskCard";
+import { getRoomOrCreate } from "../../shared/services/chatServices";
+import { useCookies } from "react-cookie";
 
 const ProfileWithSlug = () => {
 	const { slug } = useParams();
+	const [cookies] = useCookies(["user-token"]);
 
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState<boolean>(true);
 	const [profile, setProfile] = useState<IProfile>();
+
+	const handleOnContactUser = async () => {
+		if(profile) {
+			await getRoomOrCreate(cookies["user-token"], profile.id);
+		}
+	};
 
 	useEffect(() => {
 		// if ((user as IProfile).slug !== null && (user as IProfile).slug === slug) navigate("/")
@@ -79,7 +88,11 @@ const ProfileWithSlug = () => {
 								return <AiFillStar color="#63B3ED" size={24} key={i} />;
 							})}
 						</div>
-						<Button className="mt-4" colorScheme={"blue"}>
+						<Button
+							mt={4}
+							colorScheme={"blue"}
+							onClick={handleOnContactUser}
+						>
 							Contactar
 						</Button>
 					</div>

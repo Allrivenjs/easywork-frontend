@@ -1,0 +1,23 @@
+/**  STYLE 11 */
+*::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+  border: 1px solid rgb(226, 219, 219);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, rgb(255, 255, 255), #ffffff);
+  border: 1px solid rgba(141, 141, 141, 0.637);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(left, #22ADD4, #1E98BA);
+}
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}

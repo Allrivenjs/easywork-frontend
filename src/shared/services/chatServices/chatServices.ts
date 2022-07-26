@@ -23,6 +23,17 @@ export const getChatConnection = (token: string): Echo =>  {
 	});
 };
 
+export const getRoomOrCreate = async (token: string, receiver_id: string) => {
+	try {
+		const res = await axios.get(`${config.API_URL}/api/chat/exist-room-or-create?receiver_id=${receiver_id}`, {
+			headers: config.headersWithAuth(token),
+		});
+		return res.data;
+	} catch (err: any) {
+		console.log("Error fetching chat rooms: ", err.response);
+	}
+};
+
 export const getMyRooms = async (token: string) => {
 	try {
 		const res = await axios.get(`${config.API_URL}/api/get-my-rooms`, {

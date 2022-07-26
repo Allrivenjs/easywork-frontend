@@ -1,6 +1,7 @@
 import React from "react";
 import * as ReactDOMClient from "react-dom/client";
 import "./styles/tailwind.css";
+import "./styles/scrollbar.css"
 
 import Pusher from "pusher-js";
 

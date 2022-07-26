@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import {
 	Box,
@@ -19,7 +19,12 @@ import {
 	getMessages,
 	sendMessage,
 } from "../../../shared/services/chatServices";
-import { IChatMessage, IChatRoom, INewMessage, ISendMessage } from "../interfaces";
+import {
+	IChatMessage,
+	IChatRoom,
+	INewMessage,
+	ISendMessage,
+} from "../interfaces";
 import Message from "./Message";
 import SelfMessage from "./SelfMessage";
 import { useAuth } from "../../../context/AuthContext";
@@ -37,6 +42,8 @@ export const ChatWindow: FC<ChatWindowProps> = ({ room }) => {
 	const width = isLargerThan1280 ? 480 : 340;
 	const height = isLargerThan1280 ? 640 : 400;
 
+	const bottomRef = useRef<HTMLDivElement>(null);
+
 	const [cookies] = useCookies(["user-token"]);
 
 	const [messages, setMessages] = useState<Array<IChatMessage>>();
@@ -47,22 +54,20 @@ export const ChatWindow: FC<ChatWindowProps> = ({ room }) => {
 		const res = await getMessages(cookies["user-token"], room.id);
 		if (res) {
 			setMessages(res);
+			setTimeout(() => bottomRef.current?.scrollIntoView({behavior: 'smooth'}), 500);
 		}
 	};
 
 	useEffect(() => {
-		console.log("esperando mensajes...");
 		fetchMessages();
 		const echo = getChatConnection(cookies["user-token"]);
 		echo
 			.private(`chat-channel.${room.id}`)
-			.listen("MessageNotification", (e: INewMessage) => {
+			.listen("MessageNotification", (e: {response: INewMessage} ) => {
 				console.log(e);
-				setNewMessages(prevState => [...prevState, e]);
-			})
+				setNewMessages((prevState) => [...prevState, e.response]);
+			});
 	}, []);
-
-
 
 	const handleOnSendMessage = async () => {
 		setMessage("");
@@ -75,6 +80,11 @@ export const ChatWindow: FC<ChatWindowProps> = ({ room }) => {
 			await sendMessage(cookies["user-token"], newMessage);
 		}
 	};
+
+	useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [newMessages]);
 
 	return (
 		<motion.div
@@ -129,22 +139,26 @@ export const ChatWindow: FC<ChatWindowProps> = ({ room }) => {
 							})}
 
 							{newMessages.map((message, index) => {
-									if (message.user_id === (user as IProfile).id) {
-										return(
-											<Message
-												key={index}
-												message={message.message}
-												maxWidth={width}
-											/>
-										)
-									} else {
+								if (message.user_id === (user as IProfile).id) {
+									return (
 										<SelfMessage
 											key={index}
 											message={message.message}
 											maxWidth={width}
 										/>
-									}
+									);
+								} else {
+									return (
+										<Message
+											key={index}
+											message={message.message}
+											maxWidth={width}
+										/>
+									);
+								}
 							})}
+
+							<div ref={bottomRef} />
 						</Stack>
 					</Box>
 					<Box
