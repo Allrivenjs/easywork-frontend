@@ -4,6 +4,7 @@ import {
 	Avatar,
 	Badge,
 	Box,
+	Button,
 	Container,
 	Heading,
 	Spinner,
@@ -17,14 +18,25 @@ import { IComment, ITask } from "./interface";
 import { getComments } from "../../../shared/services/commentsServices";
 import { Comment } from "./Comment";
 import { AddComment } from "./AddComment";
+import { getRoomOrCreate } from "../../../shared/services/chatServices";
+import { useAuth } from "../../../context/AuthContext";
+import { IProfile } from "../../../context/AuthContext/interfaces";
 
 const TaskPage = () => {
+	const { user } = useAuth();
 	const { slug } = useParams();
 	const [cookies] = useCookies(["user-token"]);
 
 	const [task, setTask] = useState<ITask>();
 	const [comments, setComments] = useState<Array<IComment>>();
 	const [loading, setLoading] = useState(true);
+
+	const handleOnContactUser = async () => {
+		if(task?.own_id) {
+			await getRoomOrCreate(cookies["user-token"], task.own_id);
+		}
+		location.reload();
+	};
 
 	const fetchTaskPageData = async () => {
 		setLoading(true);
@@ -74,21 +86,32 @@ const TaskPage = () => {
 
 						<p className="mt-4 mb-4 text-md text-slate-500">Publicada por:</p>
 
-						<div className="flex">
-							<Avatar
-								name={`${task?.owner.name} ${task?.owner.lastname}`}
-								src={task?.owner.profile_photo_path}
-							/>
-							<div className="ml-3">
-								<Link to={`/profile/${task?.owner.profile_slug}`}>
-									<p className="font-bold hover:underline">
-										{task?.owner.name} {task?.owner.lastname}
+						<div className="flex items-center justify-between w-full">
+							<div className="flex">
+								<Avatar
+									name={`${task?.owner.name} ${task?.owner.lastname}`}
+									src={task?.owner.profile_photo_path}
+								/>
+								<div className="ml-3">
+									<Link to={`/profile/${task?.owner.profile_slug}`}>
+										<p className="font-bold hover:underline">
+											{task?.owner.name} {task?.owner.lastname}
+										</p>
+									</Link>
+									<p className="text-sm text-slate-500">
+										Publicaco hace: {task?.created_at}
 									</p>
-								</Link>
-								<p className="text-sm text-slate-500">
-									Publicaco hace: {task?.created_at}
-								</p>
+								</div>
 							</div>
+							{(user as IProfile) && (user as IProfile).id !== task?.own_id && (
+								<Button
+									mt={4}
+									colorScheme={"blue"}
+									onClick={handleOnContactUser}
+								>
+									Aceptar tarea
+								</Button>
+							)}
 						</div>
 
 						<p className="mt-6 mb-4 text-md text-slate-500">Descripción:</p>

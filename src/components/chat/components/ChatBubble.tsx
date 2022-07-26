@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 import {
 	Avatar,
@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { IChatRoom, INewMessage } from "../interfaces";
+import { IChatRoom } from "../interfaces";
 import { ChatWindow } from "./ChatWindow";
 
 interface ChatBubbleProps {
