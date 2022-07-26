@@ -1,4 +1,5 @@
-import { ChevronDownIcon, SettingsIcon } from "@chakra-ui/icons";
+import React, { FC } from "react";
+
 import {
 	Avatar,
 	Badge,
@@ -9,22 +10,20 @@ import {
 	Text,
 	VStack,
 } from "@chakra-ui/react";
-import React, { FC, useEffect, useState } from "react";
+
 import { Link as LinkReact } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { IProfile } from "../../../context/AuthContext/interfaces";
 import { IComment, ITask } from "./interface";
 import { OwnerOptions } from "./OwnerOptions";
 
-const TaskCard = (props: ITask) => {
+interface TaskCardProps {
+	task: ITask;
+	fetchTasksData: () => void;
+}
+
+const TaskCard: FC<TaskCardProps> = ({ task, fetchTasksData }) => {
 	const context = useAuth();
-
-	const [isOwner, setIsOwner] = useState<boolean>();
-
-	useEffect(() => {
-		// setIsOwner((context.user as IProfile).id === props.own_id);
-	}, [context]);
-
 	return (
 		<Box mb={6} position="relative">
 			<Box
@@ -37,12 +36,12 @@ const TaskCard = (props: ITask) => {
 			>
 				<div className="flex justify-between mb-4">
 					<div>
-						<LinkReact to={`/tasks/${props.slug}`}>
+						<LinkReact to={`/tasks/${task.slug}`}>
 							<Heading size={"lg"} className="hover:underline">
-								{props.name}
+								{task.name}
 							</Heading>
 						</LinkReact>
-						{props.topics.map((element, i) => {
+						{task.topics.map((element, i) => {
 							return (
 								<React.Fragment key={i}>
 									<span className="mr-2 text-sm italic bg-gray-100 text-slate-500">
@@ -52,33 +51,31 @@ const TaskCard = (props: ITask) => {
 							);
 						})}
 					</div>
-					<Badge className="h-fit">{props.difficulty}</Badge>
+					<Badge className="h-fit">{task.difficulty}</Badge>
 				</div>
 				<div className="flex justify-between w-full">
 					<div className="flex">
 						<Avatar
-							name={`${props.owner.name} ${props.owner.lastname}`}
-							src={props.owner.profile_photo_path}
+							name={`${task.owner.name} ${task.owner.lastname}`}
+							src={task.owner.profile_photo_path}
 						/>
 						<div className="ml-3">
-							<LinkReact to={`/profile/${props.owner.profile.slug}`}>
+							<LinkReact to={`/profile/${task.owner.profile.slug}`}>
 								<p className="font-bold hover:underline">
-									{props.owner.name} {props.owner.lastname}
+									{task.owner.name} {task.owner.lastname}
 								</p>
 							</LinkReact>
 							<p className="text-sm text-slate-500">
-								Publicaco hace: {props.created_at}
+								Publicaco hace: {task.created_at}
 							</p>
 						</div>
 					</div>
-					{context.user && (context.user as IProfile).id === props.own_id && (
-						<OwnerOptions
-
-						/>
+					{context.user && (context.user as IProfile).id === task.own_id && (
+						<OwnerOptions id={task.id} fetchTasksData={fetchTasksData} />
 					)}
 				</div>
 				<hr className="mt-3 mb-4" />
-				<p>{props.description}</p>
+				<p>{task.description}</p>
 			</Box>
 			<Box
 				bgColor="white"
@@ -89,15 +86,15 @@ const TaskCard = (props: ITask) => {
 				mt={-1}
 				shadow="md"
 			>
-				{props.comments_lasted[0] ? (
+				{task.comments_lasted[0] ? (
 					<React.Fragment>
 						<p className="mb-4 text-sm text-slate-500">Ultimo comentario</p>
 
 						<VStack align="flex-start">
-							<Comment {...props.comments_lasted[0]} />
+							<Comment {...task.comments_lasted[0]} />
 							<Link
 								as={LinkReact}
-								to={`/tasks/${props.slug}`}
+								to={`/tasks/${task.slug}`}
 								fontWeight="semibold"
 								fontSize="xs"
 								pt={1}
@@ -114,7 +111,7 @@ const TaskCard = (props: ITask) => {
 						</p>
 						<Link
 							as={LinkReact}
-							to={`/tasks/${props.slug}/#add-comment`}
+							to={`/tasks/${task.slug}/#add-comment`}
 							fontWeight="semibold"
 							fontSize="xs"
 							pt={1}
@@ -135,10 +132,8 @@ const Comment: FC<IComment> = ({ owner, body }) => {
 			<Avatar name={`${owner.name} ${owner.lastname}`} size="sm" />
 			<Box bgColor="gray.100" py={1} px={3} rounded="lg">
 				<Text fontSize="xs" fontWeight="bold">
-					<LinkReact
-						to={`/profile/${owner.profile.slug}`}
-					>
-					{owner.name} {owner.lastname}
+					<LinkReact to={`/profile/${owner.profile.slug}`}>
+						{owner.name} {owner.lastname}
 					</LinkReact>
 				</Text>
 				<Text fontSize="sm">{body}</Text>

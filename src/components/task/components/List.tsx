@@ -38,30 +38,26 @@ const TasksPage = () => {
 
 	const [url, setUrl] = useState<string | null>(null);
 
-	useEffect(() => {
-		const source = axios.CancelToken.source();
+	const source = axios.CancelToken.source();
 
-		const fetchTasksData = async () => {
-			try {
-				setTasksPageState({ ...tasksPageState, loading: true });
-				const res = await getTasks(
-					cookies["user-token"],
-					source,
-					url as string
-				);
-				if (res) {
-					setTasksPageState({
-						tasks: res.data,
-						links: res.links,
-						loading: false,
-					});
-				}
-			} catch (e) {
-				console.log("Error fetching tasks: ", e);
+	const fetchTasksData = async () => {
+		try {
+			setTasksPageState({ ...tasksPageState, loading: true });
+			const res = await getTasks(cookies["user-token"], source, url as string);
+			if (res) {
+				setTasksPageState({
+					tasks: res.data,
+					links: res.links,
+					loading: false,
+				});
 			}
-		};
-		fetchTasksData();
+		} catch (e) {
+			console.log("Error fetching tasks: ", e);
+		}
+	};
 
+	useEffect(() => {
+		fetchTasksData();
 		return () => {
 			source.cancel();
 		};
@@ -105,7 +101,13 @@ const TasksPage = () => {
 						) : (
 							<>
 								{tasksPageState.tasks.map((element, i) => {
-									return <TaskCard key={i} {...element} />;
+									return (
+										<TaskCard
+											key={i}
+											task={element}
+											fetchTasksData={fetchTasksData}
+										/>
+									);
 								})}
 							</>
 						)}

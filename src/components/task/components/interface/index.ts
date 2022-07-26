@@ -12,7 +12,7 @@ export interface IComment {
 		owner: 			IUser;
     parent_id:  null;
     body:       string;
-    created_at: Date;
+    created_at: string;
     updated_at: Date;
     replies:    any[];
 }

@@ -21,6 +21,7 @@ import DifficultySelect from "./DifficultySelect";
 
 import CategoriesSelect from "./TopicSelect";
 import { createTask } from "../../../shared/services/tasksService";
+import { useNavigate } from "react-router-dom";
 
 export interface NewTask {
 	name: string;
@@ -37,6 +38,8 @@ interface CreateTaskState {
 
 const CreateTask = () => {
 	const [cookies] = useCookies(["user-token"]);
+
+	const navigate = useNavigate();
 
 	const [createTaskState, setCreateTaskState] = useState<CreateTaskState>({
 		newTask: {
@@ -111,14 +114,12 @@ const CreateTask = () => {
 			...createTaskState,
 			loading: true,
 		});
-		const res = await createTask(cookies["user-token"], createTaskState.newTask);
+		await createTask(cookies["user-token"], createTaskState.newTask);
 		setCreateTaskState({
 			...createTaskState,
 			loading: false,
 		});
-		console.log(res);
-
-		console.log(createTaskState);
+		navigate("/tasks");
 	};
 
 	return (

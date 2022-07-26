@@ -1,6 +1,8 @@
 import { FC } from "react";
 
-import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
+import { Link as LinkReact } from "react-router-dom";
+
+import { Avatar, Box, HStack, Link, Text } from "@chakra-ui/react";
 import { IComment } from "./interface";
 
 export const Comment: FC<IComment> = ({ body, replies, created_at, owner }) => {
@@ -15,15 +17,17 @@ export const Comment: FC<IComment> = ({ body, replies, created_at, owner }) => {
 				/>
 				<Box
 				>
-					<Text
+					<Link
+						as={LinkReact}
+						to={`/profile/${owner.id}`}
 						size="base"
 						fontWeight="bold"
 					>
 						{`${owner.name} ${owner.lastname}`}
-					</Text>
+					</Link>
 					<p className="text-sm text-slate-500">
 						Publicaco hace:{" "}
-						{new Date(created_at).toDateString()}
+						<span>{created_at}</span>
 					</p>
 				</Box>
 			</HStack>

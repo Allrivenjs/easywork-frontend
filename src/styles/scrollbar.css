@@ -6,7 +6,7 @@
 
 *::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: linear-gradient(left, rgb(255, 255, 255), #ffffff);
+  background: linear-gradient(to left, rgb(255, 255, 255), #ffffff);
   border: 1px solid rgba(141, 141, 141, 0.637);
 }
 
@@ -15,7 +15,7 @@
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(left, #22ADD4, #1E98BA);
+  background: linear-gradient(to left, #bbcace, #d2ebf1);
 }
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {

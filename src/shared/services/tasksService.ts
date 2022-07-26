@@ -14,7 +14,11 @@ export const getCourse = async (slug: string) => {
 	}
 };
 
-export const getTasks = async (token: string, source: CancelTokenSource, url: string) => {
+export const getTasks = async (
+	token: string,
+	source: CancelTokenSource,
+	url: string
+) => {
 	try {
 		if (url) {
 			const res = await axios.get(url, {
@@ -48,16 +52,15 @@ export const getTaskBySlug = async (token: string, slug: string) => {
 export const createTask = async (token: string, body: NewTask) => {
 	try {
 		const fd = new FormData();
-		fd.append('name', body.name);
-		fd.append('description', body.description);
-		fd.append('difficulty', body.difficulty);
+		fd.append("name", body.name);
+		fd.append("description", body.description);
+		fd.append("difficulty", body.difficulty);
 
-		fd.append('topics', JSON.stringify(body.topics));
+		fd.append("topics", JSON.stringify(body.topics));
 
-
-		if(body.files) {
+		if (body.files) {
 			for (let i = 0; i < body.files.length; i++) {
-				fd.append('files[]', body.files[i], body.files[i].name);
+				fd.append("files[]", body.files[i], body.files[i].name);
 			}
 		}
 
@@ -70,7 +73,10 @@ export const createTask = async (token: string, body: NewTask) => {
 	}
 };
 
-export const getTasksByUser = async (token: string, source: CancelTokenSource) => {
+export const getTasksByUser = async (
+	token: string,
+	source: CancelTokenSource
+) => {
 	try {
 		const res = await axios.get(`${config.API_URL}/api/getAllMeTask`, {
 			cancelToken: source.token,
@@ -82,10 +88,9 @@ export const getTasksByUser = async (token: string, source: CancelTokenSource) =
 	}
 };
 
-export const deleteTask = async (token: string, source: CancelTokenSource, taskid: string) => {
+export const deleteTask = async (token: string, taskid: string) => {
 	try {
-		const res = await axios.delete(`${config.API_URL}/api/task/${taskid}`, {
-			cancelToken: source.token,
+		const res = await axios.delete(`${config.API_URL}/api/tasks/${taskid}`, {
 			headers: config.headersWithAuth(token),
 		});
 		return res.data[0];
