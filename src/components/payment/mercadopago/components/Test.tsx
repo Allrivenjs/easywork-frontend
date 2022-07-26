@@ -1,5 +1,5 @@
 
-import React, {Component, useEffect, useState} from "react";
+import React, {useState} from "react";
 import Cards from 'react-credit-cards';
 import useMercadoPago from "../../../../shared/Hooks/useMercadoPago";
 import {Helmet} from "react-helmet";
@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 	cardNumber: "",
 	issuer: "",
 };
-type State = typeof INITIAL_STATE;
+
 
 
 export const Test = () => {
@@ -84,7 +84,7 @@ export const Test = () => {
 			ele = document.getElementById(id) as HTMLInputElement;
 			//if user enters any invalid characters it gets replaced
 			ele.value = ele.value.replace(
-				/[A-Za-z}"`~_=.\->\]|<?+*/,;[:{\\!@#\/'$%^&*()]/g,
+				/[A-Za-z}"`~_=.\->\]|<?+*/,;[:{\\!@#'$%^&()]/g,
 				""
 			);
 			setState({...state,
@@ -104,7 +104,7 @@ export const Test = () => {
 			const ele = document.getElementById(id) as HTMLInputElement;
 			//if user enters any invalid characters it gets replaced
 			ele.value = ele.value.replace(
-				/[}"`~_=.\->\]|<?+*/,\d;\[:{\\!@#\/'$%^&*()]/g,
+				/[}"`~_=.\->\]|<?+*/,\d;\\[:{!@#'$%^&()]/g,
 				""
 			);
 
@@ -117,7 +117,8 @@ export const Test = () => {
 			[e.target.dataset.name || e.target.name]: value });
 	};
 
-		return (
+
+	return (
 			<div>
 				<Helmet>
 					<link rel="stylesheet" href="./src/styles/cardstyles/bootstrap.min.css"/>
@@ -126,13 +127,14 @@ export const Test = () => {
 					</Helmet>
 				<div className="credit-card ">
 					<Cards
-
 						locale={{ valid: "Expires" }}
 						placeholders={{ name: "FULL NAME" }}
 						cvc={state.cvc}
 						expiry={state.cardExpirationMonth + state.cardExpirationYear}
 						name={state.cardholderName}
 						number={state.cardNumber}
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-ignore
 						focused={state.focus}
 						brand={state.issuer}
 					/>
