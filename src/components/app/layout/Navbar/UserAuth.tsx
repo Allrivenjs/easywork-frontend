@@ -33,11 +33,7 @@ const UserAuth = (props: UserAuthProps) => {
 					>
 						<Avatar
 							size={"sm"}
-							src={`${
-								props.user
-									? (props.user as IProfile).user.profile_photo_path
-									: ""
-							}`}
+							src={(props.user as IProfile).user.profile_photo_path}
 						/>
 					</MenuButton>
 					<MenuList>

@@ -78,13 +78,36 @@ export const getTasksByUser = async (
 	source: CancelTokenSource
 ) => {
 	try {
-		const res = await axios.get(`${config.API_URL}/api/getAllMeTask`, {
+		const res = await axios.get(`${config.API_URL}/api/me/tasks`, {
 			cancelToken: source.token,
 			headers: config.headersWithAuth(token),
 		});
 		return res.data[0];
 	} catch (err: any) {
 		console.log("Error fetching tasks by user: ", err.response);
+	}
+};
+
+export const editTask = async (token: string, task: any, taskid: string) => {
+	const fd = new FormData();
+		fd.append("name", task.name);
+		fd.append("description", task.description);
+		fd.append("difficulty", task.difficulty);
+
+		fd.append("topics", JSON.stringify(task.topics));
+
+		if (task.files) {
+			for (let i = 0; i < task.files.length; i++) {
+				fd.append("files[]", task.files[i], task.files[i].name);
+			}
+		}
+	try {
+		const res = await axios.post(`${config.API_URL}/api/tasks/${taskid}`, fd, {
+			headers: config.headersWithAuth(token),
+		});
+		return res.data[0];
+	} catch (err: any) {
+		console.log("Error editing task: ", err.response);
 	}
 };
 
@@ -95,6 +118,6 @@ export const deleteTask = async (token: string, taskid: string) => {
 		});
 		return res.data[0];
 	} catch (err: any) {
-		console.log("Error fetching tasks by user: ", err.response);
+		console.log("Error deleting task: ", err.response);
 	}
 };

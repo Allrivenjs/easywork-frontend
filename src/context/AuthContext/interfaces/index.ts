@@ -8,7 +8,7 @@ export interface IUser {
 	phone:              string;
 	birthday:           Date;
 	email_verified_at:  null;
-	profile_photo_path: null;
+	profile_photo_path: string | undefined;
 	created_at:         string;
 	updated_at:         string;
 	deleted_at:         null;

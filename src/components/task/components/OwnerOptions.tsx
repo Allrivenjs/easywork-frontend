@@ -23,6 +23,7 @@ import {
 import { deleteTask } from "../../../shared/services/tasksService";
 
 import { useCookies } from "react-cookie";
+import { EditModal } from "./EditModal";
 
 interface OwnerOptionsProps {
 	id: string;
@@ -31,6 +32,11 @@ interface OwnerOptionsProps {
 
 export const OwnerOptions: FC<OwnerOptionsProps> = ({ id, fetchTasksData }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenEditModal,
+		onOpen: onOpenEditModal,
+		onClose: onCloseEditModal,
+	} = useDisclosure();
 	const cancelRef = useRef<HTMLButtonElement>(null);
 
 	const [cookies] = useCookies(["user-token"]);
@@ -55,10 +61,17 @@ export const OwnerOptions: FC<OwnerOptionsProps> = ({ id, fetchTasksData }) => {
 							Borrar
 						</MenuItem>
 						<MenuDivider />
-						<MenuItem minH="40px">Editar</MenuItem>
+						<MenuItem minH="40px" onClick={onOpenEditModal}>Editar</MenuItem>
 					</MenuList>
 				</Menu>
 			</Box>
+
+			<EditModal
+				isOpen={isOpenEditModal}
+				onClose={onCloseEditModal}
+				onOpen={onOpenEditModal}
+				task_id={id}
+			/>
 
 			<AlertDialog
 				isOpen={isOpen}

@@ -61,6 +61,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({ room }) => {
 	useEffect(() => {
 		fetchMessages();
 		const echo = getChatConnection(cookies["user-token"]);
+		console.log(room.id);
 		echo
 			.private(`chat-channel.${room.id}`)
 			.listen("MessageNotification", (e: {response: INewMessage} ) => {

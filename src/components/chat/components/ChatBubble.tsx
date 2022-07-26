@@ -48,7 +48,12 @@ const ChatBubble: FC<ChatBubbleProps> = ({ room, index }) => {
 				color="white"
 				rounded="full"
 				shadow="base"
-				icon={<Avatar name={`${room.users[0].name} ${room.users[0].lastname}`} />}
+				icon={
+					<Avatar
+						name={`${room.users[0].name} ${room.users[0].lastname}`}
+						src={room.users[0].profile_photo_path}
+					/>
+				}
 				onClick={() => setIsVisible(!isVisible)}
 			/>
 		</motion.div>

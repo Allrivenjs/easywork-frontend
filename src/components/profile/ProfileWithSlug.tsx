@@ -33,19 +33,20 @@ const ProfileWithSlug = () => {
 		}
 	};
 
+	const source = axios.CancelToken.source();
+
+	const fetchProfileData = async () => {
+		setLoading(true);
+		const res = await getUserWithSlug(source, slug as string);
+		if (res) {
+			setProfile(res);
+		} else {
+			navigate("/notfound");
+		}
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		// if ((user as IProfile).slug !== null && (user as IProfile).slug === slug) navigate("/")
-		const source = axios.CancelToken.source();
-		const fetchProfileData = async () => {
-			setLoading(true);
-			const res = await getUserWithSlug(source, slug as string);
-			if (res) {
-				setProfile(res);
-			} else {
-				navigate("/notfound");
-			}
-			setLoading(false);
-		};
 		fetchProfileData();
 		return () => {
 			source.cancel();
@@ -62,6 +63,7 @@ const ProfileWithSlug = () => {
 								<Avatar
 									name={`${profile?.user.name} ${profile?.user.lastname}`}
 									size={"2xl"}
+									src={profile?.user.profile_photo_path}
 								/>
 							</div>
 						</div>
@@ -98,7 +100,7 @@ const ProfileWithSlug = () => {
 					</div>
 					<Box mt={4}>
 						{profile?.user.tasks_desc.map((element, i) => (
-							<TaskCard key={i} {...element} />
+							<TaskCard key={i} task={element} fetchTasksData={fetchProfileData} />
 						))}
 					</Box>
 				</Container>

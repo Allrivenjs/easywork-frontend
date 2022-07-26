@@ -43,6 +43,7 @@ const Profile = () => {
 									name={`${(user as IProfile).user.name} ${
 										(user as IProfile).user.lastname
 									}`}
+									src={(user as IProfile).user.profile_photo_path}
 									size={"2xl"}
 								/>
 							</div>
