@@ -1,9 +1,9 @@
 
 import React, {useState} from "react";
-import Cards from 'react-credit-cards';
+import Cards from 'react-credit-cards-2';
 import useMercadoPago from "../../../../hooks/useMercadoPago";
 import {Helmet} from "react-helmet";
-import 'react-credit-cards/es/styles-compiled.css';
+import 'react-credit-cards-2/es/styles-compiled.css';
 
 
 
@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 
 
 export const Test = () => {
-	let timeoutID: any;
+	let timeoutID;
 	const [state, setState] = useState(INITIAL_STATE);
 	const resultPayment = useMercadoPago();
 	// console.log(resultPayment);
@@ -48,7 +48,7 @@ export const Test = () => {
 		timeoutID = window.setTimeout(goInactive, 60000 * 30);
 	}
 
-	const removeSpecial = (e:any) => {
+	const removeSpecial = (e) => {
 		const invalidChars = ["-", "+", "e", "E", " ", "."];
 		if (invalidChars.includes(e.key)) {
 			e.preventDefault();
@@ -56,21 +56,21 @@ export const Test = () => {
 	};
 
 	//function to add space after every 4 character in card number
-	const addSpace = (e: any) => {
+	const addSpace = (e) => {
 		const { value, id } = e.target;
-		const ele = document.getElementById(id) as HTMLInputElement;
+		const ele = document.getElementById(id);
 		if (value.length === 4 || value.length === 9 || value.length === 14)
 			ele.value = ele.value.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ");
 	};
 
 	//function to validate the length of input in case of cvv and replace invalid characters in case of card number
-	const validateInput = (e: any) => {
+	const validateInput = (e) => {
 		const { value, maxLength, id } = e.target;
 		let temp, ele;
 		if (id === "cvv") {
 			if (value.length > maxLength) {
 				temp = value.slice(0, maxLength);
-				ele = document.getElementById(id) as HTMLInputElement;
+				ele = document.getElementById(id);
 				ele.value = temp;
 				setState({...state,
 					[e.target.dataset.name || e.target.name]: ele.value});
@@ -81,7 +81,7 @@ export const Test = () => {
 		}
 		//works when function is invoked by cardNumber input
 		else {
-			ele = document.getElementById(id) as HTMLInputElement;
+			ele = document.getElementById(id);
 			//if user enters any invalid characters it gets replaced
 			ele.value = ele.value.replace(
 				/[A-Za-z}"`~_=.\->\]|<?+*/,;[:{\\!@#'$%^&()]/g,
@@ -93,15 +93,15 @@ export const Test = () => {
 	};
 
 	//function to handle focus on inputz
-	const handleInputFocus = (e: any) => {
+	const handleInputFocus = (e) => {
 		setState({...state ,focus: e.target.name });
 	};
 
 	//function to handle  input and update the state of variable
-	const	handleInputChange = (e :  any ) => {
+	const	handleInputChange = (e) => {
 		const { value, id } = e.target;
 		if (id === "cardholderName") {
-			const ele = document.getElementById(id) as HTMLInputElement;
+			const ele = document.getElementById(id);
 			//if user enters any invalid characters it gets replaced
 			ele.value = ele.value.replace(
 				/[}"`~_=.\->\]|<?+*/,\d;\\[:{!@#'$%^&()]/g,
