@@ -17,7 +17,7 @@ import { BiMoney } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-const Features = () => {
+export const Features = () => {
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -156,5 +156,3 @@ const Item = ({ text, icon, iconBg }: ItemProps) => {
 		</motion.div>
 	);
 };
-
-export default Features;

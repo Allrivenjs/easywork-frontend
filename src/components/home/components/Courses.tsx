@@ -16,7 +16,7 @@ import { FaPhp, FaReact } from "react-icons/fa";
 import { SiDart } from "react-icons/si";
 import { motion } from "framer-motion";
 
-const Courses = () => {
+export const Courses = () => {
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -77,5 +77,3 @@ const Item = ({ title, color, icon }: FeatureProps) => {
 		</Stack>
 	);
 };
-
-export default Courses;

@@ -38,7 +38,7 @@ const avatars = [
   },
 ];
 
-export default function MentorApplication() {
+export function MentorApplication() {
   return (
     <Box position={'relative'} id="mentor-application">
       <Container
@@ -177,7 +177,7 @@ export default function MentorApplication() {
   );
 }
 
-export const Blur = (props: IconProps) => {
+const Blur = (props: IconProps) => {
   return (
     <Icon
       width={useBreakpointValue({ base: '100%', md: '40vw', lg: '30vw' })}

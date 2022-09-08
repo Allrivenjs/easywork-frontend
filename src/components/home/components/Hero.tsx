@@ -1,3 +1,6 @@
+import { useRouter } from "next/router";
+import Image from "next/image";
+
 import {
 	Button,
 	Container,
@@ -6,13 +9,12 @@ import {
 	Stack,
 	Text,
 } from "@chakra-ui/react";
+
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
-import heroImg from "../../../assets/svg/hero.svg";
+export const Hero = () => {
+	const { push } = useRouter();
 
-const Hero = () => {
-	const navigate = useNavigate();
 	return (
 		<section id="hero">
 			<Container maxW={"5xl"}>
@@ -57,7 +59,7 @@ const Hero = () => {
 							transition={{ delay: 1.2, duration: 0.7 }}
 						>
 							<Button
-								onClick={() => navigate("/login")}
+								onClick={  () => push('/login') }
 								rounded={"full"}
 								px={6}
 								colorScheme={"blue"}
@@ -83,7 +85,12 @@ const Hero = () => {
 						transition={{ delay: 1.3, duration: 1 }}
 					>
 						<Flex w={"full"} justifyContent={"center"}>
-							<img src={heroImg} />
+							<Image
+								src='/assets/svg/hero.svg'
+								alt='Easywork colaborative image'
+								width={800}
+								height={500}
+							/>
 						</Flex>
 					</motion.div>
 				</Stack>
@@ -91,5 +98,3 @@ const Hero = () => {
 		</section>
 	);
 };
-
-export default Hero;
