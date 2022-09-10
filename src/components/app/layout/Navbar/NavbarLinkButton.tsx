@@ -6,7 +6,7 @@ interface NavbarLinkButtonsProps {
 	content: string;
 }
 
-const NavbarLinkButton: FC<NavbarLinkButtonsProps> = ({ to, content }) => {
+export const NavbarLinkButton: FC<NavbarLinkButtonsProps> = ({ to, content }) => {
 	return(
 		<Link
 			href={to}
@@ -18,5 +18,3 @@ const NavbarLinkButton: FC<NavbarLinkButtonsProps> = ({ to, content }) => {
 		</Link>
 	);
 };
-
-export default NavbarLinkButton

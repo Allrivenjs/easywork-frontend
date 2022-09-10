@@ -4,12 +4,15 @@ import {
 	Stack,
 } from "@chakra-ui/react";
 
-import UserAuth from "./UserAuth";
-import Logo from "../../../../shared/Logo";
-import NavbarLinkButton from "./NavbarLinkButton";
+import {
+	UserAuth,
+	NavbarLinkButton
+} from "./";
+
+import { Logo } from "../../../../shared/Logo";
 import { useAuth } from "../../../../context/AuthContext";
 
-const Navbar = () => {
+export const Navbar = () => {
 	const context = useAuth();
 	return(
 		<Box
@@ -58,5 +61,3 @@ const Navbar = () => {
 		</Box>
 	);
 };
-
-export default Navbar;

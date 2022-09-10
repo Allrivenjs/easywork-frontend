@@ -21,7 +21,7 @@ interface UserAuthProps {
 	user: IProfile | null | boolean;
 }
 
-const UserAuth = (props: UserAuthProps) => {
+export const UserAuth = (props: UserAuthProps) => {
 	const [cookies, , removeCookie] = useCookies(["user-token"]);
 	const { push } = useRouter();
 
@@ -94,5 +94,3 @@ const UserAuth = (props: UserAuthProps) => {
 		);
 	}
 };
-
-export default UserAuth;
