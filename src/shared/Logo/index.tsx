@@ -1,8 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
-
-import { Link } from "react-router-dom";
-
-import logo from "../../assets/svg/logo.svg";
 
 enum LogoSizes {
 	small = "small",
@@ -16,8 +14,15 @@ interface LogoProps {
 
 const Logo: FC<LogoProps> = ({ size }) => {
 	return(
-		<Link to={"/"}>
-			<img className={`w-36`} src={logo} alt="logo" />
+		<Link href={"/"}>
+			<a>
+				<Image
+					src='/assets/svg/logo.svg'
+					width={144}
+					height={32}
+					alt='logo'
+				/>
+			</a>
 		</Link>
 	);
 };

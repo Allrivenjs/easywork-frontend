@@ -1,6 +1,5 @@
-import { Link } from "@chakra-ui/react";
+import Link from "next/link";
 import { FC } from "react";
-import { Link as ReactLink } from "react-router-dom";
 
 interface NavbarLinkButtonsProps {
 	to: string;
@@ -10,11 +9,12 @@ interface NavbarLinkButtonsProps {
 const NavbarLinkButton: FC<NavbarLinkButtonsProps> = ({ to, content }) => {
 	return(
 		<Link
-			as={ReactLink}
-			to={to}
+			href={to}
 			color="gray.500"
 		>
-			{content}
+			<a>
+				{content}
+			</a>
 		</Link>
 	);
 };

@@ -59,7 +59,7 @@ export const Hero = () => {
 							transition={{ delay: 1.2, duration: 0.7 }}
 						>
 							<Button
-								onClick={  () => push('/login') }
+								onClick={ () => push('/login') }
 								rounded={"full"}
 								px={6}
 								colorScheme={"blue"}

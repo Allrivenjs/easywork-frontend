@@ -1,6 +1,19 @@
-import { Avatar, Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner } from "@chakra-ui/react";
+import {
+	Avatar,
+	Button,
+	Flex,
+	Menu,
+	MenuButton,
+	MenuDivider,
+	MenuItem,
+	MenuList,
+	Spinner
+} from "@chakra-ui/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { useCookies } from "react-cookie";
-import { Link, useNavigate } from "react-router-dom";
+
 import { IProfile } from "../../../../context/AuthContext/interfaces";
 import { logout } from "../../../../shared/services/authService";
 
@@ -10,12 +23,12 @@ interface UserAuthProps {
 
 const UserAuth = (props: UserAuthProps) => {
 	const [cookies, , removeCookie] = useCookies(["user-token"]);
-	const navigate = useNavigate();
+	const { push } = useRouter();
 
 	const methodLoguot = async () => {
 		await logout(cookies["user-token"]);
 		removeCookie("user-token");
-		navigate("/");
+		push("/");
 	};
 
 	if (props.user === null) {
@@ -37,7 +50,7 @@ const UserAuth = (props: UserAuthProps) => {
 						/>
 					</MenuButton>
 					<MenuList>
-						<Link to="/profile">
+						<Link href="/profile">
 							<MenuItem>
 
 									<div className="flex items-center">
@@ -62,12 +75,12 @@ const UserAuth = (props: UserAuthProps) => {
 	} else {
 		return (
 			<>
-				<Link to={"/login"}>
+				<Link href={"/login"}>
 					<Button variant="outline" colorScheme={"blue"}>
 						Entrar
 					</Button>
 				</Link>
-				<Link to={"/register"}>
+				<Link href={"/register"}>
 					<Button
 						colorScheme={"blue"}
 						bg={"blue.400"}

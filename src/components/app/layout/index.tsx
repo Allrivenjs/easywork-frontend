@@ -1,17 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { FC, ReactNode } from 'react';
+
 import ChatRoot from '../../chat';
 import Footer from './Footer';
 import Navbar from './Navbar/Navbar';
 
-const Layout = () => {
+interface props {
+	children: ReactNode;
+}
+
+export const Layout: FC<props> = ({ children }) => {
 	return (
 		<>
 			<Navbar />
-			<Outlet />
+			{ children }
 			<Footer />
 			<ChatRoot />
 		</>
 	);
 };
-
-export default Layout;

@@ -11,6 +11,8 @@ import { IChatUser } from "../../components/chat/interfaces";
 import { isAuthenticated } from "../../shared/services/authService";
 import { getChatConnection } from "../../shared/services/chatServices";
 
+import Pusher from "pusher-js";
+
 import { IProfile } from "./interfaces";
 
 interface AuthProviderProps {
@@ -75,6 +77,10 @@ export const AuthProvider = (props: AuthProviderProps) => {
 		};
 		fetchUserData();
 	}, [cookies]);
+
+	useEffect(() => {
+		window.Pusher = Pusher;
+	}, []);
 
 	return (
 		<AuthContext.Provider
