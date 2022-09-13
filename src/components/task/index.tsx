@@ -1,3 +1,7 @@
+export * from './components';
+
+
+/*
 import { Suspense } from "react";
 import { useCookies } from "react-cookie";
 import { Route, Routes } from "react-router-dom";
@@ -5,7 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "../account/Login";
 
 import CreateTask from "./components/Create";
-import TaskPage from "./components/TaskPage";
+import Task from "./components/TaskPage";
 import TasksPage from "./components/List";
 import Loader from "../../shared/Loader";
 
@@ -26,7 +30,7 @@ const TaskRouter = () => {
 					}
 				/>
 
-				<Route path="/:slug" element={<TaskPage />} />
+				<Route path="/:slug" element={<Task />} />
 
 				<Route
 					path="/create"
@@ -44,3 +48,4 @@ const TaskRouter = () => {
 };
 
 export default TaskRouter;
+*/

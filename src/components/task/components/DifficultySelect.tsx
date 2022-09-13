@@ -1,4 +1,4 @@
-import { Select } from "@chakra-ui/react";
+import { Select } from '@chakra-ui/react';
 
 enum Difficulty {
 	Easy = 'easy',
@@ -12,10 +12,10 @@ interface DifficultySelectProps {
 	onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const DifficultySelect = (props: DifficultySelectProps) => {
+export const DifficultySelect = (props: DifficultySelectProps) => {
 	return(
 		<Select
-			name="difficulty"
+			name='difficulty'
 			onChange={props.onChange}
 		>
 			<option value={Difficulty.Easy}>Facil</option>
@@ -26,5 +26,3 @@ const DifficultySelect = (props: DifficultySelectProps) => {
 		</Select>
 	);
 };
-
-export default DifficultySelect;

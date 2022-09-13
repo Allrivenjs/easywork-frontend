@@ -1,11 +1,20 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-import { Link as LinkReact } from "react-router-dom";
+import Link from 'next/link';
 
-import { Avatar, Box, HStack, Link, Text } from "@chakra-ui/react";
-import { IComment } from "./interface";
+import {
+	Avatar,
+	Box,
+	HStack,
+	Link as ChakraLink,
+	Text
+} from '@chakra-ui/react';
 
-export const Comment: FC<IComment> = ({ body, replies, created_at, owner }) => {
+import { IComment } from './interface';
+
+export const Comment: FC<IComment> = ({
+	body, replies, created_at, owner
+}) => {
 	return(
 		<Box
 
@@ -17,16 +26,16 @@ export const Comment: FC<IComment> = ({ body, replies, created_at, owner }) => {
 				/>
 				<Box
 				>
-					<Link
-						as={LinkReact}
-						to={`/profile/${owner.id}`}
-						size="base"
-						fontWeight="bold"
+					<ChakraLink
+						as={ Link }
+						href={`/profile/${owner.id}`}
+						size='base'
+						fontWeight='bold'
 					>
 						{`${owner.name} ${owner.lastname}`}
-					</Link>
-					<p className="text-sm text-slate-500">
-						Publicaco hace:{" "}
+					</ChakraLink>
+					<p className='text-sm text-slate-500'>
+						Publicaco hace:{' '}
 						<span>{created_at}</span>
 					</p>
 				</Box>
@@ -39,7 +48,7 @@ export const Comment: FC<IComment> = ({ body, replies, created_at, owner }) => {
 				{body}
 			</Text>
 
-			<hr className="mb-4"/>
+			<hr className='mb-4'/>
 		</Box>
 	);
 };

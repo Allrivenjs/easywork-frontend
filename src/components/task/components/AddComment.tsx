@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
-import { Avatar, Box, Button, HStack, Textarea, VStack } from "@chakra-ui/react";
-import { useCookies } from "react-cookie";
-import { useAuth } from "../../../context/AuthContext";
-import { IProfile } from "../../../context/AuthContext/interfaces";
-import { sendNewComment } from "../../../shared/services/commentsServices";
+import { FC, useState } from 'react';
+import { Avatar, Box, Button, HStack, Textarea, VStack } from '@chakra-ui/react';
+import { useCookies } from 'react-cookie';
+import { useAuth } from '../../../context/AuthContext';
+import { IProfile } from '../../../context/AuthContext/interfaces';
+import { sendNewComment } from '../../../shared/services/commentsServices';
 
 interface AddCommentProps {
 	task_id: string;
@@ -11,13 +11,13 @@ interface AddCommentProps {
 }
 
 export const AddComment: FC<AddCommentProps> = ({ task_id, fetchTaskPageData}) => {
-	const [cookies] = useCookies(["user-token"]);
+	const [cookies] = useCookies(['user-token']);
 	const { user } = useAuth();
 
-	const [body, setBody] = useState<string>("");
+	const [body, setBody] = useState<string>('');
 
 	const handleOnSendNewComment = async () => {
-		await sendNewComment(cookies["user-token"], {
+		await sendNewComment(cookies['user-token'], {
 			body,
 			own_id: (user as IProfile).user.id,
 			task_id,
@@ -29,15 +29,15 @@ export const AddComment: FC<AddCommentProps> = ({ task_id, fetchTaskPageData}) =
 		<Box
 		>
 			<HStack
-				align="flex-start"
+				align='flex-start'
 			>
 				<Avatar
 					name={`${(user as IProfile).user.name} ${(user as IProfile).user.lastname}`}
 				/>
 				<Textarea
-					name="body"
-					bgColor="gray.50"
-					placeholder="Unete a la discución con un comentario..."
+					name='body'
+					bgColor='gray.50'
+					placeholder='Unete a la discución con un comentario...'
 					maxHeight={300}
 
 					value={body}
@@ -46,11 +46,11 @@ export const AddComment: FC<AddCommentProps> = ({ task_id, fetchTaskPageData}) =
 			</HStack>
 			<VStack
 				mt={2}
-				align="flex-end"
+				align='flex-end'
 			>
 				<Button
-					colorScheme="blue"
-					variant="ghost"
+					colorScheme='blue'
+					variant='ghost'
 					onClick={handleOnSendNewComment}
 				>
 					Enviar

@@ -1,4 +1,6 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef, useState } from 'react';
+
+import { useRouter } from 'next/router';
 
 import {
 	Button,
@@ -17,15 +19,20 @@ import {
 	Spinner,
 	Stack,
 	Textarea,
-} from "@chakra-ui/react";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import CategoriesSelect from "./TopicSelect";
-import DifficultySelect from "./DifficultySelect";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import { editTask } from "../../../shared/services/tasksService";
+} from '@chakra-ui/react';
 
-export interface NewTask {
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+
+import { useCookies } from 'react-cookie';
+
+import {
+	CategoriesSelect,
+	DifficultySelect,
+} from './';
+
+import { editTask } from '../../../shared/services/tasksService';
+
+export interface INewTask {
 	name: string;
 	description: string;
 	topics: Array<number>;
@@ -34,7 +41,7 @@ export interface NewTask {
 }
 
 interface CreateTaskState {
-	newTask: NewTask;
+	newTask: INewTask;
 	loading: boolean;
 }
 
@@ -54,16 +61,16 @@ export const EditModal: FC<EditModalProps> = ({
 	const initialRef = useRef(null);
 	const finalRef = useRef(null);
 
-	const [cookies] = useCookies(["user-token"]);
+	const [cookies] = useCookies(['user-token']);
 
-	const navigate = useNavigate();
+	const { push } = useRouter();
 
 	const [createTaskState, setCreateTaskState] = useState<CreateTaskState>({
 		newTask: {
-			name: "",
-			description: "",
+			name: '',
+			description: '',
 			topics: [1],
-			difficulty: "easy",
+			difficulty: 'easy',
 			files: null,
 		},
 		loading: false,
@@ -131,12 +138,12 @@ export const EditModal: FC<EditModalProps> = ({
 			...createTaskState,
 			loading: true,
 		});
-		await editTask(cookies["user-token"], createTaskState.newTask, task_id);
+		await editTask(cookies['user-token'], createTaskState.newTask, task_id);
 		setCreateTaskState({
 			...createTaskState,
 			loading: false,
 		});
-		navigate("/tasks");
+		push('/tasks');
 	};
 
 	return (
@@ -153,12 +160,12 @@ export const EditModal: FC<EditModalProps> = ({
 				<ModalBody pb={6}>
 					<form onSubmit={handleOnSubmitForm}>
 						<Stack spacing={4}>
-							<FormControl id="name">
-								<FormLabel htmlFor="name">Titulo de la publicación</FormLabel>
+							<FormControl id='name'>
+								<FormLabel htmlFor='name'>Titulo de la publicación</FormLabel>
 								<Input
 									onChange={handleOnChangeInput}
-									name="name"
-									type="name"
+									name='name'
+									type='name'
 									required
 									autoFocus
 								/>
@@ -166,11 +173,11 @@ export const EditModal: FC<EditModalProps> = ({
 									Un titulo corto y especifico ayudara a los demás a entenderte
 								</FormHelperText>
 							</FormControl>
-							<FormControl id="description">
-								<FormLabel htmlFor="description">Descripción</FormLabel>
+							<FormControl id='description'>
+								<FormLabel htmlFor='description'>Descripción</FormLabel>
 								<Textarea
 									onChange={handleOnChangeInput}
-									name="description"
+									name='description'
 									required
 								></Textarea>
 								<FormHelperText>
@@ -178,24 +185,24 @@ export const EditModal: FC<EditModalProps> = ({
 									ayuda de los demás
 								</FormHelperText>
 							</FormControl>
-							<FormControl id="name">
-								<div className="flex items-center justify-between mb-2">
-									<FormLabel htmlFor="name" m={0} p={0}>
+							<FormControl id='name'>
+								<div className='flex items-center justify-between mb-2'>
+									<FormLabel htmlFor='name' m={0} p={0}>
 										Tematica
 									</FormLabel>
-									<div className="flex justify-end gap-2">
+									<div className='flex justify-end gap-2'>
 										<IconButton
 											onClick={handleOnAddTopic}
-											aria-label="Add a category"
-											size="sm"
-											colorScheme="blue"
+											aria-label='Add a category'
+											size='sm'
+											colorScheme='blue'
 											icon={<AddIcon />}
 										/>
 										<IconButton
 											onClick={handleOnRemoveTopic}
-											aria-label="Add a category"
-											size="sm"
-											colorScheme="red"
+											aria-label='Add a category'
+											size='sm'
+											colorScheme='red'
 											isDisabled={!(createTaskState.newTask.topics.length > 1)}
 											icon={<MinusIcon />}
 										/>
@@ -218,17 +225,17 @@ export const EditModal: FC<EditModalProps> = ({
 								</FormHelperText>
 							</FormControl>
 
-							<FormControl id="description">
-								<FormLabel htmlFor="description">Dificultad</FormLabel>
+							<FormControl id='description'>
+								<FormLabel htmlFor='description'>Dificultad</FormLabel>
 								<DifficultySelect onChange={handleOnChangeInput} />
 								<FormHelperText>
 									Elige una dificultad que consideres acorde a tu tarea
 								</FormHelperText>
 							</FormControl>
 
-							<FormControl id="description">
-								<FormLabel htmlFor="description">Archivos</FormLabel>
-								<input type="file" onChange={handleOnAddFile} multiple />
+							<FormControl id='description'>
+								<FormLabel htmlFor='description'>Archivos</FormLabel>
+								<input type='file' onChange={handleOnAddFile} multiple />
 								<FormHelperText>
 									Puedes adjuntar pdfs, imagenes o documentos de tu tarea
 								</FormHelperText>
@@ -237,11 +244,11 @@ export const EditModal: FC<EditModalProps> = ({
 						<Stack spacing={10}>
 							<Button
 								isDisabled={createTaskState.loading}
-								type="submit"
-								bg={"blue.400"}
-								color={"white"}
+								type='submit'
+								bg={'blue.400'}
+								color={'white'}
 								_hover={{
-									bg: "blue.500",
+									bg: 'blue.500',
 								}}
 							>
 								{createTaskState.loading ? (

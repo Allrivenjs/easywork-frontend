@@ -1,6 +1,6 @@
-import { FC, useRef } from "react";
+import { FC, useRef } from 'react';
 
-import { SettingsIcon } from "@chakra-ui/icons";
+import { SettingsIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Center,
@@ -18,12 +18,12 @@ import {
 	AlertDialogOverlay,
 	Button,
 	useDisclosure,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import { deleteTask } from "../../../shared/services/tasksService";
+import { deleteTask } from '../../../shared/services/tasksService';
 
-import { useCookies } from "react-cookie";
-import { EditModal } from "./EditModal";
+import { useCookies } from 'react-cookie';
+import { EditModal } from './EditModal';
 
 interface OwnerOptionsProps {
 	id: string;
@@ -39,10 +39,10 @@ export const OwnerOptions: FC<OwnerOptionsProps> = ({ id, fetchTasksData }) => {
 	} = useDisclosure();
 	const cancelRef = useRef<HTMLButtonElement>(null);
 
-	const [cookies] = useCookies(["user-token"]);
+	const [cookies] = useCookies(['user-token']);
 
 	const handleOnDelete = () => {
-		deleteTask(cookies["user-token"], id);
+		deleteTask(cookies['user-token'], id);
 		onClose();
 		fetchTasksData();
 	};
@@ -51,17 +51,17 @@ export const OwnerOptions: FC<OwnerOptionsProps> = ({ id, fetchTasksData }) => {
 		<>
 			<Box>
 				<Menu>
-					<MenuButton as={IconButton} size="xs">
+					<MenuButton as={IconButton} size='xs'>
 						<Center>
 							<SettingsIcon fontSize={12} />
 						</Center>
 					</MenuButton>
 					<MenuList>
-						<MenuItem minH="48px" onClick={onOpen}>
+						<MenuItem minH='48px' onClick={onOpen}>
 							Borrar
 						</MenuItem>
 						<MenuDivider />
-						<MenuItem minH="40px" onClick={onOpenEditModal}>Editar</MenuItem>
+						<MenuItem minH='40px' onClick={onOpenEditModal}>Editar</MenuItem>
 					</MenuList>
 				</Menu>
 			</Box>
@@ -80,7 +80,7 @@ export const OwnerOptions: FC<OwnerOptionsProps> = ({ id, fetchTasksData }) => {
 			>
 				<AlertDialogOverlay>
 					<AlertDialogContent>
-						<AlertDialogHeader fontSize="lg" fontWeight="bold">
+						<AlertDialogHeader fontSize='lg' fontWeight='bold'>
 							Borrar tarea
 						</AlertDialogHeader>
 
@@ -93,7 +93,7 @@ export const OwnerOptions: FC<OwnerOptionsProps> = ({ id, fetchTasksData }) => {
 							<Button ref={cancelRef} onClick={onClose}>
 								Cancelar
 							</Button>
-							<Button colorScheme="red" onClick={handleOnDelete} ml={3}>
+							<Button colorScheme='red' onClick={handleOnDelete} ml={3}>
 								Borrar
 							</Button>
 						</AlertDialogFooter>

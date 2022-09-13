@@ -1,8 +1,11 @@
-import { Select, Spinner } from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { getCategories } from "../../../shared/services/categoriesService";
-import { CategoriesProps } from "../../../shared/Categories";
+import { useEffect, useState } from 'react';
+
+import { Select, Spinner } from '@chakra-ui/react';
+
+import axios from 'axios';
+
+import { getCategories } from '../../../shared/services/categoriesService';
+import { CategoriesProps } from '../../../shared/Categories';
 
 interface ICategoriesSelectProps {
 	onChange: (value: number, index: number) => void;
@@ -14,7 +17,7 @@ interface ICategoriesSelectState {
 	loading: boolean;
 }
 
-const CategoriesSelect = (props: ICategoriesSelectProps) => {
+export const CategoriesSelect = (props: ICategoriesSelectProps) => {
 	const [topicSelectState, setTopicSelectState] = useState<ICategoriesSelectState>({
 		topics: [],
 		loading: true,
@@ -32,7 +35,7 @@ const CategoriesSelect = (props: ICategoriesSelectProps) => {
 				}
 
 			} catch (e) {
-				console.log("Error fetching categories: ", e);
+				console.log('Error fetching categories: ', e);
 			}
 		};
 		fetchCategoriesData();
@@ -44,14 +47,14 @@ const CategoriesSelect = (props: ICategoriesSelectProps) => {
 
 	if (topicSelectState.loading) {
 		return(
-			<div className="w-full text-center">
+			<div className='w-full text-center'>
 				<Spinner />
 			</div>
 		);
 	} else {
 		return(
 			<Select
-				name="topic"
+				name='topic'
 				onChange={(e) => props.onChange(parseInt(e.target.value), props.index)}
 				required
 				mb={2}
@@ -67,5 +70,3 @@ const CategoriesSelect = (props: ICategoriesSelectProps) => {
 		);
 	}
 };
-
-export default CategoriesSelect;

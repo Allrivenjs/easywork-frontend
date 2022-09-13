@@ -8,19 +8,21 @@ import {
 	InputLeftAddon,
 	SkeletonCircle,
 	SkeletonText,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-import { FiSearch } from "react-icons/fi";
+import { FiSearch } from 'react-icons/fi';
 
-import axios from "axios";
-import { useCookies } from "react-cookie";
-import Pagination, { Link } from "../../../shared/Pagination";
-import TaskCard from "./TaskCard";
-import FloatingLink from "../../../shared/FloatingLink";
-import { getTasks } from "../../../shared/services/tasksService";
-import Categories from "../../../shared/Categories";
-import { ITask } from "./interface";
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+
+import { TaskCard } from './TaskCard';
+
+import Pagination, { Link } from '../../../shared/Pagination';
+import { FloatingLink } from '../../../shared/FloatingLink';
+import { getTasks } from '../../../shared/services/tasksService';
+import Categories from '../../../shared/Categories';
+import { ITask } from './interface';
 
 interface TasksPageState {
 	tasks: Array<ITask>;
@@ -28,8 +30,8 @@ interface TasksPageState {
 	loading: boolean;
 }
 
-const TasksPage = () => {
-	const [cookies] = useCookies(["user-token"]);
+export const List = () => {
+	const [cookies] = useCookies(['user-token']);
 	const [tasksPageState, setTasksPageState] = useState<TasksPageState>({
 		tasks: [],
 		links: [],
@@ -43,7 +45,7 @@ const TasksPage = () => {
 	const fetchTasksData = async () => {
 		try {
 			setTasksPageState({ ...tasksPageState, loading: true });
-			const res = await getTasks(cookies["user-token"], source, url as string);
+			const res = await getTasks(cookies['user-token'], source, url as string);
 			if (res) {
 				setTasksPageState({
 					tasks: res.data,
@@ -52,7 +54,7 @@ const TasksPage = () => {
 				});
 			}
 		} catch (e) {
-			console.log("Error fetching tasks: ", e);
+			console.log('Error fetching tasks: ', e);
 		}
 	};
 
@@ -64,22 +66,22 @@ const TasksPage = () => {
 	}, [url]);
 
 	return (
-		<div className="w-full pt-32 pb-24 bg-slate-100">
-			<Container maxW="container.xl">
+		<div className='w-full pt-32 pb-24 bg-slate-100'>
+			<Container maxW='container.xl'>
 				<div>
-					<Heading className="mb-4">
+					<Heading className='mb-4'>
 						Ayuda a los demás con sus tareas 🙌
 					</Heading>
 					<hr />
-					<InputGroup mt={"6"} className="shadow">
+					<InputGroup mt={'6'} className="shadow">
 						<InputLeftAddon>
-							{" "}
-							<FiSearch />{" "}
+							{' '}
+							<FiSearch />{' '}
 						</InputLeftAddon>
-						<Input bg={"white"} variant="outline" placeholder="Buscar curso" />
+						<Input bg={'white'} variant="outline" placeholder="Buscar curso" />
 					</InputGroup>
 				</div>
-				<Flex gap={4} className="mt-6">
+				<Flex gap={4} className='mt-6'>
 					<Categories />
 					<Box flex={1}>
 						{tasksPageState.loading ? (
@@ -88,12 +90,12 @@ const TasksPage = () => {
 									return (
 										<Box
 											key={i}
-											padding="6"
-											bg="white"
-											className="mb-6 rounded-lg shadow-lg"
+											padding='6'
+											bg='white'
+											className='mb-6 rounded-lg shadow-lg'
 										>
-											<SkeletonCircle size="10" />
-											<SkeletonText mt="4" noOfLines={6} spacing="4" />
+											<SkeletonCircle size='10' />
+											<SkeletonText mt='4' noOfLines={6} spacing="4" />
 										</Box>
 									);
 								})}
@@ -116,9 +118,7 @@ const TasksPage = () => {
 				</Flex>
 			</Container>
 
-			<FloatingLink to="/tasks/create">✍️ Crear tarea</FloatingLink>
+			<FloatingLink to='/tasks/create'>✍️  Crear tarea</FloatingLink>
 		</div>
 	);
 };
-
-export default TasksPage;

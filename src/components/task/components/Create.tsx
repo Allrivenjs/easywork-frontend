@@ -1,4 +1,7 @@
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { useState } from 'react';
+
+import { useRouter } from 'next/router';
+
 import {
 	Box,
 	Button,
@@ -13,15 +16,20 @@ import {
 	Stack,
 	Text,
 	Textarea,
-} from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { useCookies } from "react-cookie";
-import DifficultySelect from "./DifficultySelect";
+} from '@chakra-ui/react';
 
-import CategoriesSelect from "./TopicSelect";
-import { createTask } from "../../../shared/services/tasksService";
-import { useNavigate } from "react-router-dom";
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+
+import { useCookies } from 'react-cookie';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { createTask } from '../../../shared/services/tasksService';
+
+import {
+	DifficultySelect,
+	CategoriesSelect,
+} from './';
 
 export interface NewTask {
 	name: string;
@@ -36,17 +44,17 @@ interface CreateTaskState {
 	loading: boolean;
 }
 
-const CreateTask = () => {
-	const [cookies] = useCookies(["user-token"]);
+export const Create = () => {
+	const [cookies] = useCookies(['user-token']);
 
-	const navigate = useNavigate();
+	const { push } = useRouter();
 
 	const [createTaskState, setCreateTaskState] = useState<CreateTaskState>({
 		newTask: {
-			name: "",
-			description: "",
+			name: '',
+			description: '',
 			topics: [1],
-			difficulty: "easy",
+			difficulty: 'easy',
 			files: null,
 		},
 		loading: false,
@@ -114,48 +122,48 @@ const CreateTask = () => {
 			...createTaskState,
 			loading: true,
 		});
-		await createTask(cookies["user-token"], createTaskState.newTask);
+		await createTask(cookies['user-token'], createTaskState.newTask);
 		setCreateTaskState({
 			...createTaskState,
 			loading: false,
 		});
-		navigate("/tasks");
+		push('/tasks');
 	};
 
 	return (
 		<Flex
-			align={"center"}
-			justify={"center"}
-			bg={"gray.50"}
+			align={'center'}
+			justify={'center'}
+			bg={'gray.50'}
 			pt={12}
 			pb={12}
 		>
-			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+			<Stack spacing={8} mx={'auto'} maxW={"lg"} py={12} px={6}>
 				<AnimatePresence>
 					<motion.div
 						animate={{ x: [500, 0], opacity: [0, 1] }}
 						transition={{ duration: 0.5 }}
 						exit={{ opacity: 0, x: 500 }}
 					>
-						<Stack align={"center"} mb={6}>
-							<Heading fontSize={"4xl"}>
+						<Stack align={'center'} mb={6}>
+							<Heading fontSize={'4xl'}>
 								Publica tu tarea 📝
 							</Heading>
-							<Text fontSize={"lg"} color={"gray.600"}>
+							<Text fontSize={'lg'} color={"gray.600"}>
 								Para que los demás puedan ayudarte con ella
 							</Text>
 						</Stack>
-						<Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
+						<Box rounded={'lg'} bg={"white"} boxShadow={"lg"} p={8}>
 							<form onSubmit={handleOnSubmitForm}>
 								<Stack spacing={4}>
-									<FormControl id="name">
-										<FormLabel htmlFor="name">
+									<FormControl id='name'>
+										<FormLabel htmlFor='name'>
 											Titulo de la publicación
 										</FormLabel>
 										<Input
 											onChange={handleOnChangeInput}
-											name="name"
-											type="name"
+											name='name'
+											type='name'
 											required
 											autoFocus
 										/>
@@ -164,13 +172,13 @@ const CreateTask = () => {
 											a los demás a entenderte
 										</FormHelperText>
 									</FormControl>
-									<FormControl id="description">
-										<FormLabel htmlFor="description">
+									<FormControl id='description'>
+										<FormLabel htmlFor='description'>
 											Descripción
 										</FormLabel>
 										<Textarea
 											onChange={handleOnChangeInput}
-											name="description"
+											name='description'
 											required
 										></Textarea>
 										<FormHelperText>
@@ -179,30 +187,30 @@ const CreateTask = () => {
 											demás
 										</FormHelperText>
 									</FormControl>
-									<FormControl id="name">
-										<div className="flex items-center justify-between mb-2">
+									<FormControl id='name'>
+										<div className='flex items-center justify-between mb-2'>
 											<FormLabel
-												htmlFor="name"
+												htmlFor='name'
 												m={0}
 												p={0}
 											>
 												Tematica
 											</FormLabel>
-											<div className="flex justify-end gap-2">
+											<div className='flex justify-end gap-2'>
 												<IconButton
 													onClick={handleOnAddTopic}
-													aria-label="Add a category"
-													size="sm"
-													colorScheme="blue"
+													aria-label='Add a category'
+													size='sm'
+													colorScheme='blue'
 													icon={<AddIcon />}
 												/>
 												<IconButton
 													onClick={
 														handleOnRemoveTopic
 													}
-													aria-label="Add a category"
-													size="sm"
-													colorScheme="red"
+													aria-label='Add a category'
+													size='sm'
+													colorScheme='red'
 													isDisabled={
 														!(
 															createTaskState
@@ -235,8 +243,8 @@ const CreateTask = () => {
 										</FormHelperText>
 									</FormControl>
 
-									<FormControl id="description">
-										<FormLabel htmlFor="description">
+									<FormControl id='description'>
+										<FormLabel htmlFor='description'>
 											Dificultad
 										</FormLabel>
 										<DifficultySelect
@@ -248,12 +256,12 @@ const CreateTask = () => {
 										</FormHelperText>
 									</FormControl>
 
-									<FormControl id="description">
-										<FormLabel htmlFor="description">
+									<FormControl id='description'>
+										<FormLabel htmlFor='description'>
 											Archivos
 										</FormLabel>
 										<input
-											type="file"
+											type='file'
 											onChange={handleOnAddFile}
 											multiple
 										/>
@@ -265,22 +273,22 @@ const CreateTask = () => {
 
 									<Stack spacing={10}>
 										{/* <Stack
-									direction={{ base: "column", sm: "row" }}
-									align={"start"}
-									justify={"space-between"}
+									direction={{ base: 'column', sm: "row" }}
+									align={'start'}
+									justify={'space-between'}
 								>
 									<Checkbox>Remember me</Checkbox>
-									<Link color={"blue.400"}>
+									<Link color={'blue.400'}>
 										¿Olvidaste tu contraseña?
 									</Link>
 								</Stack> */}
 										<Button
 											isDisabled={createTaskState.loading}
-											type="submit"
-											bg={"blue.400"}
-											color={"white"}
+											type='submit'
+											bg={'blue.400'}
+											color={'white'}
 											_hover={{
-												bg: "blue.500",
+												bg: 'blue.500',
 											}}
 										>
 											{createTaskState.loading ? (
@@ -299,5 +307,3 @@ const CreateTask = () => {
 		</Flex>
 	);
 };
-
-export default CreateTask;
