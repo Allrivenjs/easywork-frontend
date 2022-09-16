@@ -2,59 +2,59 @@ import {
 	Box,
 	Flex,
 	Stack,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 import {
 	UserAuth,
 	NavbarLinkButton
-} from "./";
+} from './';
 
-import { Logo } from "../../../../shared/Logo";
-import { useAuth } from "../../../../context/AuthContext";
+import { Logo } from '../../../../shared/Logo';
+import { useAuth } from '../../../../context/AuthContext';
 
 export const Navbar = () => {
 	const context = useAuth();
 	return(
 		<Box
-			position="fixed"
-			zIndex="50"
-			width="full"
+			position='fixed'
+			zIndex='50'
+			width='full'
 			p={4}
 			px={32}
-			bgColor="white"
+			bgColor='white'
 			borderBottom={1}
-			borderStyle="solid"
-			borderColor="gray.200"
+			borderStyle='solid'
+			borderColor='gray.200'
 		>
 			<Flex
-				alignItems="center"
-				justifyContent="space-between"
+				alignItems='center'
+				justifyContent='space-between'
 			>
 				<Stack
 					spacing={4}
-					direction="row"
-					alignItems="center"
+					direction='row'
+					alignItems='center'
 				>
 					<Logo />
 
-					<NavbarLinkButton to="/" content="Home"/>
-					<NavbarLinkButton to="/tasks" content="Tareas"/>
+					<NavbarLinkButton to='/' content='Home'/>
+					<NavbarLinkButton to='/tasks' content='Tareas'/>
 
-					<a href="#hero">
-						<p className="text-gray-500 hover:underline">
+					<a href='#hero'>
+						<p className='text-gray-500 hover:underline'>
 							Acerca de nosotros
 						</p>
 					</a>
 
-					<a href="#features">
-						<p className="text-gray-500 hover:underline">
+					<a href='#features'>
+						<p className='text-gray-500 hover:underline'>
 							Nuestros servicios
 						</p>
 					</a>
 
 				</Stack>
 
-				<Stack direction="row">
+				<Stack direction='row'>
 					<UserAuth user={context.user} />
 				</Stack>
 			</Flex>

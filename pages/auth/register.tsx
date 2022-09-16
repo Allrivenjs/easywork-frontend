@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import {
 	Box,
@@ -21,12 +21,13 @@ import {
 
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-import { register, RegisterUserState } from '../../../shared/services/authService';
+import { register, RegisterUserState } from '../../src/shared/services/authService';
 
 import { useCookies } from 'react-cookie';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const Register = () => {
+const RegisterPage = () => {
+	const { push } = useRouter();
 	// Cookies
 	const [, setCookie] = useCookies(['user-token']);
 
@@ -43,8 +44,6 @@ const Register = () => {
 
 	const [loading, setLoading] = useState(false);
 
-	const navigate = useNavigate();
-
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
@@ -52,7 +51,7 @@ const Register = () => {
 		setLoading(false);
 		if (token) {
 			setCookie('user-token', token);
-			navigate('/profile');
+			push('/profile');
 		}
 	};
 
@@ -207,7 +206,7 @@ const Register = () => {
 										<Text align={'center'}>
 											¿Ya tienes cuenta?{' '}
 											<Link
-												to='/login'
+												href='/auth/login'
 												className='text-blue-400'
 											>
 												inicia sesión
@@ -222,6 +221,6 @@ const Register = () => {
 			</Stack>
 		</Flex>
 	);
-};
+}
 
-export default Register;
+export default RegisterPage;

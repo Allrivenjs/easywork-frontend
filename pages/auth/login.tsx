@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import {
 	Box,
@@ -16,12 +16,14 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 
-import { login, LoginUserState } from '../../../shared/services/authService';
+import { login, LoginUserState } from '../../src/shared/services/authService';
 
 import { useCookies } from 'react-cookie';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const Login = () => {
+const LoginPage = () => {
+	const { push } = useRouter();
+
 	// Cookies
 	const [, setCookie] = useCookies(['user-token']);
 
@@ -32,8 +34,6 @@ const Login = () => {
 
 	const [loading, setLoading] = useState(false);
 
-	const navigate = useNavigate();
-
 	const toast = useToast();
 
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +43,7 @@ const Login = () => {
 		setLoading(false);
 		if (token) {
 			setCookie('user-token', token);
-			navigate('/profile');
+			push('/profile');
 		} else {
 			toast({
 				title: 'Algo ha salido mal',
@@ -78,7 +78,7 @@ const Login = () => {
 							<Text fontSize={'lg'} color={'gray.600'}>
 								o si aun no tienes cuenta,{' '}
 								<Link
-									to={'/register'}
+									href='/auth/register'
 									className='text-blue-400'
 								>
 									registrate
@@ -151,4 +151,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default LoginPage;

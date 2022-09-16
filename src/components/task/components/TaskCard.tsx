@@ -26,6 +26,7 @@ interface TaskCardProps {
 export const TaskCard: FC<TaskCardProps> = ({ task, fetchTasksData }) => {
 	const context = useAuth();
 
+
 	return (
 		<Box mb={6} position='relative'>
 			<Box
@@ -94,16 +95,19 @@ export const TaskCard: FC<TaskCardProps> = ({ task, fetchTasksData }) => {
 
 						<VStack align='flex-start'>
 							<Comment {...task.comments_lasted[0]} />
-							<ChakraLink
-								as={ Link }
+							<Link
 								href={`/tasks/${task.slug}`}
-								fontWeight='semibold'
-								fontSize='xs'
-								pt={1}
-								display='inline-block'
+								passHref
 							>
-								Hacer un comentario
-							</ChakraLink>
+								<ChakraLink
+									fontWeight='semibold'
+									fontSize='xs'
+									pt={1}
+									display='inline-block'
+								>
+									Hacer un comentario
+								</ChakraLink>
+							</Link>
 						</VStack>
 					</React.Fragment>
 				) : (
@@ -111,16 +115,19 @@ export const TaskCard: FC<TaskCardProps> = ({ task, fetchTasksData }) => {
 						<p className='mb-4 text-sm text-slate-500'>
 							Aun no hay comentarios...
 						</p>
-						<ChakraLink
-							as={ Link }
+						<Link
 							href={`/tasks/${task.slug}/#add-comment`}
-							fontWeight='semibold'
-							fontSize='xs'
-							pt={1}
-							display='inline-block'
+							passHref
 						>
-							Hacer un comentario
-						</ChakraLink>
+							<ChakraLink
+								fontWeight='semibold'
+								fontSize='xs'
+								pt={1}
+								display='inline-block'
+							>
+								Hacer un comentario
+							</ChakraLink>
+						</Link>
 					</React.Fragment>
 				)}
 			</Box>
@@ -135,7 +142,9 @@ const Comment: FC<IComment> = ({ owner, body }) => {
 			<Box bgColor='gray.100' py={1} px={3} rounded='lg'>
 				<Text fontSize='xs' fontWeight='bold'>
 					<Link href={`/profile/${owner.profile.slug}`}>
+						<a>
 						{owner.name} {owner.lastname}
+						</a>
 					</Link>
 				</Text>
 				<Text fontSize='sm'>{body}</Text>

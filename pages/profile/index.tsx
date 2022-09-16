@@ -16,14 +16,15 @@ import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
 import { AiFillStar } from 'react-icons/ai';
-import { useAuth } from '../../context/AuthContext';
-import { IProfile } from '../../context/AuthContext/interfaces';
-import { getTasksByUser } from '../../shared/services/tasksService';
-import { ITask } from '../task/components/interface';
-import { TaskCard } from '../task/components';
-import { EditProfile } from './EditProfile';
+import { useAuth } from '../../src/context/AuthContext';
+import { IProfile } from '../../src/context/AuthContext/interfaces';
+import { getTasksByUser } from '../../src/shared/services/tasksService';
+import { ITask } from '../../src/components/task/components/interface';
+import { TaskCard } from '../../src/components/task/components';
+import { EditProfile } from '../../src/components/profile/EditProfile';
 
-const Profile = () => {
+
+const ProfilePage = () => {
 	const [tasks, setTasks] = useState<Array<ITask>>();
 	const { user } = useAuth();
 
@@ -117,4 +118,4 @@ const Profile = () => {
 	);
 };
 
-export default Profile;
+export default ProfilePage;

@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import { AuthProvider } from '../src/context/AuthContext';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps)=> {
 	return (
 		<ChakraProvider>
 			<AuthProvider>
