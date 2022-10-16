@@ -7,8 +7,8 @@ import Layout from "../layout";
 import NotFound from "../../../shared/NotFound";
 
 import { lazy, Suspense } from "react";
-import Register from "../../account/Register";
-import Login from "../../account/Login";
+import Register from "../../auth/Register";
+import Login from "../../auth/Login";
 import Home from "../../home";
 import Profile from "../../profile/Profile";
 import ProfileWithSlug from "../../profile/ProfileWithSlug";

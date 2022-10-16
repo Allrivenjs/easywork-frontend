@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
 
 import {
 	Box,
@@ -13,54 +11,42 @@ import {
 	Stack,
 	Text,
 	Spinner,
-	useToast,
 } from '@chakra-ui/react';
 
-import { login, LoginUserState } from '../../../shared/services/authService';
-
-import { useCookies } from 'react-cookie';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const Login = () => {
-	// Cookies
-	const [, setCookie] = useCookies(['user-token']);
+import { useLogin } from '../hooks/useLogin';
 
-	const [user, setUser] = useState<LoginUserState>({
-		email: '',
-		password: '',
-	});
+export const LoginPage = () => {
+	const {
+		loading,
+		onSubmit,
+		register,
+	} = useLogin();
 
-	const [loading, setLoading] = useState(false);
-
-	const navigate = useNavigate();
-
-	const toast = useToast();
-
+	/*
 	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
-		const token = await login(user);
-		setLoading(false);
-		if (token) {
-			setCookie('user-token', token);
-			navigate('/profile');
-		} else {
-			toast({
-				title: 'Algo ha salido mal',
-				description: 'Usuario y/o contraseña incorrectos',
-				status: 'error',
-				duration: 9000,
-				isClosable: true,
-			});
+
+		dispatch( startLoginWithEmailAndPassword({ email: 'pello', password: 'loco' }) );
+
+			const token = await loginWithEmailAndPassword(user);
+			setLoading(false);
+			if (token) {
+			  push('/profile');
+			} else {
+			  toast({
+			    title: 'Algo ha salido mal',
+			    description: 'Usuario y/o contraseña incorrectos',
+			    status: 'error',
+			    duration: 9000,
+			    isClosable: true,
+			  });
+			}
 		}
 	};
-
-	const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setUser({
-			...user,
-			[e.target.name]: e.target.value,
-		});
-	};
+	*/
 
 	return (
 		<Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
@@ -78,7 +64,7 @@ const Login = () => {
 							<Text fontSize={'lg'} color={'gray.600'}>
 								o si aun no tienes cuenta,{' '}
 								<Link
-									to={'/register'}
+									href='/auth/register'
 									className='text-blue-400'
 								>
 									registrate
@@ -87,15 +73,14 @@ const Login = () => {
 							</Text>
 						</Stack>
 						<Box rounded={'lg'} bg={'white'} boxShadow={'lg'} p={8}>
-							<form onSubmit={handleOnSubmitForm}>
+							<form onSubmit={onSubmit}>
 								<Stack spacing={4}>
 									<FormControl id='email'>
 										<FormLabel htmlFor='email'>
 											Correo electronico
 										</FormLabel>
 										<Input
-											onChange={handleOnChangeInput}
-											name='email'
+											{...register('email')}
 											type='email'
 											required
 											autoComplete={'email'}
@@ -107,8 +92,7 @@ const Login = () => {
 											Contraseña
 										</FormLabel>
 										<Input
-											onChange={handleOnChangeInput}
-											name='password'
+											{...register('password')}
 											type='password'
 											required
 											autoComplete={'current-password'}
@@ -150,5 +134,3 @@ const Login = () => {
 		</Flex>
 	);
 };
-
-export default Login;

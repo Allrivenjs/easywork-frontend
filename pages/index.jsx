@@ -10,7 +10,10 @@ import { FloatingLink } from '../src/shared';
 import { Layout } from '../src/components/app/layout';
 import { AuthProvider } from '../src/context/AuthContext';
 
+import { useCheckAuth } from '../src/hooks/useCheckAuth';
+
 const HomePage = () => {
+	const { status } = useCheckAuth();
   return (
 		<AuthProvider>
 			<Layout>
