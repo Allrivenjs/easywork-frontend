@@ -4,18 +4,26 @@ import { Provider } from 'react-redux';
 
 import { ChakraProvider } from '@chakra-ui/react';
 
-import { AuthProvider } from '../src/context/AuthContext';
+import { CheckAuthLayout } from '../src/layouts';
+
+//import { AuthProvider } from '../src/context/AuthContext';
 
 import { store } from '../src/store';
 
 const App = ({ Component, pageProps }: AppProps)=> {
 	return (
 		<ChakraProvider>
-			<AuthProvider>
+			{/*
+				*<AuthProvider>
+				*/}
 				<Provider store={store}>
-					<Component {...pageProps} />
+					<CheckAuthLayout>
+						<Component {...pageProps} />
+					</CheckAuthLayout>
 				</Provider>
-			</AuthProvider>
+			{/*
+				*</AuthProvider>
+				*/}
 		</ChakraProvider>
 	);
 };

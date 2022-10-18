@@ -8,34 +8,28 @@ import {
 import { FloatingLink } from '../src/shared';
 
 import { Layout } from '../src/components/app/layout';
-import { AuthProvider } from '../src/context/AuthContext';
-
-import { useCheckAuth } from '../src/hooks/useCheckAuth';
 
 const HomePage = () => {
-	const { status } = useCheckAuth();
   return (
-		<AuthProvider>
-			<Layout>
-				<Box
-					position='relative'
+		<Layout>
+			<Box
+				position='relative'
+			>
+				<FloatingLink
+					to="/tasks/create"
 				>
-					<FloatingLink
-						to="/tasks/create"
-					>
-						✍️ Publicar tarea
-					</FloatingLink>
-					<Hero />
-					<Features />
+					✍️ Publicar tarea
+				</FloatingLink>
+				<Hero />
+				<Features />
 
-					{/*
-						*<Courses />
-						*/}
+				{/*
+					*<Courses />
+					*/}
 
-					<MentorApplication />
-				</Box>
-			</Layout>
-		</AuthProvider>
+				<MentorApplication />
+			</Box>
+		</Layout>
   );
 };
 
