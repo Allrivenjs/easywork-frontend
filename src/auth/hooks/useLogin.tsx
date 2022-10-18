@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { useAuth } from '../../hooks';
+import { useAuthStore } from '../../hooks';
 
 import { LoginUserState } from '../../shared/services/authService';
 
@@ -18,7 +18,7 @@ export const useLogin = () => {
 		},
 	});
 
-	const { status, startLoginUser } = useAuth();
+	const { status, startLoginUser } = useAuthStore();
 
 	const [loading, setLoading] = useState(false);
 

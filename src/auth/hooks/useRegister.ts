@@ -8,7 +8,7 @@ import {
 	RegisterUserState
 } from '../../shared/services/authService';
 
-import { useAuth } from '../../hooks';
+import { useAuthStore } from '../../hooks';
 
 export const useRegister = () => {
 	const {
@@ -26,7 +26,7 @@ export const useRegister = () => {
 		},
 	});
 
-	const { status, startRegisterUser } = useAuth();
+	const { status, startRegisterUser } = useAuthStore();
 
 	const [loading, setLoading] = useState(false);
 
