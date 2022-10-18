@@ -1,5 +1,3 @@
-console.log(process.env.NEXT_PUBLIC_URL);
-
 export const config = {
 	API_URL: process.env.NEXT_PUBLIC_API_URL,
 	KEY: process.env.NEXT_PUBLIC_CHAT_KEY,

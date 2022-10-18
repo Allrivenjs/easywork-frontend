@@ -1,3 +1,4 @@
+/*
 import {
 	createContext,
 	ReactNode,
@@ -68,7 +69,6 @@ export const AuthProvider = (props: AuthProviderProps) => {
 					.error((error: any) => {
 						console.log("error with echo: ", error);
 					});
-					*/
 
 			} else {
 				setAuthState(false);
@@ -94,3 +94,4 @@ export const AuthProvider = (props: AuthProviderProps) => {
 		</AuthContext.Provider>
 	);
 };
+*/

@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react';
 
-import ChatRoot from '../../chat';
+{/*
+  *import ChatRoot from '../../chat';
+	*/}
 import Footer from './Footer';
 import { Navbar } from './Navbar';
 
@@ -14,7 +16,9 @@ export const Layout: FC<props> = ({ children }) => {
 			<Navbar />
 			{ children }
 			<Footer />
-			<ChatRoot />
+			{/*
+				*<ChatRoot />
+				*/}
 		</>
 	);
 };
