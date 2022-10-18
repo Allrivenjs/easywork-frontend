@@ -1,14 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IProfile } from './interfaces';
+import {
+  IProfile,
+} from './interfaces';
+
+export enum Status {
+  Checking = 'checking',
+  Authenticated = 'authenticated',
+  NotAuthenticated = 'not-authenticated',
+};
 
 export interface IAuthSlice {
-  profile: IProfile | null;
-  status: string;
+  userProfile: IProfile | null;
+  status: Status;
 };
 
 const initialState: IAuthSlice = {
-  status: 'checking',
-  profile: null,
+  status: Status.Checking,
+  userProfile: null,
 };
 
 export const authSlice = createSlice({
@@ -16,14 +24,15 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     onLogin: (state, { payload }) => {
-      state.status = 'authenticated'; // 'not-authenticated', 'authenticated', 'checking'
-      console.log(payload);
+      state.status = Status.Authenticated;
+      state.userProfile = payload;
     },
-    onLogout: (state, { payload }) => {
-      state.status = 'not-authenticated'; // 'not-authenticated', 'authenticated', 'checking'
+    onLogout: ( state ) => {
+      state.status = Status.NotAuthenticated;
+      state.userProfile = null;
     },
     onCheckingCredentials: ( state ) => {
-      state.status = 'checking';
+      state.status = Status.Checking;
     },
   }
 });
