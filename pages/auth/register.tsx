@@ -2,9 +2,13 @@ import React from 'react';
 
 import { RegisterPage } from '../../src/auth';
 
+import { NoAuthLayout } from '../../src/layouts';
+
 const register = () => {
 	return (
-		<RegisterPage />
+		<NoAuthLayout>
+			<RegisterPage />
+		</NoAuthLayout>
 	);
 }
 

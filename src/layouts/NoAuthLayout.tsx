@@ -18,10 +18,11 @@ export const NoAuthLayout: FC<NoAuthLayoutProps> = ({ children }) => {
 		status,
 	} = useAuthStore();
 
+	console.log(status);
+
 	const { push } = useRouter();
 
 	if (status === Status.Authenticated) {
-		console.log('hello')
 		push('/');
 		return (<></>);
 	};

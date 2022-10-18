@@ -32,31 +32,49 @@ export const useAuthStore = () => {
   };
 
   const startLoginUser = async (userLoginCredentials: LoginUserState) => {
+    removeCookie('user-token');
     dispatch( onCheckingCredentials() );
     // TODO: decirle a jaime flaco que la ruta login retorne el perfil de usuario y no el usuario
-    let res = await login(userLoginCredentials);
+    const res = await login(userLoginCredentials);
 
     if (!res.ok) {
       dispatch( onLogout() );
-      return;
+      return {
+        ok: res.ok,
+        msg: res.msg,
+      };
     };
 
     setCookie('user-token', res.token);
     // TODO: cambiar esto por dispatch( onLogin(res.user) );
-    await checkAuthToken();
+    return {
+      ok: await checkAuthToken(),
+      msg: res.msg
+    };
   };
 
   const startRegisterUser = async (userRegisterCredentials: RegisterUserState) => {
+    removeCookie('user-token');
     dispatch( onCheckingCredentials() );
+
+    // TODO: decirle a jaime flaco que la ruta login retorne el perfil de usuario y no el usuario
     const res = await register(userRegisterCredentials);
+    console.log(res)
 
-    console.log(res);
+    if (!res.ok) {
+      dispatch( onLogout() );
+      return {
+        ok: res.ok,
+        msg: res.msg,
+      };
+    };
 
-/*
- *    if ( !ok ) return dispatch( logout({ errorMessage }) );
- *
- *    dispatch( login({ uid, displayName, email, photoURL }) );
- */
+    setCookie('user-token', res.token);
+    // TODO: cambiar esto por dispatch( onLogin(res.user) );
+    return {
+      ok: await checkAuthToken(),
+      msg: res.msg
+    };
   };
 
   const startLogout = async () => {
@@ -79,7 +97,7 @@ export const useAuthStore = () => {
 
     if (res.ok) {
       dispatch( onLogin(res.user) );
-      return;
+      return res.ok;
     };
 
     dispatch( onLogout() );

@@ -24,30 +24,6 @@ export const LoginPage = () => {
 		register,
 	} = useLogin();
 
-	/*
-	const handleOnSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setLoading(true);
-
-		dispatch( startLoginWithEmailAndPassword({ email: 'pello', password: 'loco' }) );
-
-			const token = await loginWithEmailAndPassword(user);
-			setLoading(false);
-			if (token) {
-			  push('/profile');
-			} else {
-			  toast({
-			    title: 'Algo ha salido mal',
-			    description: 'Usuario y/o contraseña incorrectos',
-			    status: 'error',
-			    duration: 9000,
-			    isClosable: true,
-			  });
-			}
-		}
-	};
-	*/
-
 	return (
 		<Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
 			<Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>

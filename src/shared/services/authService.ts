@@ -25,9 +25,11 @@ export const login = async (user: LoginUserState) => {
 	} catch (err: any) {
 		console.log("Error fetching login: ", err.response);
 
+		// TODO: hacer algo para manejar cuando vengan más de un error
+
 		return {
 			ok: false,
-			msg: err.response.data.message
+			msg: err.response.data?.message
 		};
 	}
 };
@@ -35,9 +37,20 @@ export const login = async (user: LoginUserState) => {
 export const register = async (user: RegisterUserState) => {
 	try {
 		const res = await axiosClient.post(`register`, user);
-		return res.data.access_token;
+		return {
+			ok: true,
+			token: res.data.access_token,
+			user: res.data.user,
+		};
 	} catch (err: any) {
 		console.log("Error fetching register: ", err.response);
+
+		// TODO: hacer algo para manejar cuando vengan más de un error
+
+		return {
+			ok: false,
+			msg: err.response.data?.message
+		};
 	}
 };
 

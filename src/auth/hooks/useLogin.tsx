@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -18,12 +19,26 @@ export const useLogin = () => {
 		},
 	});
 
-	const { status, startLoginUser } = useAuthStore();
+	const { startLoginUser } = useAuthStore();
 
 	const [loading, setLoading] = useState(false);
 
+	const toast = useToast();
+
 	const onSubmit = handleSubmit( async (data: LoginUserState) => {
-		await startLoginUser(data);
+		setLoading(true);
+		const res = await startLoginUser(data);
+		setLoading(false);
+
+		if (!res.ok) {
+			toast({
+				title: 'Algo ha salido mal',
+				description: `${res.msg}`,
+				status: 'error',
+				duration: 9000,
+				isClosable: true,
+			});
+		};
 	});
 
 	return {

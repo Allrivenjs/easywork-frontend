@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { useRouter } from 'next/router';
-
 import { useForm } from 'react-hook-form';
 
 import {
@@ -9,6 +7,7 @@ import {
 } from '../../shared/services/authService';
 
 import { useAuthStore } from '../../hooks';
+import { useToast } from '@chakra-ui/react';
 
 export const useRegister = () => {
 	const {
@@ -26,18 +25,26 @@ export const useRegister = () => {
 		},
 	});
 
-	const { status, startRegisterUser } = useAuthStore();
+	const { startRegisterUser } = useAuthStore();
 
 	const [loading, setLoading] = useState(false);
 
-	const { push } = useRouter();
+	const toast = useToast();
 
 	const onSubmit = handleSubmit( async (data: RegisterUserState) => {
 		setLoading(true);
-		const token = await startRegisterUser(data);
+		const res = await startRegisterUser(data);
 		setLoading(false);
-		// TODO: if register goes good, push to profile
-		// push('/profile');
+
+		if (!res.ok) {
+			toast({
+				title: 'Algo ha salido mal',
+				description: `${res.msg}`,
+				status: 'error',
+				duration: 9000,
+				isClosable: true,
+			});
+		};
 	});
 
 	return {
