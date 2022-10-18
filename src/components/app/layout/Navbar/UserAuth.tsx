@@ -9,31 +9,23 @@ import {
 	MenuList,
 	Spinner
 } from '@chakra-ui/react';
+
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-import { useCookies } from 'react-cookie';
+import { Status } from '../../../../store/auth';
 
-import { IProfile } from '../../../../context/AuthContext/interfaces';
-import { logout } from '../../../../shared/services/authService';
+import { useAuthStore } from '../../../../hooks';
 
-interface UserAuthProps {
-	user: IProfile | null | boolean;
-}
+export const UserAuth = () => {
+	const {
+		status,
+		userProfile,
+		startLogout,
+	} = useAuthStore();
 
-export const UserAuth = (props: UserAuthProps) => {
-	const [cookies, , removeCookie] = useCookies(['user-token']);
-	const { push } = useRouter();
-
-	const methodLoguot = async () => {
-		await logout(cookies['user-token']);
-		removeCookie('user-token');
-		push('/');
-	};
-
-	if (props.user === null) {
+	if (status === Status.Checking) {
 		return <Spinner></Spinner>;
-	} else if (props.user) {
+	} else if (status === Status.Authenticated) {
 		return (
 			<Flex alignItems={'center'} >
 				<Menu>
@@ -46,7 +38,7 @@ export const UserAuth = (props: UserAuthProps) => {
 					>
 						<Avatar
 							size={'sm'}
-							src={(props.user as IProfile).user.profile_photo_path}
+							src={userProfile!.user.profile_photo_path}
 						/>
 					</MenuButton>
 					<MenuList>
@@ -61,7 +53,7 @@ export const UserAuth = (props: UserAuthProps) => {
 							</MenuItem>
 						</Link>
 						<MenuDivider />
-						<MenuItem onClick={methodLoguot}>
+						<MenuItem onClick={startLogout}>
 							<div className='flex items-center'>
 								<p className='mt-1 ml-2 text-gray-500 hover:underline'>
 									Cerrar sesion
@@ -92,5 +84,5 @@ export const UserAuth = (props: UserAuthProps) => {
 				</Link>
 			</>
 		);
-	}
+	};
 };

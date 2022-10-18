@@ -10,10 +10,8 @@ import {
 } from './';
 
 import { Logo } from '../../../../shared/Logo';
-import { useAuth } from '../../../../context/AuthContext';
 
 export const Navbar = () => {
-	const context = useAuth();
 	return(
 		<Box
 			position='fixed'
@@ -55,7 +53,7 @@ export const Navbar = () => {
 				</Stack>
 
 				<Stack direction='row'>
-					<UserAuth user={context.user} />
+					<UserAuth />
 				</Stack>
 			</Flex>
 		</Box>
