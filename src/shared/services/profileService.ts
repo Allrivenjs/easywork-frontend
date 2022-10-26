@@ -1,18 +1,24 @@
-import axios, { CancelTokenSource } from "axios";
-import { IEditedProfile, IEditedUser } from "../../components/profile/interface";
+import axios from 'axios';
 
-import { config } from "../../config";
+import { IEditedProfile, IEditedUser } from '../../components/profile/interface';
 
-export const getUserWithSlug = async (source: CancelTokenSource, slug: string) => {
+import { config } from '../../config';
+
+import { axiosClient } from './axiosClient';
+
+export const getUserWithSlug = async (slug: string) => {
 	try {
-		const res = await axios.get(`${config.API_URL}/api/profile/${slug}`, {
-			cancelToken: source.token,
-			headers: config.headers,
-		});
-		return res.data[0];
+		const res = await axiosClient.get(`profile/${slug}`);
+		return {
+			ok: true,
+			profile: res.data[0],
+		};
 	} catch (err: any) {
-		console.log("Error fetching getUserWithSlug: ", err.response);
-		return null;
+		console.log('Error fetching getUserWithSlug: ', err.response);
+		return {
+			ok: false,
+			msg: err.response.data?.message,
+		};
 	}
 };
 
@@ -23,7 +29,7 @@ export const updateUser = async (token: string, editedUser: IEditedUser) => {
 		});
 		return res;
 	} catch (err: any) {
-		console.log("Error fetching comments: ", err.response);
+		console.log('Error fetching comments: ', err.response);
 	}
 };
 
@@ -34,6 +40,6 @@ export const updateProfile = async (token: string, editedProfile: IEditedProfile
 		});
 		return res;
 	} catch (err: any) {
-		console.log("Error fetching comments: ", err.response);
+		console.log('Error fetching comments: ', err.response);
 	}
 };
