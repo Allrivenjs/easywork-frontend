@@ -10,8 +10,8 @@ import { Status } from '../../src/store/activeProfile';
 
 const profileWithSlug = () => {
 	const {
+		profile,
 		status,
-		activeProfile,
 		startSetActiveProfile
 	} = useActiveProfileStore();
 
@@ -27,7 +27,7 @@ const profileWithSlug = () => {
 		<>
 			{ status === Status.Found ? (
 				<ProfilePage
-					userProfile={ activeProfile }
+					userProfile={ profile }
 				/>
 			) : status === Status.NotFound ? (
 				<>not found</>

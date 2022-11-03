@@ -13,7 +13,7 @@ import {
 } from '../shared/services/profileService';
 
 export const useActiveProfileStore = () => {
-  const { status, activeProfile } = useAppSelector( state => state.activeProfile );
+  const { status, profile } = useAppSelector( state => state.activeProfile );
   const dispatch = useAppDispatch();
 
   const startSetActiveProfile = async (slug: string) => {
@@ -27,7 +27,7 @@ export const useActiveProfileStore = () => {
 
   return {
     // properties
-    activeProfile,
+    profile,
     status,
 
     // methods

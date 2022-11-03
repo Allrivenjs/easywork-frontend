@@ -1,10 +1,6 @@
-import axios from 'axios';
-
-import { IEditedProfile, IEditedUser } from '../../components/profile/interface';
-
-import { config } from '../../config';
-
 import { axiosClient } from './axiosClient';
+
+import { IProfileInformation, IUserInformation } from '../../store/auth';
 
 export const getUserWithSlug = async (slug: string) => {
 	try {
@@ -22,24 +18,34 @@ export const getUserWithSlug = async (slug: string) => {
 	}
 };
 
-export const updateUser = async (token: string, editedUser: IEditedUser) => {
+export const updateUser = async (editedUser: IUserInformation) => {
 	try {
-		const res = await axios.post(`${config.API_URL}/api/user/update`, editedUser, {
-			headers: config.headersWithAuth(token),
-		});
-		return res;
+		const res = await axiosClient.post(`user/update`, editedUser );
+		return {
+			ok: true,
+			res,
+		};
 	} catch (err: any) {
 		console.log('Error fetching comments: ', err.response);
+		return {
+			ok: false,
+			msg: err.response.data?.message,
+		};
 	}
 };
 
-export const updateProfile = async (token: string, editedProfile: IEditedProfile) => {
+export const updateProfile = async (editedProfile: IProfileInformation) => {
 	try {
-		const res = await axios.post(`${config.API_URL}/api/profile/update`, editedProfile, {
-			headers: config.headersWithAuth(token),
-		});
-		return res;
+		const res = await axiosClient.post(`profile/update`, editedProfile);
+		return {
+			ok: true,
+			res,
+		};
 	} catch (err: any) {
 		console.log('Error fetching comments: ', err.response);
+		return {
+			ok: false,
+			msg: err.response.data?.message,
+		};
 	}
 };

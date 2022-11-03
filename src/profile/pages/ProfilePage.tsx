@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import {
 	Avatar,
-	Box,
 	Container,
 	Heading,
 	Spinner,
@@ -15,25 +14,15 @@ import {
 
 import { AiFillStar } from 'react-icons/ai';
 
-{/*
-  *import { getTasksByUser } from '../../src/shared/services/tasksService';
-  *
-  *import { ITask } from '../../src/components/task/components/interface';
-  *
-  *import { TaskCard } from '../../src/components/task/components';
-	*/}
-
 import { IProfile } from '../../store/auth/interfaces';
 
-import { EditProfile } from '../../components/profile/EditProfile';
+import { EditProfile } from '../components/EditProfile';
 
 interface ProfilePageProps {
   userProfile: IProfile;
 };
 
 export const ProfilePage: FC<ProfilePageProps> = ({ userProfile }) => {
-	// const [tasks, setTasks] = useState<Array<ITask>>();
-
 	return (
 		<div className='w-full pt-24 pb-24 bg-slate-100'>
 			{userProfile ? (
@@ -82,7 +71,7 @@ export const ProfilePage: FC<ProfilePageProps> = ({ userProfile }) => {
 							<TabPanel
 								p={0}
 							>
-								{/*
+								{/* TODO:
 									*<Box mt={4}>
 									*  {tasks?.map((element, i) => (
 									*    <TaskCard key={i} task={element} fetchTasksData={fetchProfileData} />
@@ -93,9 +82,9 @@ export const ProfilePage: FC<ProfilePageProps> = ({ userProfile }) => {
 							<TabPanel
 								p={0}
 							>
-								<EditProfile
-									user={userProfile}
-								/>
+							<EditProfile
+								userProfile={userProfile}
+							/>
 							</TabPanel>
 						</TabPanels>
 					</Tabs>

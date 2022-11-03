@@ -10,12 +10,12 @@ export enum Status {
 
 export interface IActiveProfileSlice {
   status: Status;
-  activeProfile: IProfile | null;
+  profile: IProfile | null;
 };
 
 const initialState: IActiveProfileSlice = {
   status: Status.UnSetted,
-  activeProfile: null,
+  profile: null,
 };
 
 export const activeProfileSlice = createSlice({
@@ -23,14 +23,14 @@ export const activeProfileSlice = createSlice({
   initialState,
   reducers: {
     onFoundActiveProfile: (state, { payload }) => {
-      state.activeProfile = payload;
+      state.profile = payload;
       state.status = Status.Found;
     },
     onNotFoundActiveProfile: ( state ) => {
-      state.activeProfile = null;
+      state.profile = null;
       state.status = Status.NotFound;
     },
-  }
+  },
 });
 
 

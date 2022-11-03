@@ -9,6 +9,17 @@ export enum Status {
   NotAuthenticated = 'not-authenticated',
 };
 
+export interface IUserInformation {
+  name: string;
+  lastname: string;
+  phone: string;
+  birthday: Date;
+};
+
+export interface IProfileInformation {
+  about: string;
+};
+
 export interface IAuthSlice {
   userProfile: IProfile | null;
   status: Status;
@@ -34,6 +45,17 @@ export const authSlice = createSlice({
     onCheckingCredentials: ( state ) => {
       state.status = Status.Checking;
     },
+
+    onChangeUserInformation: (state, { payload }: { payload: IUserInformation }) => {
+      state.userProfile!.user = {
+        ...state.userProfile!.user,
+        ...payload,
+      };
+    },
+
+    onChangeProfileInformation: (state, { payload }: { payload: IProfileInformation }) => {
+      state.userProfile!.about = payload.about;
+    },
   }
 });
 
@@ -42,5 +64,7 @@ export const authSlice = createSlice({
 export const {
   onLogin,
   onLogout,
-  onCheckingCredentials
+  onCheckingCredentials,
+  onChangeUserInformation,
+  onChangeProfileInformation,
 } = authSlice.actions;

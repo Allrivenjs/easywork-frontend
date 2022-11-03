@@ -4,9 +4,13 @@ import {
 } from '../store/hooks';
 
 import {
+  onChangeUserInformation,
+  onChangeProfileInformation,
   onCheckingCredentials,
   onLogout,
   onLogin,
+  IUserInformation,
+  IProfileInformation,
 } from '../store/auth';
 
 import {
@@ -19,6 +23,7 @@ import {
 } from '../shared/services/authService';
 
 import { useCookies } from 'react-cookie';
+import { updateProfile, updateUser } from '../shared/services/profileService';
 
 export const useAuthStore = () => {
   const { status, userProfile } = useAppSelector( state => state.auth );
@@ -102,6 +107,30 @@ export const useAuthStore = () => {
     dispatch( onLogout() );
   };
 
+  const startUpdateUserInformation = async (editedUser: IUserInformation) => {
+    const res = await updateUser(editedUser);
+
+    if (!res.ok) {
+      return res;
+    };
+
+    dispatch( onChangeUserInformation(editedUser) );
+
+    return res;
+  };
+
+  const startUpdateProfileInformation = async (editedProfile: IProfileInformation) => {
+    const res = await updateProfile(editedProfile);
+
+    if (!res.ok) {
+      return res;
+    };
+
+    dispatch( onChangeProfileInformation(editedProfile) );
+
+    return res;
+  };
+
 
   return {
     // properties
@@ -115,5 +144,8 @@ export const useAuthStore = () => {
     startLoginUser,
     checkAuthToken,
     startLogout,
+
+    startUpdateUserInformation,
+    startUpdateProfileInformation,
   };
 };
